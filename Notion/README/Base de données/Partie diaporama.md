@@ -1,1 +1,0 @@
-# Partie diaporama

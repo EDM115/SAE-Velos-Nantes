@@ -3,9 +3,9 @@ Tous les fichiers ici, c'est plus simple et collaboratif
 
 ## Tâches à faire
 - BDD
-  - [ ] Diagramme de conception
-  - [ ] Script de création/remplissage
-  - [ ] Requêtes
+  - [x] Diagramme de conception
+  - [x] Script de création
+  - [ ] Script de remplissage
   - [ ] Powerpoint de stats
 - Java
   - [ ] Diagramme de conception
