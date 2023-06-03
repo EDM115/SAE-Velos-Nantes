@@ -1,7 +1,5 @@
 package modele.utilitaires;
 
-// PAS UTILISE POUR LINSTANT
-
 /**
  * Classe BonneValeur qui vérifie qu'un attribut est bien dans son domaine
  */
@@ -17,6 +15,7 @@ public class BonneValeur {
      * Constructeur de la classe BonneValeur
      */
     public BonneValeur() {
+        super();
     }
 
     //////////////////////

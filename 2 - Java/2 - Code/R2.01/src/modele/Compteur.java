@@ -1,7 +1,7 @@
 package modele;
 
 /**
- * Classe Compteur qui modéliase un compteur avec pluseurs attributs et qui est relié à un quartier, un jour et des attributs de portées
+ * Classe Compteur qui modélise un compteur avec pluseurs attributs et qui est relié à un quartier, un jour et des attributs portés
  */
 public class Compteur {
 
@@ -22,8 +22,12 @@ public class Compteur {
      * @param latitude la latitude du compteur
      * @param longitude la longitude du compteur
      * @param leQuartier le quartier du compteur
+     * @throws IllegalArgumentException si l'identifiant du compteur est négatif, si le libelle est null, si le sens est null ou si le quartier est null
      */
-    public Compteur(int idCompteur, String libelle, String sens, double latitude, double longitude, Quartier leQuartier) {
+    public Compteur(int idCompteur, String libelle, String sens, double latitude, double longitude, Quartier leQuartier) throws IllegalArgumentException {
+        if (idCompteur < 0 || libelle == null || sens == null || leQuartier == null) {
+            throw new IllegalArgumentException("Compteur() : Un ou plusieurs paramètres sont null");
+        }
         this.idCompteur = idCompteur;
         this.libelle = libelle;
         this.sens = sens;

@@ -1,7 +1,7 @@
 package modele.scenario;
 
 /**
- * Classe Scenario qui modélise un scénario qui utiliset toutes les classes et leurs méhodes
+ * Classe Scenario qui modélise un scénario qui utilise toutes les classes et leurs méhodes
  */
 public class Scenario {
     /**

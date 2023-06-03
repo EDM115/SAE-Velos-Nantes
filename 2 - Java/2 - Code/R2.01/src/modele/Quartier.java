@@ -16,7 +16,10 @@ public class Quartier {
      * @param nomQuartier le nom du quartier
      * @param lgPisteCyclable la longueur de la piste cyclable du quartier
      */
-    public Quartier(int idQuartier, String nomQuartier, double lgPisteCyclable) {
+    public Quartier(int idQuartier, String nomQuartier, double lgPisteCyclable) throws IllegalArgumentException {
+        if (idQuartier < 0 || nomQuartier == null || lgPisteCyclable < 0) {
+            throw new IllegalArgumentException("Quartier() : Un ou plusieurs paramètres sont null");
+        }
         this.idQuartier = idQuartier;
         this.nomQuartier = nomQuartier;
         this.lgPisteCyclable = lgPisteCyclable;

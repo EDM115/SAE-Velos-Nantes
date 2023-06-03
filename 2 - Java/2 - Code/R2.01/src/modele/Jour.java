@@ -27,15 +27,15 @@ public class Jour {
      */
     public Jour(LocalDate date, Double temperatureMoyenne, String jour, String vacances) throws IllegalArgumentException {
         if (!(bonneValeur.jourIsValid(jour))) {
-            throw new IllegalArgumentException("Constructeur Jour : Le jour n'est pas dans une bonne plage de valeur");
-        } else if (!(bonneValeur.vacancesIsValid(vacances))) {
-            throw new IllegalArgumentException("Constructeur Jour : Les vacances ne sont pas dans une bonne plage de valeur");
-        } else {
-            this.date = date;
-            this.temperatureMoyenne = temperatureMoyenne;
-            this.jour = jour;
-            this.vacances = vacances;
+            throw new IllegalArgumentException("Jour() : Le jour n'est pas dans une bonne plage de valeur");
         }
+        if (!(bonneValeur.vacancesIsValid(vacances))) {
+            throw new IllegalArgumentException("Jour() : Les vacances ne sont pas dans une bonne plage de valeur");
+        }
+        this.date = date;
+        this.temperatureMoyenne = temperatureMoyenne;
+        this.jour = jour;
+        this.vacances = vacances;
     }
 
     //////////////////////

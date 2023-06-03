@@ -3,15 +3,15 @@ package modele;
 import modele.utilitaires.BonneValeur;
 
 /**
- * Classe AttributsPortees qui modélise le nombre de passagers par heure et la présence d'anomalie
+ * Classe AttributsPorte qui modélise le nombre de passagers par heure et la présence d'anomalie
  */
-public class AttributPortee {
+public class AttributPorte {
     
-    // Les attributs de AttributsPortees
+    // Les attributs de AttributPorte
     private int[] tabNbPassagesParHeure = new int[24];
     private String presenceAnomalie;
 
-    // Les relations de AttributsPortees
+    // Les relations de AttributPorte
     private Compteur leCompteur;
     private Jour leJour;
 
@@ -19,22 +19,25 @@ public class AttributPortee {
     private BonneValeur bonneValeur = new BonneValeur();
 
     /**
-     * Constructeur de la classe AttributsPortees
+     * Constructeur de la classe AttributPorte
      * @param tabNbPassagesParHeure le tableau du nombre de passagers par heure
      * @param presenceAnomalie la présence d'anomalie
      * @param leCompteur le compteur
      * @param leJour le jour
      * @throws IllegalArgumentException si l'attribut presenceAnomalie n'est pas dans une bonne plage de valeur
      */
-    public AttributPortee(int[] tabNbPassagesParHeure, String presenceAnomalie, Compteur leCompteur, Jour leJour) throws IllegalArgumentException{
+    public AttributPorte(int[] tabNbPassagesParHeure, String presenceAnomalie, Compteur leCompteur, Jour leJour) throws IllegalArgumentException{
         if (!(bonneValeur.anomalieIsValid(presenceAnomalie))) {
-            throw new IllegalArgumentException("AttributPortee :L'attribut presenceAnomalie n'est pas dans une bonne plage de valeur");
-        } else {
-            this.tabNbPassagesParHeure = tabNbPassagesParHeure;
-            this.presenceAnomalie = presenceAnomalie;
-            this.leCompteur = leCompteur;
-            this.leJour = leJour;
+            throw new IllegalArgumentException("AttributPorte() : L'attribut presenceAnomalie n'est pas dans une bonne plage de valeur");
         }
+        if (tabNbPassagesParHeure == null || presenceAnomalie == null || leCompteur == null || leJour == null) {
+            throw new IllegalArgumentException("AttributPorte() : Un ou plusieurs paramètres sont null");
+        }
+        this.tabNbPassagesParHeure = tabNbPassagesParHeure;
+        this.presenceAnomalie = presenceAnomalie;
+        this.leCompteur = leCompteur;
+        this.leJour = leJour;
+
     }
 
     //////////////////////
@@ -124,8 +127,8 @@ public class AttributPortee {
     }
 
     /**
-     * Affiche toutes les informations de l'attribut portee
-     * @return toutes les informations de l'attribut portee
+     * Affiche toutes les informations de l'attribut porté
+     * @return toutes les informations de l'attribut porté
      */
     public String toString() {
         StringBuilder sb = new StringBuilder();
