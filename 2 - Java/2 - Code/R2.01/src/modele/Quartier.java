@@ -106,4 +106,13 @@ public class Quartier {
         }
         return sb.toString();
     }
+
+    /**
+     * Méthode qui compare deux quartiers
+     * @param quartier le quartier à comparer
+     * @return true si les deux quartiers sont identiques, false sinon
+     */
+    public boolean equals(Quartier quartier) {
+        return this.idQuartier == quartier.getIdQuartier() && this.nomQuartier.equals(quartier.getNomQuartier()) && this.lgPisteCyclable == quartier.getLgPisteCyclable();
+    }
 }

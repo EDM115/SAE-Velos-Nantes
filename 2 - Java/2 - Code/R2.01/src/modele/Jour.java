@@ -128,4 +128,13 @@ public class Jour {
         }
         return sb.toString();
     }
+
+    /**
+     * Donne le nombre de jours entre la date actuelle et la date du jour
+     * @return le nombre de jours entre la date actuelle et la date du jour
+     */
+    public int getNombreJours() {
+        LocalDate dateActuelle = LocalDate.now();
+        return dateActuelle.compareTo(this.date);
+    }
 }

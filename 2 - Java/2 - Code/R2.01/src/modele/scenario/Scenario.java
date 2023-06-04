@@ -1,5 +1,7 @@
 package modele.scenario;
 
+import java.util.Calendar;
+
 /**
  * Classe Scenario qui modélise un scénario qui utilise toutes les classes et leurs méhodes
  */
@@ -10,6 +12,8 @@ public class Scenario {
      */
     public static void main(String[] args) {
         
-        
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2019, 0, 1);
+        java.util.Date date = calendar.getTime();
     }
 }

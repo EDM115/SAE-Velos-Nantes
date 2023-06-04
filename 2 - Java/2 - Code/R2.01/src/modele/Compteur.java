@@ -26,7 +26,7 @@ public class Compteur {
      */
     public Compteur(int idCompteur, String libelle, String sens, double latitude, double longitude, Quartier leQuartier) throws IllegalArgumentException {
         if (idCompteur < 0 || libelle == null || sens == null || leQuartier == null) {
-            throw new IllegalArgumentException("Compteur() : Un ou plusieurs paramètres sont null");
+            throw new IllegalArgumentException("Compteur() : Un ou plusieurs paramètres sont invalides");
         }
         this.idCompteur = idCompteur;
         this.libelle = libelle;
@@ -92,16 +92,16 @@ public class Compteur {
      * Getter de la latitude du compteur
      * @return la latitude du compteur
      */
-    public double getLattitude() {
+    public double getLatitude() {
         return this.latitude;
     }
 
     /**
      * Setter de la latitude du compteur
-     * @param lattitude la latitude du compteur
+     * @param latitude la latitude du compteur
      */
-    public void setLattitude(double lattitude) {
-        this.latitude= lattitude;
+    public void setLatitude(double latitude) {
+        this.latitude= latitude;
     }
 
     /**
@@ -159,4 +159,21 @@ public class Compteur {
         }
         return sb.toString();
     }
+
+    /**
+     * Compare la localisation de deux compteurs, si la distance entre les deux compteurs est inférieure ou égale à 1km, alors retourne true, sinon retourne false
+     */
+    public boolean closeTo(Compteur compteur) {
+        final double APPROXIMATE_DISTANCE_THRESHOLD_KM = 1.0;
+
+        double latDiff = Math.abs(this.latitude - compteur.getLatitude());
+        double lonDiff = Math.abs(this.longitude - compteur.getLongitude());
+
+        // Conversion de la différence de latitude et de longitude en distance approximative en kilomètres
+        double distance = Math.sqrt(latDiff * latDiff + lonDiff * lonDiff);
+
+        return distance <= APPROXIMATE_DISTANCE_THRESHOLD_KM;
+    }
+
+
 }

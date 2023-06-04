@@ -3,11 +3,11 @@ package modele;
 import modele.utilitaires.BonneValeur;
 
 /**
- * Classe AttributsPorte qui modélise le nombre de passagers par heure et la présence d'anomalie
+ * Classe AttributPorte qui modélise le nombre de passagers par heure et la présence d'anomalie
  */
 public class AttributPorte {
     
-    // Les attributs de AttributPorte
+    // Les attributs de AttributPortes
     private int[] tabNbPassagesParHeure = new int[24];
     private String presenceAnomalie;
 
