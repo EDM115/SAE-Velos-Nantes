@@ -36,6 +36,18 @@ public class Compteur {
         this.leQuartier = leQuartier;
     }
 
+    // compteur sans quartier
+    public Compteur(int idCompteur, String libelle, String sens, double latitude, double longitude) throws IllegalArgumentException {
+        if (idCompteur < 0 || libelle == null || sens == null) {
+            throw new IllegalArgumentException("Compteur() : Un ou plusieurs paramètres sont invalides");
+        }
+        this.idCompteur = idCompteur;
+        this.libelle = libelle;
+        this.sens = sens;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     //////////////////////
     // Getter et Setter //
     //////////////////////
