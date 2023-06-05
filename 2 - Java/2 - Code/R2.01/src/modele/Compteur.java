@@ -6,19 +6,40 @@ package modele;
 public class Compteur {
 
     // Les attributs de Compteur
+
+    /**
+     * L'identifiant du compteur
+     */
     private int idCompteur;
+    /**
+     * Le libelle du compteur
+     */
     private String libelle;
+    /**
+     * Le sens du compteur
+     */
     private String sens;
+    /**
+     * La latitude du compteur
+     */
     private double latitude;
+    /**
+     * La longitude du compteur
+     */
     private double longitude;
 
     // Les relations de Compteur
+
+    /**
+     * Le quartier du compteur
+     */
     private Quartier leQuartier;
 
     /**
      * Constructeur de la classe Compteur
      * @param idCompteur l'identifiant du compteur
      * @param libelle le libelle du compteur
+     * @param sens le sens du compteur
      * @param latitude la latitude du compteur
      * @param longitude la longitude du compteur
      * @param leQuartier le quartier du compteur
@@ -40,6 +61,7 @@ public class Compteur {
      * Constructeur de la classe Compteur sans le quartier
      * @param idCompteur l'identifiant du compteur
      * @param libelle le libelle du compteur
+     * @param sens le sens du compteur
      * @param latitude la latitude du compteur
      * @param longitude la longitude du compteur
      * @throws IllegalArgumentException si l'identifiant du compteur est négatif, si le libelle est null ou si le sens est null
@@ -70,8 +92,12 @@ public class Compteur {
     /**
      * Setter de l'identifiant du compteur
      * @param idCompteur l'identifiant du compteur
+     * @throws IllegalArgumentException si l'identifiant du compteur est négatif
      */
-    public void setIdCompteur(int idCompteur) {
+    public void setIdCompteur(int idCompteur) throws IllegalArgumentException {
+        if (idCompteur < 0) {
+            throw new IllegalArgumentException("setIdCompteur() : L'identifiant du compteur doit être positif");
+        }
         this.idCompteur = idCompteur;
     }
 
@@ -86,9 +112,13 @@ public class Compteur {
     /**
      * Setter du libelle du compteur
      * @param libelle le libelle du compteur
+     * @throws IllegalArgumentException si le libelle est null
      */
-    public void setLibelle(String libelle) {
-        this.libelle= libelle;
+    public void setLibelle(String libelle) throws IllegalArgumentException {
+        if (libelle == null) {
+            throw new IllegalArgumentException("setLibelle() : Le libelle du compteur ne peut pas être null");
+        }
+        this.libelle = libelle;
     }
 
     /**
@@ -102,9 +132,13 @@ public class Compteur {
     /**
      * Setter du sens du compteur
      * @param sens le sens du compteur
+     * @throws IllegalArgumentException si le sens est null
      */
-    public void setSens(String sens) {
-        this.sens= sens;
+    public void setSens(String sens) throws IllegalArgumentException {
+        if (sens == null) {
+            throw new IllegalArgumentException("setSens() : Le sens du compteur ne peut pas être null");
+        }
+        this.sens = sens;
     }
 
     /**
@@ -120,7 +154,7 @@ public class Compteur {
      * @param latitude la latitude du compteur
      */
     public void setLatitude(double latitude) {
-        this.latitude= latitude;
+        this.latitude = latitude;
     }
 
     /**
@@ -136,7 +170,7 @@ public class Compteur {
      * @param longitude la longitude du compteur
      */
     public void setLongitude(double longitude) {
-        this.longitude= longitude;
+        this.longitude = longitude;
     }
 
     /**
@@ -150,8 +184,12 @@ public class Compteur {
     /**
      * Setter du quartier du compteur
      * @param leQuartier le quartier du compteur
+     * @throws IllegalArgumentException si le quartier est null
      */
-    public void setLeQuartier(Quartier leQuartier) {
+    public void setLeQuartier(Quartier leQuartier) throws IllegalArgumentException {
+        if (leQuartier == null) {
+            throw new IllegalArgumentException("setLeQuartier() : Le quartier du compteur ne peut pas être null");
+        }
         this.leQuartier = leQuartier;
     }
 

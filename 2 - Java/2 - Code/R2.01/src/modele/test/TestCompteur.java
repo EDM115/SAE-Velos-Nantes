@@ -10,6 +10,7 @@ public class TestCompteur {
     
     /**
      * Méthode main pour tester les méthodes de la classe Compteur
+     * @param args les arguments de la méthode main
      */
     public static void main(String[] args) { 
 
@@ -17,12 +18,8 @@ public class TestCompteur {
         // Test Constructeur //
         ///////////////////////
 
-        // Création d'objets pour le bon déroulement des tests
+        // Création d'un quartier pour le bon déroulement des tests
         Quartier quartier1 = new Quartier(1, "Quartier 1", 1500);
-        //LocalDate date1 = LocalDate.of(2020, 2, 5);
-        //Jour jour1 = new Jour(date1, 5.0, "Mercredi", "Hiver");
-        //int[] tabH1 = new int[] {14, 15, 78, 41, 56, 894, 147, 47, 5, 78, 21, 25, 45, 65, 45, 78, 98, 47, 52, 51, 51, 21, 21, 47};
-        //AttributPorte AttributPorte1 = new AttributPorte(tabH1, "", compteur1, jour1);
 
         /////////////////////////
         // Test classe Compteur //
@@ -223,5 +220,12 @@ public class TestCompteur {
         } else {
             System.err.println("\u001B[31mERREUR : la méthode closeTo() ne fonctionne pas correctement\u001B[0m");
         }
+    }
+
+    /**
+     * Constructeur par défaut
+     */
+    public TestCompteur() {
+        super();
     }
 }

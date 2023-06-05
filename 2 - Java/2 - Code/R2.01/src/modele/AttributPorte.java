@@ -7,15 +7,31 @@ import modele.utilitaires.BonneValeur;
  */
 public class AttributPorte {
     
-    // Les attributs de AttributPortes
+    // Les attributs de AttributPorte
+
+    /**
+     * Le tableau du nombre de passagers par heure
+     */
     private int[] tabNbPassagesParHeure = new int[24];
+    /**
+     * La présence d'anomalie
+     */
     private String presenceAnomalie;
 
     // Les relations de AttributPorte
+    
+    /**
+     * Le compteur
+     */
     private Compteur leCompteur;
+    /**
+     * Le jour
+     */
     private Jour leJour;
 
-    // BonneValeur pour vérifier les valeurs des attributs
+    /**
+     * BonneValeur pour vérifier les valeurs des attributs
+     */
     private BonneValeur bonneValeur = new BonneValeur();
 
     /**
@@ -55,8 +71,12 @@ public class AttributPorte {
     /**
      * Setter du tableau du nombre de passagers par heure
      * @param tabNbPassagesParHeure le tableau du nombre de passagers par heure
+     * @throws IllegalArgumentException si le paramètre tabNbPassagesParHeure est null
      */
-    public void setTabNbPassagesParHeure(int[] tabNbPassagesParHeure) {
+    public void setTabNbPassagesParHeure(int[] tabNbPassagesParHeure) throws IllegalArgumentException {
+        if (tabNbPassagesParHeure == null) {
+            throw new IllegalArgumentException("setTabNbPassagesParHeure() : Le paramètre tabNbPassagesParHeure est null");
+        }
         this.tabNbPassagesParHeure = tabNbPassagesParHeure;
     }
 
@@ -71,8 +91,15 @@ public class AttributPorte {
     /**
      * Setter de la présence d'anomalie
      * @param presenceAnomalie la présence d'anomalie
+     * @throws IllegalArgumentException si l'attribut presenceAnomalie n'est pas dans une bonne plage de valeur ou est null
      */
-    public void setPresenceAnomalie(String presenceAnomalie) {
+    public void setPresenceAnomalie(String presenceAnomalie) throws IllegalArgumentException {
+        if (presenceAnomalie == null) {
+            throw new IllegalArgumentException("setPresenceAnomalie() : Le paramètre presenceAnomalie est null");
+        }
+        if (!(bonneValeur.anomalieIsValid(presenceAnomalie))) {
+            throw new IllegalArgumentException("setPresenceAnomalie() : L'attribut presenceAnomalie n'est pas dans une bonne plage de valeur");
+        }
         this.presenceAnomalie = presenceAnomalie;
     }
 
@@ -87,8 +114,12 @@ public class AttributPorte {
     /**
      * Setter du compteur
      * @param leCompteur le compteur
+     * @throws IllegalArgumentException si le paramètre leCompteur est null
      */
-    public void setLeCompteur(Compteur leCompteur) {
+    public void setLeCompteur(Compteur leCompteur) throws IllegalArgumentException {
+        if (leCompteur == null) {
+            throw new IllegalArgumentException("setLeCompteur() : Le paramètre leCompteur est null");
+        }
         this.leCompteur = leCompteur;
     }
 
@@ -103,8 +134,12 @@ public class AttributPorte {
     /**
      * Setter du jour
      * @param leJour le jour
+     * @throws IllegalArgumentException si le paramètre leJour est null
      */
-    public void setLeJour(Jour leJour) {
+    public void setLeJour(Jour leJour) throws IllegalArgumentException {
+        if (leJour == null) {
+            throw new IllegalArgumentException("setLeJour() : Le paramètre leJour est null");
+        }
         this.leJour = leJour;
     }
 
@@ -132,7 +167,7 @@ public class AttributPorte {
      */
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\u001B[33mInformations sur l'attribut portee :\u001B[0m\n");
+        sb.append("\u001B[33mInformations sur l'attribut porté :\u001B[0m\n");
         String[] tabHeures = {"00h-01h", "01h-02h", "02h-03h", "03h-04h", "04h-05h", "05h-06h", "06h-07h", "07h-08h", "08h-09h", "09h-10h", "10h-11h", "11h-12h", "12h-13h", "13h-14h", "14h-15h", "15h-16h", "16h-17h", "17h-18h", "18h-19h", "19h-20h", "20h-21h", "21h-22h", "22h-23h", "23h-00h"};
         for (int i = 0; i < tabHeures.length; i++) {
             sb.append("\u001B[32m" + tabHeures[i] + "\u001B[0m : " + this.tabNbPassagesParHeure[i] + "\n");

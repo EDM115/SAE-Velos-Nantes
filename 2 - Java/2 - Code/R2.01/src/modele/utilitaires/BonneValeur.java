@@ -6,8 +6,22 @@ package modele.utilitaires;
 public class BonneValeur {
     
     // Les domaines des attributs
+
+    /**
+     * Les jours en anglais
+     */
+    private final String[] JOURS_ANGLAIS = {"MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"};
+    /**
+     * Les jours en français
+     */
     private final String[] DOMAINE_JOUR = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"};
-    private final String[] DOMAINE_VACANCES = {"Noel", "Ascension", "Hiver", "Ete", "Toussaint", "Printemps", ""}; 
+    /**
+     * Les vacances
+     */
+    private final String[] DOMAINE_VACANCES = {"Noel", "Ascension", "Hiver", "Ete", "Toussaint", "Printemps", "Hors Vacances", ""};
+    /**
+     * Les anomalies
+     */
     private final String[] DOMAINE_ANOMALIE = {"Forte", "Faible", ""};
     // guillemets vides pour les attributs qui peuvent être null
 
@@ -49,6 +63,31 @@ public class BonneValeur {
     ///////////////////////
     // Méthodes ajoutées //
     ///////////////////////
+
+    /**
+     * Méthode qui tranforme un jour anglais en jour français (à cause de LocalDate.getDayOfWeek())
+     * @param value le jour en anglais
+     * @return le jour en français
+     */
+    public String jourEnglishToFrench(String value) {
+        String ret = null;
+        if (value.equals(JOURS_ANGLAIS[0])) {
+            ret = DOMAINE_JOUR[0];
+        } else if (value.equals(JOURS_ANGLAIS[1])) {
+            ret = DOMAINE_JOUR[1];
+        } else if (value.equals(JOURS_ANGLAIS[2])) {
+            ret = DOMAINE_JOUR[2];
+        } else if (value.equals(JOURS_ANGLAIS[3])) {
+            ret = DOMAINE_JOUR[3];
+        } else if (value.equals(JOURS_ANGLAIS[4])) {
+            ret = DOMAINE_JOUR[4];
+        } else if (value.equals(JOURS_ANGLAIS[5])) {
+            ret = DOMAINE_JOUR[5];
+        } else if (value.equals(JOURS_ANGLAIS[6])) {
+            ret = DOMAINE_JOUR[6];
+        }
+        return ret;
+    }
 
     /**
      * Vérifie que la valeur de l'attribut jour est bien dans son domaine

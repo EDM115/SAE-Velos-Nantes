@@ -1,6 +1,8 @@
 package modele;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
 import modele.utilitaires.BonneValeur;
 
 /**
@@ -9,12 +11,27 @@ import modele.utilitaires.BonneValeur;
 public class Jour {
     
     // Les attributs de Jour
+
+    /**
+     * La date du jour
+     */
     private LocalDate date;
+    /**
+     * La température moyenne du jour
+     */
     private Double temperatureMoyenne;
+    /**
+     * Le jour de la semaine
+     */
     private String jour;
+    /**
+     * Si c'est les vacances ou non, et si oui, lesquelles
+     */
     private String vacances;
 
-    // BonneValeur pour vérifier les valeurs
+    /**
+     * BonneValeur pour vérifier les valeurs des attributs
+     */
     private BonneValeur bonneValeur = new BonneValeur();
 
     /**
@@ -26,7 +43,11 @@ public class Jour {
      * @throws IllegalArgumentException si les valeurs ne sont pas dans une bonne plage de valeur
      */
     public Jour(LocalDate date, Double temperatureMoyenne, String jour, String vacances) throws IllegalArgumentException {
-        if (!(bonneValeur.jourIsValid(jour))) {
+        if (date == null || temperatureMoyenne == null || jour == null || vacances == null) {
+            throw new IllegalArgumentException("Jour() : Un ou plusieurs paramètres sont null");
+        }
+        String newJour = bonneValeur.jourEnglishToFrench(jour);
+        if (newJour == null || !(bonneValeur.jourIsValid(newJour))) {
             throw new IllegalArgumentException("Jour() : Le jour n'est pas dans une bonne plage de valeur");
         }
         if (!(bonneValeur.vacancesIsValid(vacances))) {
@@ -34,7 +55,7 @@ public class Jour {
         }
         this.date = date;
         this.temperatureMoyenne = temperatureMoyenne;
-        this.jour = jour;
+        this.jour = newJour;
         this.vacances = vacances;
     }
 
@@ -53,9 +74,13 @@ public class Jour {
     /**
      * Setter de la date du jour
      * @param date la date du jour
+     * @throws IllegalArgumentException si le paramètre date est null
      */
-    public void setDate(LocalDate date) {
-        this.date= date;
+    public void setDate(LocalDate date) throws IllegalArgumentException {
+        if (date == null) {
+            throw new IllegalArgumentException("setDate() : La date est null");
+        }
+        this.date = date;
     }
 
     /**
@@ -71,7 +96,7 @@ public class Jour {
      * @param temperatureMoyenne la température moyenne du jour
      */
     public void setTemperatureMoyenne(Double temperatureMoyenne) {
-        this.temperatureMoyenne= temperatureMoyenne;
+        this.temperatureMoyenne = temperatureMoyenne;
     }
 
     /**
@@ -85,9 +110,16 @@ public class Jour {
     /**
      * Setter du jour de la semaine
      * @param jour le jour de la semaine
+     * @throws IllegalArgumentException si le paramètre jour est null ou si le paramètre jour n'est pas dans une bonne plage de valeur
      */
-    public void setJour(String jour) {
-        this.jour= jour;
+    public void setJour(String jour) throws IllegalArgumentException {
+        if (jour == null) {
+            throw new IllegalArgumentException("setJour() : Le jour est null");
+        }
+        if (!(bonneValeur.jourIsValid(jour))) {
+            throw new IllegalArgumentException("setJour() : Le jour n'est pas dans une bonne plage de valeur");
+        }
+        this.jour = jour;
     }
 
     /**
@@ -101,9 +133,16 @@ public class Jour {
     /**
      * Setter si c'est les vacances ou non
      * @param vacances si c'est les vacances ou non
+     * @throws IllegalArgumentException si le paramètre vacances est null ou si le paramètre vacances n'est pas dans une bonne plage de valeur
      */
-    public void setVacances(String vacances) {
-        this.vacances= vacances;
+    public void setVacances(String vacances) throws IllegalArgumentException {
+        if (vacances == null) {
+            throw new IllegalArgumentException("setVacances() : Les vacances sont null");
+        }
+        if (!(bonneValeur.vacancesIsValid(vacances))) {
+            throw new IllegalArgumentException("setVacances() : Les vacances ne sont pas dans une bonne plage de valeur");
+        }
+        this.vacances = vacances;
     }
 
     ///////////////////////
@@ -135,6 +174,15 @@ public class Jour {
      */
     public int getNombreJours() {
         LocalDate dateActuelle = LocalDate.now();
-        return dateActuelle.compareTo(this.date);
+        return (int)ChronoUnit.DAYS.between(this.date, dateActuelle);
+    }
+
+    /**
+     * Donne le nombre de jours entre une date spécifique et la date du jour
+     * @param date la date à comparer
+     * @return le nombre de jours entre une date spécifique et la date du jour
+     */
+    public int getNombreJours(LocalDate date) {
+        return (int)ChronoUnit.DAYS.between(this.date, date);
     }
 }

@@ -6,8 +6,18 @@ package modele;
 public class Quartier {
     
     // Les attributs de Quartier
+
+    /**
+     * L'identifiant du quartier
+     */
     private int idQuartier;
+    /**
+     * Le nom du quartier
+     */
     private String nomQuartier;
+    /**
+     * La longueur des pistes cyclables du quartier
+     */
     private double lgPisteCyclable;
 
     /**
@@ -15,6 +25,7 @@ public class Quartier {
      * @param idQuartier l'identifiant du quartier
      * @param nomQuartier le nom du quartier
      * @param lgPisteCyclable la longueur de la piste cyclable du quartier
+     * @throws IllegalArgumentException si l'identifiant du quartier est négatif, si le nom du quartier est null ou si la longueur de la piste cyclable est négative
      */
     public Quartier(int idQuartier, String nomQuartier, double lgPisteCyclable) throws IllegalArgumentException {
         if (idQuartier < 0 || nomQuartier == null || lgPisteCyclable < 0) {
@@ -56,9 +67,13 @@ public class Quartier {
     /**
      * Setter du nom du quartier
      * @param nomQuartier le nom du quartier
+     * @throws IllegalArgumentException si le paramètre nomQuartier est null
      */
-    public void setNomQuartier(String nomQuartier) {
-        this.nomQuartier= nomQuartier;
+    public void setNomQuartier(String nomQuartier) throws IllegalArgumentException {
+        if (nomQuartier == null) {
+            throw new IllegalArgumentException("setNomQuartier() : Le nom du quartier est null");
+        }
+        this.nomQuartier = nomQuartier;
     }
 
     /**
@@ -74,7 +89,7 @@ public class Quartier {
      * @param lgPisteCyclable la longueur de la piste cyclable du quartier
      */
     public void setLgPisteCyclable(double lgPisteCyclable) {
-        this.lgPisteCyclable= lgPisteCyclable;
+        this.lgPisteCyclable = lgPisteCyclable;
     }
 
     ///////////////////////
