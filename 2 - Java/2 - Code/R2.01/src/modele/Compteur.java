@@ -36,7 +36,14 @@ public class Compteur {
         this.leQuartier = leQuartier;
     }
 
-    // compteur sans quartier
+    /**
+     * Constructeur de la classe Compteur sans le quartier
+     * @param idCompteur l'identifiant du compteur
+     * @param libelle le libelle du compteur
+     * @param latitude la latitude du compteur
+     * @param longitude la longitude du compteur
+     * @throws IllegalArgumentException si l'identifiant du compteur est négatif, si le libelle est null ou si le sens est null
+     */
     public Compteur(int idCompteur, String libelle, String sens, double latitude, double longitude) throws IllegalArgumentException {
         if (idCompteur < 0 || libelle == null || sens == null) {
             throw new IllegalArgumentException("Compteur() : Un ou plusieurs paramètres sont invalides");
@@ -174,9 +181,11 @@ public class Compteur {
 
     /**
      * Compare la localisation de deux compteurs, si la distance entre les deux compteurs est inférieure ou égale à 1km, alors retourne true, sinon retourne false
+     * @param compteur le compteur à comparer
+     * @return true si la distance entre les deux compteurs est inférieure ou égale à 1km, sinon retourne false
      */
     public boolean closeTo(Compteur compteur) {
-        final double APPROXIMATE_DISTANCE_THRESHOLD_KM = 1.0;
+        final double APPROXIMATE_DISTANCE_THRESHOLD_KM = 1.0; 
 
         double latDiff = Math.abs(this.latitude - compteur.getLatitude());
         double lonDiff = Math.abs(this.longitude - compteur.getLongitude());
@@ -186,6 +195,4 @@ public class Compteur {
 
         return distance <= APPROXIMATE_DISTANCE_THRESHOLD_KM;
     }
-
-
 }

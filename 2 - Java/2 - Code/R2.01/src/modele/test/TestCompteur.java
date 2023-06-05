@@ -11,7 +11,7 @@ public class TestCompteur {
     /**
      * Méthode main pour tester les méthodes de la classe Compteur
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) { 
 
         ////////////////////////
         // Test Constructeur //
