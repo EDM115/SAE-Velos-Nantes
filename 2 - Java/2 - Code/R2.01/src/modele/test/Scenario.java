@@ -1,4 +1,4 @@
-package modele.scenario;
+package modele.test;
 
 import java.util.Calendar;
 
