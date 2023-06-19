@@ -1,5 +1,8 @@
 package frontend;
 
+import java.io.File;
+import java.net.MalformedURLException;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXPopup;
@@ -51,6 +54,11 @@ public class Menu extends Stage {
         hamburger.setOnMouseClicked(e -> popup.show(hamburger, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, -12, 15));
 
         Scene scene = new Scene(new VBox(hamburger), 400, 400, Color.WHITE);
+		try {
+            scene.getStylesheets().add(new File("res/style/style.css").toURI().toURL().toExternalForm());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         setScene(scene);
 
         // Set the size of the menu to match the previous stage
