@@ -22,9 +22,12 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
+import backend.AccueilB;
+
 public class Accueil extends Application {
     private double xOffset = 0;
     private double yOffset = 0;
+    private AccueilB accueilB;
 
     public static void main(String[] args) {
         launch(args);
@@ -32,6 +35,9 @@ public class Accueil extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        // Import backend
+        accueilB = new AccueilB();
+
         // Create UI components
         JFXHamburger menuButton = new JFXHamburger();
         ImageView logoImage = new ImageView(new Image("file:res/images/nantes_white_smaller.png"));
@@ -102,6 +108,15 @@ public class Accueil extends Application {
         root.setOnMouseDragged(event -> {
             primaryStage.setX(event.getScreenX() - xOffset);
             primaryStage.setY(event.getScreenY() - yOffset);
+        });
+
+        // Add event listeners
+        menuButton.setOnMouseClicked(event -> {
+            accueilB.start(primaryStage);
+        });
+
+        startButton.setOnAction(event -> {
+            accueilB.start(primaryStage);
         });
 
         primaryStage.show();
