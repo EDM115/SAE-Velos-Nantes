@@ -20,30 +20,30 @@ public class AccueilB extends Application {
         Menu menu = new Menu(primaryStage);
 
         // Create buttons
-        Button menuButton = new Button("Show Menu");
-        Button closeButton = new Button("Close");
+        //Button menuButton = new Button("Show Menu");
+        //Button closeButton = new Button("Close");
 
         // Handle button event to show the menu
-        menuButton.setOnAction(event -> {
+        //menuButton.setOnAction(event -> {
             menu.show();
             primaryStage.hide();
-        });
+        //});
 
         // Handle close button event to exit the application
-        closeButton.setOnAction(event -> {
-            primaryStage.close();
+        //closeButton.setOnAction(event -> {
+            //primaryStage.close();
             // Make sure to exit the JavaFX application thread
-            Platform.exit();
-        });
+            //Platform.exit();
+        //});
 
         // Create the root layout
-        StackPane root = new StackPane();
-        root.getChildren().addAll(menuButton, closeButton);
+        //StackPane root = new StackPane();
+        //root.getChildren().addAll(menuButton, closeButton);
 
         // Create the scene
-        Scene scene = new Scene(root, 1280, 720);
+        //Scene scene = new Scene(root, 1280, 720);
 
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        //primaryStage.setScene(scene);
+        //primaryStage.show();
     }
 }

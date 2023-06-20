@@ -64,7 +64,7 @@ public class Accueil extends Application {
         subtitleLabel.setFont(Font.font("Roboto", FontWeight.LIGHT, 70));
         subtitleLabel.setTextFill(Color.web("#bd93f9"));
         startButton.setFont(Font.font("Roboto", FontWeight.BOLD, 16));
-        startButton.setStyle("-fx-background-color: #bd93f9; -fx-text-fill: #ffffff;");
+        startButton.setStyle("-fx-background-color: #bd93f9; -fx-text-fill: #282a36;");
         menuButton.setStyle("-jfx-hamburger-color: #f8f8f2;");
 
         // Set up the layout
@@ -97,7 +97,7 @@ public class Accueil extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("Accueil");
-        primaryStage.initStyle(StageStyle.UNDECORATED); // Set the stage style to UNDECORATED
+        primaryStage.initStyle(StageStyle.UNDECORATED);
 
         // Implement window dragging functionality
         root.setOnMousePressed(event -> {
@@ -123,12 +123,11 @@ public class Accueil extends Application {
     }
 
     private HBox createTitleBar(Stage stage, JFXHamburger menuButton, JFXButton minimizeButton,
-                                JFXButton maximizeRestoreButton, JFXButton closeButton) {
+                            JFXButton maximizeRestoreButton, JFXButton closeButton) {
         HBox titleBar = new HBox(10);
         titleBar.setPadding(new Insets(5));
-        titleBar.setBackground(new Background(new BackgroundFill(Color.web("#373f51"), CornerRadii.EMPTY, Insets.EMPTY)));
-        titleBar.setAlignment(Pos.CENTER_LEFT);
-        titleBar.setStyle("-fx-background-insets: 0;");
+        titleBar.setBackground(new Background(new BackgroundFill(Color.web("#44475a"), new CornerRadii(10), Insets.EMPTY)));
+        titleBar.setAlignment(Pos.CENTER);
 
         menuButton.setStyle("-fx-hamburger-color: #f8f8f2;");
 
@@ -148,15 +147,16 @@ public class Accueil extends Application {
         });
         closeButton.setOnAction(event -> stage.close());
 
-        HBox.setHgrow(menuButton, Priority.ALWAYS);
-        HBox.setHgrow(maximizeRestoreButton, Priority.ALWAYS);
+        HBox.setHgrow(menuButton, Priority.NEVER);
+        HBox.setHgrow(maximizeRestoreButton, Priority.NEVER);
 
-        HBox titleBarButtons = new HBox(5, menuButton, minimizeButton, maximizeRestoreButton, closeButton);
+        HBox titleBarButtons = new HBox(5, minimizeButton, maximizeRestoreButton, closeButton);
         titleBarButtons.setAlignment(Pos.CENTER_RIGHT);
 
-        titleBar.getChildren().addAll(createTitleLabel(), titleBarButtons);
+        titleBar.getChildren().addAll(menuButton, createTitleLabel(), titleBarButtons);
         return titleBar;
     }
+
 
     private Label createTitleLabel() {
         Label titleLabel = new Label("Accueil");
