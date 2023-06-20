@@ -23,6 +23,7 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import backend.AccueilB;
+import utils.TitleBar;
 
 public class Accueil extends Application {
     private double xOffset = 0;
@@ -35,14 +36,60 @@ public class Accueil extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        // Import backend
+        // Import stuff
         accueilB = new AccueilB();
+        TitleBar titleBarElement = new TitleBar();
 
         // Create UI components
         JFXHamburger menuButton = new JFXHamburger();
         ImageView logoImage = new ImageView(new Image("file:res/images/nantes_white_smaller.png"));
         // Load the Roboto font files
-        Font.loadFont(getClass().getResourceAsStream("file:res/fonts/Roboto/Roboto-Regular.ttf"), 12);
+        try {
+            Font.loadFont(new File("res/fonts/Roboto/Roboto-Regular.ttf").toURI().toURL().toExternalForm(), 12);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        try {
+            Font.loadFont(new File("res/fonts/Roboto/Roboto-Bold.ttf.ttf").toURI().toURL().toExternalForm(), 12);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        try {
+            Font.loadFont(new File("res/fonts/Roboto/Roboto-Light.ttf").toURI().toURL().toExternalForm(), 12);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        try {
+            Font.loadFont(new File("res/fonts/Roboto/Roboto-Thin.ttf").toURI().toURL().toExternalForm(), 12);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        try {
+            Font.loadFont(new File("res/fonts/Roboto_Mono/static/RobotoMono-Bold.ttf").toURI().toURL().toExternalForm(), 12);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        try {
+            Font.loadFont(new File("res/fonts/Roboto_Mono/static/RobotoMono-Regular.ttf").toURI().toURL().toExternalForm(), 12);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        try {
+            Font.loadFont(new File("res/fonts/Roboto_Mono/static/RobotoMono-Light.ttf").toURI().toURL().toExternalForm(), 12);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        try {
+            Font.loadFont(new File("res/fonts/Roboto_Mono/static/RobotoMono-Medium.ttf").toURI().toURL().toExternalForm(), 12);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        try {
+            Font.loadFont(new File("res/fonts/Roboto_Mono/static/RobotoMono-Thin.ttf").toURI().toURL().toExternalForm(), 12);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        /* Font.loadFont(getClass().getResourceAsStream("file:res/fonts/Roboto/Roboto-Regular.ttf"), 12);
         Font.loadFont(getClass().getResourceAsStream("file:res/fonts/Roboto/Roboto-Bold.ttf"), 12);
         Font.loadFont(getClass().getResourceAsStream("file:res/fonts/Roboto/Roboto-Light.ttf"), 12);
         Font.loadFont(getClass().getResourceAsStream("file:res/fonts/Roboto/Roboto-Thin.ttf"), 12);
@@ -50,7 +97,7 @@ public class Accueil extends Application {
         Font.loadFont(getClass().getResourceAsStream("file:res/fonts/Roboto_Mono/static/RobotoMono-Regular.ttf"), 12);
         Font.loadFont(getClass().getResourceAsStream("file:res/fonts/Roboto_Mono/static/RobotoMono-Light.ttf"), 12);
         Font.loadFont(getClass().getResourceAsStream("file:res/fonts/Roboto_Mono/static/RobotoMono-Medium.ttf"), 12);
-        Font.loadFont(getClass().getResourceAsStream("file:res/fonts/Roboto_Mono/static/RobotoMono-Thin.ttf"), 12);
+        Font.loadFont(getClass().getResourceAsStream("file:res/fonts/Roboto_Mono/static/RobotoMono-Thin.ttf"), 12); */
         Label titleLabel = new Label("CycloNantais");
         Label subtitleLabel = new Label("L'app qui vous montre la voie !");
         JFXButton closeButton = new JFXButton("✕");
@@ -72,7 +119,7 @@ public class Accueil extends Application {
         root.setBackground(new Background(new BackgroundFill(Color.web("#282a36"), CornerRadii.EMPTY, Insets.EMPTY)));
         root.setPadding(new Insets(10));
 
-        HBox titleBar = createTitleBar(primaryStage, menuButton, minimizeButton, maximizeRestoreButton, closeButton);
+        HBox titleBar = titleBarElement.createTitleBar(primaryStage, menuButton, minimizeButton, maximizeRestoreButton, closeButton, "Accueil");
         VBox.setMargin(titleBar, new Insets(0, 0, 10, 0)); // Set margin for spacing below title bar
         root.getChildren().add(titleBar);
 
@@ -120,48 +167,5 @@ public class Accueil extends Application {
         });
 
         primaryStage.show();
-    }
-
-    private HBox createTitleBar(Stage stage, JFXHamburger menuButton, JFXButton minimizeButton,
-                            JFXButton maximizeRestoreButton, JFXButton closeButton) {
-        HBox titleBar = new HBox(10);
-        titleBar.setPadding(new Insets(5));
-        titleBar.setBackground(new Background(new BackgroundFill(Color.web("#44475a"), new CornerRadii(10), Insets.EMPTY)));
-        titleBar.setAlignment(Pos.CENTER);
-
-        menuButton.setStyle("-fx-hamburger-color: #f8f8f2;");
-
-        minimizeButton.setStyle("-fx-background-color: transparent; -fx-text-fill: #f8f8f2;");
-        maximizeRestoreButton.setStyle("-fx-background-color: transparent; -fx-text-fill: #f8f8f2;");
-        closeButton.setStyle("-fx-background-color: transparent; -fx-text-fill: #f8f8f2;");
-
-        minimizeButton.setOnAction(event -> stage.setIconified(true));
-        maximizeRestoreButton.setOnAction(event -> {
-            if (stage.isMaximized()) {
-                stage.setMaximized(false);
-                maximizeRestoreButton.setText("⬜");
-            } else {
-                stage.setMaximized(true);
-                maximizeRestoreButton.setText("🗖");
-            }
-        });
-        closeButton.setOnAction(event -> stage.close());
-
-        HBox.setHgrow(menuButton, Priority.NEVER);
-        HBox.setHgrow(maximizeRestoreButton, Priority.NEVER);
-
-        HBox titleBarButtons = new HBox(5, minimizeButton, maximizeRestoreButton, closeButton);
-        titleBarButtons.setAlignment(Pos.CENTER_RIGHT);
-
-        titleBar.getChildren().addAll(menuButton, createTitleLabel(), titleBarButtons);
-        return titleBar;
-    }
-
-
-    private Label createTitleLabel() {
-        Label titleLabel = new Label("Accueil");
-        titleLabel.setFont(Font.font("Roboto", FontWeight.LIGHT, 20));
-        titleLabel.setTextFill(Color.web("#f8f8f2"));
-        return titleLabel;
     }
 }
