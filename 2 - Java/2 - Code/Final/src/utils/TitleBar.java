@@ -87,6 +87,38 @@ public class TitleBar {
 		return titleBar;
 	}
 
+	// empty menu ?
+	public HBox createTitleBar(Stage stage, JFXButton minimizeButton, JFXButton maximizeRestoreButton, JFXButton closeButton, String title) {
+		HBox titleBar = new HBox(10);
+		titleBar.setPadding(new Insets(5));
+		titleBar.setBackground(new Background(new BackgroundFill(Color.web("#44475a"), new CornerRadii(10), Insets.EMPTY)));
+		titleBar.setAlignment(Pos.CENTER);
+
+		minimizeButton.setStyle("-fx-background-color: transparent; -fx-text-fill: #f8f8f2;");
+		maximizeRestoreButton.setStyle("-fx-background-color: transparent; -fx-text-fill: #f8f8f2;");
+		closeButton.setStyle("-fx-background-color: transparent; -fx-text-fill: #f8f8f2;");
+
+		minimizeButton.setOnAction(event -> stage.setIconified(true));
+		maximizeRestoreButton.setOnAction(event -> {
+			if (stage.isMaximized()) {
+				stage.setMaximized(false);
+				maximizeRestoreButton.setText("⬜");
+			} else {
+				stage.setMaximized(true);
+				maximizeRestoreButton.setText("🗖");
+			}
+		});
+		closeButton.setOnAction(event -> stage.close());
+
+		HBox.setHgrow(maximizeRestoreButton, Priority.NEVER);
+
+		HBox titleBarButtons = new HBox(5, minimizeButton, maximizeRestoreButton, closeButton);
+		titleBarButtons.setAlignment(Pos.CENTER_RIGHT);
+
+		titleBar.getChildren().addAll(createTitleLabel(title), titleBarButtons);
+		return titleBar;
+	}
+
 	public Label createTitleLabel(String title) {
 		Label titleLabel = new Label(title);
 		titleLabel.setFont(Font.font("Roboto", FontWeight.LIGHT, 20));

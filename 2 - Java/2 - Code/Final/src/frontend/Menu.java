@@ -18,6 +18,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.application.Platform;
+
 
 import utils.TitleBar;
 
@@ -32,8 +34,9 @@ public class Menu extends Stage {
         JFXButton closeButton = new JFXButton("✕");
         JFXButton minimizeButton = new JFXButton("—");
         JFXButton maximizeRestoreButton = new JFXButton("⬜");
-        JFXButton closeMenuButton = new JFXButton("");
-        closeMenuButton.setGraphic(createIcon("/res/images/cross.png"));
+        JFXButton closeMenuButton = new JFXButton("✕");
+        //closeMenuButton.setGraphic(createIcon("res/images/cross.png"));
+        closeMenuButton.setStyle("-fx-background-color: transparent; -fx-text-fill: #f8f8f2; -fx-font-size: 30px; -fx-font-weight: bold;");
 
         // Create dropdown options
         JFXButton option1 = new JFXButton("Recherche de trajet");
@@ -60,12 +63,11 @@ public class Menu extends Stage {
         editDataButton.setGraphic(createIcon("res/images/pencil.png"));
         editDataButton.setStyle("-fx-text-fill: #f8f8f2");
 
-        // Create the menu layout
         VBox menuLayout = new VBox();
         menuLayout.setSpacing(10);
         menuLayout.setAlignment(Pos.CENTER);
-        menuLayout.setPadding(new Insets(10));
-        menuLayout.getChildren().addAll(option1, option2, option3, option4, addDataButton, editDataButton);
+        menuLayout.setPadding(new Insets(150));
+        menuLayout.getChildren().addAll(closeMenuButton, option1, option2, option3, option4, addDataButton, editDataButton);
 
         // Create the popup
         JFXPopup popup = new JFXPopup(menuLayout);
@@ -73,10 +75,14 @@ public class Menu extends Stage {
         // Set the position of the popup relative to the closeMenuButton
         closeMenuButton.setOnMouseClicked(e -> popup.show(closeMenuButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT, 12, 15));
 
-        titleBarElement.createTitleBar(this, closeMenuButton, minimizeButton, maximizeRestoreButton, closeButton, "Menu");
-
         VBox root = new VBox();
-        root.getChildren().addAll(titleBarElement.createTitleBar(this, closeMenuButton, minimizeButton, maximizeRestoreButton, closeButton, "Menu"), menuLayout);
+        root.getChildren().addAll(titleBarElement.createTitleBar(this, minimizeButton, maximizeRestoreButton, closeButton, "Menu"), menuLayout);
+
+
+        /* titleBarElement.createTitleBar(this, closeMenuButton, minimizeButton, maximizeRestoreButton, closeButton, "Menu"); */
+
+        //VBox root = new VBox();
+        //root.getChildren().addAll(titleBarElement.createTitleBar(this, closeMenuButton, minimizeButton, maximizeRestoreButton, closeButton, "Menu"), menuLayout);
         VBox.setMargin(menuLayout, new Insets(10, 0, 0, 0)); // Set margin for spacing below title bar
 
         Scene scene = new Scene(root, 400, 400, Color.WHITE);
@@ -118,6 +124,22 @@ public class Menu extends Stage {
         // Handle close button event to show the previous stage
         setOnCloseRequest(event -> {
             event.consume(); // Prevents closing the menu immediately
+            hide();
+            previousStage.show();
+        });
+
+        // Handle close button event to exit the application
+        closeButton.setOnAction(event -> {
+            event.consume();
+            hide();
+            previousStage.close();
+            // Make sure to exit the JavaFX application thread
+            Platform.exit();
+        });
+
+        // Handle close menu button event to show the previous stage
+        closeMenuButton.setOnAction(event -> {
+            event.consume();
             hide();
             previousStage.show();
         });
