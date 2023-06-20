@@ -43,16 +43,29 @@ public class Menu extends Stage {
 
         // Set icons for dropdown options
         option1.setGraphic(createIcon("res/images/search.png"));
+        option1.setStyle("-fx-text-fill: #f8f8f2");
         option2.setGraphic(createIcon("res/images/search.png"));
+        option2.setStyle("-fx-text-fill: #f8f8f2");
         option3.setGraphic(createIcon("res/images/search.png"));
+        option3.setStyle("-fx-text-fill: #f8f8f2");
         option4.setGraphic(createIcon("res/images/search.png"));
+        option4.setStyle("-fx-text-fill: #f8f8f2");
+
+        // create 2 other elements
+        JFXButton addDataButton = new JFXButton("Saisie de données");
+        addDataButton.setGraphic(createIcon("res/images/plus.png"));
+        addDataButton.setStyle("-fx-text-fill: #f8f8f2");
+
+        JFXButton editDataButton = new JFXButton("Modification de données");
+        editDataButton.setGraphic(createIcon("res/images/pencil.png"));
+        editDataButton.setStyle("-fx-text-fill: #f8f8f2");
 
         // Create the menu layout
         VBox menuLayout = new VBox();
         menuLayout.setSpacing(10);
         menuLayout.setAlignment(Pos.CENTER);
         menuLayout.setPadding(new Insets(10));
-        menuLayout.getChildren().addAll(option1, option2, option3, option4);
+        menuLayout.getChildren().addAll(option1, option2, option3, option4, addDataButton, editDataButton);
 
         // Create the popup
         JFXPopup popup = new JFXPopup(menuLayout);
