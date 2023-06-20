@@ -20,16 +20,28 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.application.Platform;
 
-
+import backend.MenuB;
 import utils.TitleBar;
 
 public class Menu extends Stage {
     private double xOffset = 0;
     private double yOffset = 0;
 
+    // Create dropdown options
+    JFXButton option1 = new JFXButton("Recherche de trajet");
+    JFXButton option2 = new JFXButton("Recherche d'affluence");
+    JFXButton option3 = new JFXButton("Station la plus proche");
+    JFXButton option4 = new JFXButton("Précédentes recherches");
+    JFXButton addDataButton = new JFXButton("Saisie de données");
+    JFXButton editDataButton = new JFXButton("Modification de données");
+    Stage previousStage;
+    // /!\ Add accueil icon /!\
+
     public Menu(Stage previousStage) {
+        this.previousStage = previousStage;
         // Import stuff
         TitleBar titleBarElement = new TitleBar();
+        MenuB menuB = new MenuB(this);
 
         JFXButton closeButton = new JFXButton("✕");
         JFXButton minimizeButton = new JFXButton("—");
@@ -37,12 +49,6 @@ public class Menu extends Stage {
         JFXButton closeMenuButton = new JFXButton("✕");
         //closeMenuButton.setGraphic(createIcon("res/images/cross.png"));
         closeMenuButton.setStyle("-fx-background-color: transparent; -fx-text-fill: #f8f8f2; -fx-font-size: 30px; -fx-font-weight: bold;");
-
-        // Create dropdown options
-        JFXButton option1 = new JFXButton("Recherche de trajet");
-        JFXButton option2 = new JFXButton("Recherche d'affluence");
-        JFXButton option3 = new JFXButton("Station la plus proche");
-        JFXButton option4 = new JFXButton("Précédentes recherches");
 
         // Set icons for dropdown options
         option1.setGraphic(createIcon("res/images/search.png"));
@@ -53,13 +59,8 @@ public class Menu extends Stage {
         option3.setStyle("-fx-text-fill: #f8f8f2");
         option4.setGraphic(createIcon("res/images/search.png"));
         option4.setStyle("-fx-text-fill: #f8f8f2");
-
-        // create 2 other elements
-        JFXButton addDataButton = new JFXButton("Saisie de données");
         addDataButton.setGraphic(createIcon("res/images/plus.png"));
         addDataButton.setStyle("-fx-text-fill: #f8f8f2");
-
-        JFXButton editDataButton = new JFXButton("Modification de données");
         editDataButton.setGraphic(createIcon("res/images/pencil.png"));
         editDataButton.setStyle("-fx-text-fill: #f8f8f2");
 
@@ -157,5 +158,37 @@ public class Menu extends Stage {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public JFXButton getOption1() {
+        return this.option1;
+    }
+
+    public JFXButton getOption2() {
+        return this.option2;
+    }
+
+    public JFXButton getOption3() {
+        return this.option3;
+    }
+
+    public JFXButton getOption4() {
+        return this.option4;
+    }
+
+    public JFXButton getAddDataButton() {
+        return this.addDataButton;
+    }
+
+    public JFXButton getEditDataButton() {
+        return this.editDataButton;
+    }
+
+    public Stage getStage() {
+        return this;
+    }
+
+    public Stage getPreviousStage() {
+        return this.previousStage;
     }
 }
