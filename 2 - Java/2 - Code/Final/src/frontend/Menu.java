@@ -4,7 +4,6 @@ import java.io.File;
 import java.net.MalformedURLException;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXPopup;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -30,7 +29,6 @@ public class Menu extends Stage {
         // Import stuff
         TitleBar titleBarElement = new TitleBar();
 
-        JFXHamburger hamburger = new JFXHamburger();
         JFXButton closeButton = new JFXButton("✕");
         JFXButton minimizeButton = new JFXButton("—");
         JFXButton maximizeRestoreButton = new JFXButton("⬜");
@@ -49,31 +47,24 @@ public class Menu extends Stage {
         option3.setGraphic(createIcon("res/images/search.png"));
         option4.setGraphic(createIcon("res/images/search.png"));
 
-        // Create buttons with icons
-        JFXButton addButton = new JFXButton();
-        addButton.setGraphic(createIcon("res/images/plus.png"));
-
-        JFXButton editButton = new JFXButton();
-        editButton.setGraphic(createIcon("res/images/pencil.png"));
-
         // Create the menu layout
         VBox menuLayout = new VBox();
         menuLayout.setSpacing(10);
-        menuLayout.setAlignment(Pos.TOP_LEFT);
+        menuLayout.setAlignment(Pos.CENTER);
         menuLayout.setPadding(new Insets(10));
-        menuLayout.getChildren().addAll(option1, option2, option3, option4, addButton, editButton);
+        menuLayout.getChildren().addAll(option1, option2, option3, option4);
 
         // Create the popup
         JFXPopup popup = new JFXPopup(menuLayout);
 
-        // Set the position of the popup relative to the hamburger icon
-        hamburger.setOnMouseClicked(e -> popup.show(hamburger, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.LEFT, -12, 15));
+        // Set the position of the popup relative to the closeMenuButton
+        closeMenuButton.setOnMouseClicked(e -> popup.show(closeMenuButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT, 12, 15));
 
         titleBarElement.createTitleBar(this, closeMenuButton, minimizeButton, maximizeRestoreButton, closeButton, "Menu");
 
         VBox root = new VBox();
-        root.getChildren().addAll(titleBarElement.createTitleBar(this, closeMenuButton, minimizeButton, maximizeRestoreButton, closeButton, "Menu"), hamburger);
-        VBox.setMargin(hamburger, new Insets(10, 0, 0, 0)); // Set margin for spacing below title bar
+        root.getChildren().addAll(titleBarElement.createTitleBar(this, closeMenuButton, minimizeButton, maximizeRestoreButton, closeButton, "Menu"), menuLayout);
+        VBox.setMargin(menuLayout, new Insets(10, 0, 0, 0)); // Set margin for spacing below title bar
 
         Scene scene = new Scene(root, 400, 400, Color.WHITE);
         try {
@@ -88,8 +79,14 @@ public class Menu extends Stage {
         setHeight(previousStage.getHeight());
 
         // Set the position of the menu to match the previous stage
-        setX(previousStage.getX());
-        setY(previousStage.getY());
+        double previousStageX = previousStage.getX();
+        double previousStageY = previousStage.getY();
+        double previousStageWidth = previousStage.getWidth();
+        double previousStageHeight = previousStage.getHeight();
+        double menuX = previousStageX + (previousStageWidth - getWidth()) / 2;
+        double menuY = previousStageY + (previousStageHeight - getHeight()) / 2;
+        setX(menuX);
+        setY(menuY);
 
         // Implement window dragging functionality
         scene.setOnMousePressed(event -> {
@@ -102,7 +99,6 @@ public class Menu extends Stage {
             setY(event.getScreenY() - yOffset);
         });
 
-        setScene(scene);
         setTitle("Menu");
         initStyle(StageStyle.UNDECORATED);
 
