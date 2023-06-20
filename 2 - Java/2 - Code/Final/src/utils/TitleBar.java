@@ -52,6 +52,7 @@ public class TitleBar {
 		return titleBar;
 	}
 
+	// just for menu
 	public HBox createTitleBar(Stage stage, JFXButton closeMenu, JFXButton minimizeButton, JFXButton maximizeRestoreButton, JFXButton closeButton, String title) {
 		HBox titleBar = new HBox(10);
 		titleBar.setPadding(new Insets(5));
