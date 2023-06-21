@@ -170,16 +170,11 @@ public class RechercheTrajetB extends Application {
             ResultatsRecherche resultatsRecherche = new ResultatsRecherche(true, file);
             resultatsRecherche.start(this.rechercheTrajet.getStage());
 
-            
-<<<<<<< HEAD
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-=======
         } catch (SQLSyntaxErrorException e) {
             System.err.println("\u001B[31mERREUR\u001B[0m");
         } catch (SQLException e) {
             System.err.println("\u001B[31mREQUETE IMPOSSIBLE\u001B[0m");
+            e.printStackTrace();
         }
     }
 
@@ -223,7 +218,6 @@ public class RechercheTrajetB extends Application {
         }
 
         return file;
->>>>>>> 52fbed88d5a17b0571aafd636b913b993247453c
     }
 }
 
