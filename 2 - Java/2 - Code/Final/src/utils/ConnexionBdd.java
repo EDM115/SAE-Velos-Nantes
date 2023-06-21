@@ -3,6 +3,7 @@ package utils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.SQLSyntaxErrorException;
 
 public class ConnexionBdd {
 
@@ -16,9 +17,11 @@ public class ConnexionBdd {
             } else {
                 this.connexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/bd_velos_nantes", "user", "mdp_user");
             }
+        } catch (SQLSyntaxErrorException e) {
+            System.out.println("\u001B[31mERREUR\u001B[0m");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+            System.out.println("\u001B[31mREQUETE IMPOSSIBLE\u001B[0m");
+        } 
     }
 
     public Connection getConnection() {
