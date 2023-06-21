@@ -154,9 +154,9 @@ public class ResultatsRecherche extends Application {
         Scene scene = new Scene(scrollPane, 800, 600, Color.WHITE);
         newStage.setScene(scene);
         newStage.setTitle("Résultats de recherche");
-
+        
         windowDrag = new WindowDrag(root, newStage);
-
+        
         // Apply the CSS styling
         try {
 			scene.getStylesheets().add(new File("res/style/style.css").toURI().toURL().toExternalForm());

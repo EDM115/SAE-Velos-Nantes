@@ -1,12 +1,12 @@
 {
-  "departure": "50 Otages Sud",
-  "departureIndex": "3",
-  "departureLat": "47.22",
-  "departureLong": "-1.55504",
-  "arrival": "Madeleine Nord",
-  "arrivalIndex": "23",
-  "arrivalLat": "47.2115",
-  "arrivalLong": "-1.5528",
-  "nbCyclistes": "110",
+  "departure": "Avenue de la Libération Nord",
+  "departureIndex": "4",
+  "departureLat": "47.1926193237305",
+  "departureLong": "-1.5468218326569",
+  "arrival": "Pont de Pirmil Sud",
+  "arrivalIndex": "35",
+  "arrivalLat": "47.198127746582",
+  "arrivalLong": "-1.5422919988632",
+  "nbCyclistes": "36",
   "temperature": "16.45"
 }

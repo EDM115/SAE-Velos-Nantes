@@ -73,13 +73,13 @@ public class RechercheTrajetB extends Application {
         double[] geo = new double[2];
         ConnexionBdd connexionBdd = new ConnexionBdd();
         try {
-            String query =  "SELECT coord_X, coord_Y FROM Compteur WHERE idCompteur = " + idCompteur + ";";
+            String query = "SELECT FORMAT(coord_X, 13) AS formatted_coord_X, FORMAT(coord_Y, 13) AS formatted_coord_Y FROM Compteur WHERE idCompteur = " + idCompteur + ";";
             Statement statement = connexionBdd.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             while(resultSet.next()) {
-                geo[0] = resultSet.getDouble("coord_X");
-                geo[1] = resultSet.getDouble("coord_Y");
+                geo[0] = resultSet.getDouble("formatted_coord_X");
+                geo[1] = resultSet.getDouble("formatted_coord_Y");
             }
 
         } catch (SQLException e) {
@@ -87,6 +87,7 @@ public class RechercheTrajetB extends Application {
         }
         return geo;
     }
+
 
     public int getCompteurFromId(int index) {
         String compteur = this.lesCompteurs.get(index);
