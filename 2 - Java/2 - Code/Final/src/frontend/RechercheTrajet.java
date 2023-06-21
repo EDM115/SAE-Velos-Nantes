@@ -30,6 +30,7 @@ import backend.RechercheTrajetB;
 import utils.TitleBar;
 import utils.StageDump;
 import utils.ConnexionBdd;
+import utils.WindowDrag;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -46,6 +47,7 @@ public class RechercheTrajet extends Application {
     private double xOffset = 0;
     private double yOffset = 0;
 	private StageDump stageDump = new StageDump();
+    private WindowDrag windowDrag;
     Button searchButton = new Button("RECHERCHE");
     String departure;
     String arrival;
@@ -173,15 +175,7 @@ public class RechercheTrajet extends Application {
         rootPane.setCenter(root);
 		
         // Make the window draggable
-        titleBar.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-		
-        titleBar.setOnMouseDragged(event -> {
-			newStage.setX(event.getScreenX() - xOffset);
-            newStage.setY(event.getScreenY() - yOffset);
-        });
+        windowDrag = new WindowDrag(rootPane, newStage);
 
 		// Add event listeners
         menuButton.setOnMouseClicked(event -> {

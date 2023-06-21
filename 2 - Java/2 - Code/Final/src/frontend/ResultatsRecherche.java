@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import utils.StageDump;
 import utils.TitleBar;
+import utils.WindowDrag;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -23,6 +24,7 @@ public class ResultatsRecherche extends Application {
     private StageDump stageDump = new StageDump();
 	private boolean trajet;
     private String[] search;
+    private WindowDrag windowDrag;
 
 	public ResultatsRecherche(boolean trajet, String[] search) {
 		this.trajet = trajet;
@@ -80,6 +82,8 @@ public class ResultatsRecherche extends Application {
         Scene scene = new Scene(scrollPane, 800, 600, Color.WHITE);
         newStage.setScene(scene);
         newStage.setTitle("Résultats de recherche");
+
+        windowDrag = new WindowDrag(root, newStage);
 
         // Apply the CSS styling
         try {

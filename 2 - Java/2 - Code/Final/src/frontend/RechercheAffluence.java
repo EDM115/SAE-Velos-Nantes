@@ -26,6 +26,7 @@ import backend.RechercheAffluenceB;
 import backend.RechercheTrajetB;
 import utils.TitleBar;
 import utils.StageDump;
+import utils.WindowDrag;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -42,6 +43,7 @@ public class RechercheAffluence extends Application {
     private double xOffset = 0;
     private double yOffset = 0;
 	private StageDump stageDump = new StageDump();
+    private WindowDrag windowDrag;
 
     @Override
     public void start(Stage primaryStage) {
@@ -119,16 +121,7 @@ public class RechercheAffluence extends Application {
         rootPane.setTop(titleBar);
         rootPane.setCenter(root);
 		
-        // Make the window draggable
-        titleBar.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-		
-        titleBar.setOnMouseDragged(event -> {
-			newStage.setX(event.getScreenX() - xOffset);
-            newStage.setY(event.getScreenY() - yOffset);
-        });
+        windowDrag = new WindowDrag(rootPane, newStage);
 
 		// Add event listeners
         menuButton.setOnMouseClicked(event -> {
