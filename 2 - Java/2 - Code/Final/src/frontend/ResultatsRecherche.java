@@ -1,5 +1,9 @@
 package frontend;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
 import javafx.application.Application;
@@ -16,19 +20,23 @@ import utils.TitleBar;
 import utils.WindowDrag;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ResultatsRecherche extends Application {
 
     private StageDump stageDump = new StageDump();
 	private boolean trajet;
-    private String[] search;
+    private File data;
     private WindowDrag windowDrag;
 
-	public ResultatsRecherche(boolean trajet, String[] search) {
+	public ResultatsRecherche(boolean trajet, File data) {
 		this.trajet = trajet;
-		this.search = search;
+		this.data = data;
 	}
 
     @Override
@@ -42,6 +50,29 @@ public class ResultatsRecherche extends Application {
         TitleBar titleBarElement = new TitleBar();
         JFXHamburger menuButton = new JFXHamburger();
         HBox titleBar = titleBarElement.createTitleBar(newStage, menuButton, minimizeButton, maximizeRestoreButton, closeButton, "Recherche d'affluence");
+
+        // read the JSON file and get its content this way :
+        // for property in the file, add its value to the List<String> search
+
+        // Read the JSON file
+        List<String> search = new ArrayList<>();
+
+        // Read the JSON file
+        try (Reader reader = new FileReader("res/data.json")) {
+            // Parse the JSON file into a JsonElement
+            JsonElement jsonElement = JsonParser.parseReader(reader);
+
+            // Convert the JsonElement to a JsonObject
+            JsonObject jsonObject = jsonElement.getAsJsonObject();
+
+            // Get the property values and add them to the List<String>
+            for (String key : jsonObject.keySet()) {
+                String value = jsonObject.get(key).getAsString();
+                search.add(value);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // Create the string label
         Label stringLabel = new Label(String.join(" • ", search));
@@ -72,6 +103,7 @@ public class ResultatsRecherche extends Application {
         // Create the root layout
         BorderPane root = new BorderPane();
         root.setTop(titleBar);
+        root.setBottom(stringLabel);
         root.setLeft(leftPane);
         root.setRight(rightPane);
 
