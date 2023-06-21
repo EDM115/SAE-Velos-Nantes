@@ -25,6 +25,7 @@ import javafx.util.Duration;
 import backend.AccueilB;
 import utils.StageDump;
 import utils.TitleBar;
+import utils.WindowDrag;
 
 public class Accueil extends Application {
     private double xOffset = 0;
@@ -32,6 +33,7 @@ public class Accueil extends Application {
     private AccueilB accueilB;
     private StageDump stageDump = new StageDump();
     private boolean firstTime = true;
+    private WindowDrag windowDrag;
 
     public static void main(String[] args) {
         launch(args);
@@ -156,15 +158,7 @@ public class Accueil extends Application {
         newStage.initStyle(StageStyle.UNDECORATED);
 
         // Implement window dragging functionality
-        root.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-
-        root.setOnMouseDragged(event -> {
-            newStage.setX(event.getScreenX() - xOffset);
-            newStage.setY(event.getScreenY() - yOffset);
-        });
+        windowDrag = new WindowDrag(root, newStage);
 
         // Add event listeners
         menuButton.setOnMouseClicked(event -> {
