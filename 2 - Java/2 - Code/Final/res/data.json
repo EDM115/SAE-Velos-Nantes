@@ -1,6 +1,8 @@
 {
-  "departure": "Calvaire Est",
-  "arrival": "Avenue de la Libération Nord",
-  "nbCyclistes": "8",
-  "temperature": "18.4"
+  "departure": "Avenue de la Libération Nord",
+  "arrival": "4",
+  "nbCyclistes": "Van Iseghem Nord",
+  "temperature": "54",
+  "anomalie": "41",
+  "anomalie2": "24.68"
 }

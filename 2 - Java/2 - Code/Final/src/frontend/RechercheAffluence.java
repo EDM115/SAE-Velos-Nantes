@@ -65,7 +65,7 @@ public class RechercheAffluence extends Application {
         for (String compteur : lesCompteurs) {
             departureStation.getItems().add(compteur);
         }
-        departureStation.setValue(departureStation.getItems().get(0));
+        //departureStation.setValue(departureStation.getItems().get(0));
         DatePicker datePicker = new DatePicker(LocalDate.now());
         Spinner<Integer> hourSpinner = new Spinner<>();
         Button searchButton = new Button("RECHERCHE");
