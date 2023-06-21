@@ -15,5 +15,6 @@
         "lib/javafx-swt.jar",
         "lib/jfoenix-9.0.9.jar",
         "lib/jfoenix-9.0.9-javadoc.jar",
+        "lib/mysql-connector-j-8.0.33.jar",
     ]
 }
