@@ -23,12 +23,15 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import backend.AccueilB;
+import utils.StageDump;
 import utils.TitleBar;
 
 public class Accueil extends Application {
     private double xOffset = 0;
     private double yOffset = 0;
     private AccueilB accueilB;
+    private StageDump stageDump = new StageDump();
+    private boolean firstTime = true;
 
     public static void main(String[] args) {
         launch(args);
@@ -36,9 +39,15 @@ public class Accueil extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        Stage newStage;
         // Import stuff
         accueilB = new AccueilB();
         TitleBar titleBarElement = new TitleBar();
+        if (firstTime) {
+            newStage = primaryStage;
+        } else {
+            newStage = stageDump.dump(primaryStage);
+        }
 
         // Create UI components
         JFXHamburger menuButton = new JFXHamburger();
@@ -119,7 +128,7 @@ public class Accueil extends Application {
         root.setBackground(new Background(new BackgroundFill(Color.web("#282a36"), CornerRadii.EMPTY, Insets.EMPTY)));
         root.setPadding(new Insets(10));
 
-        HBox titleBar = titleBarElement.createTitleBar(primaryStage, menuButton, minimizeButton, maximizeRestoreButton, closeButton, "Accueil");
+        HBox titleBar = titleBarElement.createTitleBar(newStage, menuButton, minimizeButton, maximizeRestoreButton, closeButton, "Accueil");
         VBox.setMargin(titleBar, new Insets(0, 0, 10, 0)); // Set margin for spacing below title bar
         root.getChildren().add(titleBar);
 
@@ -142,9 +151,9 @@ public class Accueil extends Application {
             e.printStackTrace();
         }
 
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Accueil");
-        primaryStage.initStyle(StageStyle.UNDECORATED);
+        newStage.setScene(scene);
+        newStage.setTitle("Accueil");
+        newStage.initStyle(StageStyle.UNDECORATED);
 
         // Implement window dragging functionality
         root.setOnMousePressed(event -> {
@@ -153,19 +162,23 @@ public class Accueil extends Application {
         });
 
         root.setOnMouseDragged(event -> {
-            primaryStage.setX(event.getScreenX() - xOffset);
-            primaryStage.setY(event.getScreenY() - yOffset);
+            newStage.setX(event.getScreenX() - xOffset);
+            newStage.setY(event.getScreenY() - yOffset);
         });
 
         // Add event listeners
         menuButton.setOnMouseClicked(event -> {
-            accueilB.start(primaryStage);
+            accueilB.start(newStage);
         });
 
         startButton.setOnAction(event -> {
-            accueilB.start(primaryStage);
+            accueilB.start(newStage);
         });
 
-        primaryStage.show();
+        newStage.show();
+    }
+
+    public void setFirstTime(boolean b) {
+        this.firstTime = b;
     }
 }

@@ -62,9 +62,9 @@ public class RechercheTrajet extends Application {
         Spinner<Integer> hourSpinner = new Spinner<>();
         Spinner<Integer> minuteSpinner = new Spinner<>();
         Button searchButton = new Button("RECHERCHE");
-        searchButton.setGraphic(createIcon("res/images/search.png"));
+        searchButton.setGraphic(createIcon("res/images/search_cl.png"));
         searchButton.setFont(Font.font("Roboto", FontWeight.BOLD, 16));
-        searchButton.setStyle("-fx-background-color: #4ecdc4; -fx-text-fill: #ffffff;");
+        searchButton.setStyle("-fx-background-color: #8be9fd; -fx-text-fill: #44475a;");
 
         // Set up the hour spinner
         SpinnerValueFactory<Integer> hourValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, LocalTime.now().getHour());
@@ -80,11 +80,12 @@ public class RechercheTrajet extends Application {
         root.setPadding(new Insets(20));
         root.setAlignment(Pos.CENTER);
         root.setVgap(20);
+        root.setHgap(10);
 
         // Add labels for UI components
-        Text departureLabel = new Text("Départ");
+        Text departureLabel = new Text("Station de départ");
         departureLabel.setFill(Color.WHITE);
-        Text arrivalLabel = new Text("Arrivée");
+        Text arrivalLabel = new Text("Station d'arrivée");
         arrivalLabel.setFill(Color.WHITE);
         Text dateLabel = new Text("Date");
         dateLabel.setFill(Color.WHITE);
@@ -109,7 +110,7 @@ public class RechercheTrajet extends Application {
         JFXButton maximizeRestoreButton = new JFXButton("⬜");
         TitleBar titleBarElement = new TitleBar();
         JFXHamburger menuButton = new JFXHamburger();
-        HBox titleBar = titleBarElement.createTitleBar(newStage, menuButton, minimizeButton, maximizeRestoreButton, closeButton, "Recherche de Trajet");
+        HBox titleBar = titleBarElement.createTitleBar(newStage, menuButton, minimizeButton, maximizeRestoreButton, closeButton, "Recherche de trajet");
 		
         // Create the root pane
         BorderPane rootPane = new BorderPane();
@@ -134,7 +135,7 @@ public class RechercheTrajet extends Application {
 
 		// Customize stage
 		newStage.initStyle(StageStyle.UNDECORATED);
-		newStage.setTitle("Recherche de Trajet");
+		newStage.setTitle("Recherche de trajet");
 		
 		// Set the root pane as the scene content
 		Scene scene = new Scene(rootPane, 400, 400);

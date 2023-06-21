@@ -11,6 +11,14 @@ public class MenuB {
     }
 
     private void setupButtonActions() {
+        menu.getHomeButton().setOnAction(event -> {
+            // Handle home button click
+            Accueil accueil = new Accueil();
+            accueil.setFirstTime(false);
+            accueil.start(this.menu.getPreviousStage());
+            menu.hide();
+        });
+
         menu.getOption1().setOnAction(event -> {
             // Handle option 1 button click
             RechercheTrajet rechercheTrajet = new RechercheTrajet();
@@ -18,14 +26,14 @@ public class MenuB {
             menu.hide();
         });
 
-        /* menu.getOption2().setOnAction(event -> {
+        menu.getOption2().setOnAction(event -> {
             // Handle option 2 button click
             RechercheAffluence rechercheAffluence = new RechercheAffluence();
-            rechercheAffluence.show();
+            rechercheAffluence.start(this.menu.getPreviousStage());
             menu.hide();
         });
 
-        menu.getOption3().setOnAction(event -> {
+        /* menu.getOption3().setOnAction(event -> {
             // Handle option 3 button click
             StationProche stationProche = new StationProche();
             stationProche.show();

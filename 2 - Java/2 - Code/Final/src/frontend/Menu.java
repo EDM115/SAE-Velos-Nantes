@@ -27,7 +27,8 @@ public class Menu extends Stage {
     private double xOffset = 0;
     private double yOffset = 0;
 
-    // Create dropdown options
+    // Create buttons
+    JFXButton homeButton = new JFXButton("Accueil");
     JFXButton option1 = new JFXButton("Recherche de trajet");
     JFXButton option2 = new JFXButton("Recherche d'affluence");
     JFXButton option3 = new JFXButton("Station la plus proche");
@@ -50,7 +51,9 @@ public class Menu extends Stage {
         //closeMenuButton.setGraphic(createIcon("res/images/cross.png"));
         closeMenuButton.setStyle("-fx-background-color: transparent; -fx-text-fill: #f8f8f2; -fx-font-size: 30px; -fx-font-weight: bold;");
 
-        // Set icons for dropdown options
+        // Set icons for buttons
+        homeButton.setGraphic(createIcon("res/images/home.png"));
+        homeButton.setStyle("-fx-text-fill: #f8f8f2");
         option1.setGraphic(createIcon("res/images/search.png"));
         option1.setStyle("-fx-text-fill: #f8f8f2");
         option2.setGraphic(createIcon("res/images/search.png"));
@@ -68,7 +71,7 @@ public class Menu extends Stage {
         menuLayout.setSpacing(10);
         menuLayout.setAlignment(Pos.CENTER);
         menuLayout.setPadding(new Insets(150));
-        menuLayout.getChildren().addAll(closeMenuButton, option1, option2, option3, option4, addDataButton, editDataButton);
+        menuLayout.getChildren().addAll(closeMenuButton, homeButton, option1, option2, option3, option4, addDataButton, editDataButton);
 
         // Create the popup
         JFXPopup popup = new JFXPopup(menuLayout);
@@ -158,6 +161,10 @@ public class Menu extends Stage {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public JFXButton getHomeButton() {
+        return this.homeButton;
     }
 
     public JFXButton getOption1() {
