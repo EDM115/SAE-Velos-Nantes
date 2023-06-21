@@ -1,12 +1,12 @@
 {
-  "departure": "50 Otages Sud",
-  "departureIndex": "3",
+  "departure": "50 Otages Nord",
+  "departureIndex": "0",
   "departureLat": "47.22",
   "departureLong": "-1.55504",
-  "arrival": "Madeleine Nord",
-  "arrivalIndex": "23",
-  "arrivalLat": "47.2115",
-  "arrivalLong": "-1.5528",
-  "nbCyclistes": "110",
-  "temperature": "16.45"
+  "arrival": "Ceineray Est",
+  "arrivalIndex": "9",
+  "arrivalLat": "47.2212",
+  "arrivalLong": "-1.55204",
+  "nbCyclistes": "25",
+  "temperature": "21.62"
 }
