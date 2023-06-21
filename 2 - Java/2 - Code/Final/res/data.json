@@ -1,7 +1,16 @@
 {
+<<<<<<< HEAD
   "departure": "Bd Malakoff Gare Sud",
   "arrival": "Calvaire Est",
   "nbCyclistes": "1",
   "temperature": "0.0",
   "anomalie": ""
+=======
+  "departure": "Avenue de la Libération Nord",
+  "arrival": "4",
+  "nbCyclistes": "Van Iseghem Nord",
+  "temperature": "54",
+  "anomalie": "41",
+  "anomalie2": "24.68"
+>>>>>>> 3c7adcbad4a10aad145e58798610274319409ae9
 }

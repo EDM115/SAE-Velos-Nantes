@@ -24,6 +24,7 @@ import com.google.gson.JsonObject;
 public class RechercheTrajetB extends Application {
 
     private ArrayList<String> lesCompteurs;
+    private ArrayList<Integer> lesIdCompteurs;
     private RechercheTrajet rechercheTrajet;
 
     public static void main(String[] args) {
@@ -46,15 +47,17 @@ public class RechercheTrajetB extends Application {
 
     public void lesCompteursBdd() {
         this.lesCompteurs = new ArrayList<String>();
+        this.lesIdCompteurs = new ArrayList<Integer>();
         ConnexionBdd connexionBdd = new ConnexionBdd();
 
         try {
-            String query =  "SELECT DISTINCT CONCAT(nomCompteur, sens) AS resultat FROM Compteur ORDER BY resultat;";
+            String query =  "SELECT DISTINCT CONCAT(nomCompteur, sens) AS resultat, idCompteur FROM Compteur ORDER BY resultat;";
             Statement statement = connexionBdd.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             while(resultSet.next()) {
                 this.lesCompteurs.add(resultSet.getString("resultat"));
+                this.lesIdCompteurs.add(resultSet.getInt("idCompteur"));
             }
 
         } catch (SQLException e) {
@@ -66,18 +69,71 @@ public class RechercheTrajetB extends Application {
         return this.lesCompteurs;
     }
 
+    public double[] getGeo(int idCompteur) {
+        double[] geo = new double[2];
+        ConnexionBdd connexionBdd = new ConnexionBdd();
+        try {
+            String query =  "SELECT coord_X, coord_Y FROM Compteur WHERE idCompteur = " + idCompteur + ";";
+            Statement statement = connexionBdd.getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while(resultSet.next()) {
+                geo[0] = resultSet.getDouble("coord_X");
+                geo[1] = resultSet.getDouble("coord_Y");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return geo;
+    }
+
+    public int getCompteurFromId(int index) {
+        String compteur = this.lesCompteurs.get(index);
+        String[] split = new String[2];
+        int lastIndex = compteur.lastIndexOf(" ");
+        if (lastIndex != -1) {
+            split[0] = compteur.substring(0, lastIndex);
+            split[1] = compteur.substring(lastIndex + 1);
+        } else {
+            // Handle the case when there is no space in the string
+            split[0] = compteur;
+            split[1] = "";
+        }
+        // bad database
+        compteur = "'" + split[0] + " '";
+
+        int id = 0;
+        ConnexionBdd connexionBdd = new ConnexionBdd();
+        try {
+            String query =  "SELECT idCompteur FROM Compteur WHERE nomCompteur = " + compteur + ";";
+            Statement statement = connexionBdd.getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while(resultSet.next()) {
+                id = resultSet.getInt("idCompteur");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
     public void setupButtonActions() {
         rechercheTrajet.getSearchButton().setOnAction(event -> {
             String departure = rechercheTrajet.getDeparture();
+            int departureIndex = rechercheTrajet.getDepartureIndex();
             String arrival = rechercheTrajet.getArrival();
+            int arrivalIndex = rechercheTrajet.getArrivalIndex();
             int hour = rechercheTrajet.getHour();
             LocalDate date = rechercheTrajet.getDate();
 
-            this.rechercherTrajet(departure, arrival, hour, date);
+            this.rechercherTrajet(departure, departureIndex, arrival, arrivalIndex, hour, date);
         });
     }
 
-    public void rechercherTrajet(String departure, String arrival, int hour, LocalDate date) {
+    public void rechercherTrajet(String departure, int departureIndex, String arrival, int arrivalIndex, int hour, LocalDate date) {
         try {
             String[] split = new String[2];
             int lastIndex = departure.lastIndexOf(" ");
@@ -154,21 +210,28 @@ public class RechercheTrajetB extends Application {
             System.out.println("Température : " + temperature);
             System.out.println("Anomalie à " + departure + " : " + anomalie);
             System.out.println("Anomalie à " + arrival + " : " + anomalie2);
+            System.out.println("idCompteurDepart : " + getCompteurFromId(departureIndex));
+            System.out.println("idCompteurArrivee : " + getCompteurFromId(arrivalIndex));
+            System.out.println("géolocation départ : " + getGeo(getCompteurFromId(departureIndex))[0] + ", " + getGeo(getCompteurFromId(departureIndex))[1]);
+            System.out.println("géolocation arrivée : " + getGeo(getCompteurFromId(arrivalIndex))[0] + ", " + getGeo(getCompteurFromId(arrivalIndex))[1]);
 
             // add all data to a String[], including the departure and arrival
-            String[] data = new String[6];
+            String[] data = new String[8];
             data[0] = departure;
-            data[1] = arrival;
-            data[2] = Integer.toString(nbCyclistes + nbCyclistes2);
-            data[3] = Double.toString(temperature);
-            data[4] = anomalie;
-            data[5] = anomalie2;
+            data[1] = departureIndex + "";
+            data[2] = arrival;
+            data[3] = arrivalIndex + "";
+            data[4] = Integer.toString(nbCyclistes + nbCyclistes2);
+            data[5] = Double.toString(temperature);
+            data[6] = anomalie;
+            data[7] = anomalie2;
 
             File file = writeData(dataToJson(data));
 
             // start a frontend.ResultatsRecherche with these results
             ResultatsRecherche resultatsRecherche = new ResultatsRecherche(true, file);
             resultatsRecherche.start(this.rechercheTrajet.getStage());
+            this.rechercheTrajet.getStage().hide();
 
         } catch (SQLSyntaxErrorException e) {
             System.err.println("\u001B[31mERREUR\u001B[0m");

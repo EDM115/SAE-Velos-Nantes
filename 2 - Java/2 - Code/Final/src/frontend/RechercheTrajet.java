@@ -50,7 +50,9 @@ public class RechercheTrajet extends Application {
     private WindowDrag windowDrag;
     Button searchButton = new Button("RECHERCHE");
     String departure;
+    int departureIndex;
     String arrival;
+    int arrivalIndex;
     int hour;
     LocalDate date;
     Stage newStage;
@@ -105,13 +107,13 @@ public class RechercheTrajet extends Application {
         for (String compteur : lesCompteurs) {
             departureStation.getItems().add(compteur);
         }
-        departureStation.setValue(departureStation.getItems().get(0));
+        //departureStation.setValue(departureStation.getItems().get(0));
         ComboBox<String> arrivalStation = new ComboBox<>();
         //arrivalStation.getItems().addAll("Station A", "Station B", "Station C");
         for (String compteur : lesCompteurs) {
             arrivalStation.getItems().add(compteur);
         }
-        arrivalStation.setValue(arrivalStation.getItems().get(0));
+        //arrivalStation.setValue(arrivalStation.getItems().get(0));
         DatePicker datePicker = new DatePicker(LocalDate.now());
         Spinner<Integer> hourSpinner = new Spinner<>();
         /* searchButton.setOnAction(event -> {
@@ -198,9 +200,11 @@ public class RechercheTrajet extends Application {
         // dynamically updates the values of the instance variables departure, arrival, date, hour everytime the user changes one of the ComboBoxes/Spinners/DatePicker
         departureStation.valueProperty().addListener((observable, oldValue, newValue) -> {
             departure = newValue;
+            departureIndex = departureStation.getSelectionModel().getSelectedIndex();
         });
         arrivalStation.valueProperty().addListener((observable, oldValue, newValue) -> {
             arrival = newValue;
+            arrivalIndex = arrivalStation.getSelectionModel().getSelectedIndex();
         });
         datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             date = newValue;
@@ -239,8 +243,16 @@ public class RechercheTrajet extends Application {
         return this.departure;
     }
 
+    public int getDepartureIndex() {
+        return this.departureIndex;
+    }
+
     public String getArrival() {
         return this.arrival;
+    }
+
+    public int getArrivalIndex() {
+        return this.arrivalIndex;
     }
 
     public LocalDate getDate() {
