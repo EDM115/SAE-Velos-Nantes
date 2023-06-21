@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Spinner;
+import javafx.scene.control.Spinner; 
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import backend.RechercheAffluenceB;
+import backend.RechercheTrajetB;
 import utils.TitleBar;
 import utils.StageDump;
 
@@ -30,6 +31,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -46,20 +48,32 @@ public class RechercheAffluence extends Application {
 		// copy primaryStage to newStage (new object, not a reference)
 		Stage newStage = stageDump.dump(primaryStage);
         // Import stuff
-		RechercheAffluenceB rechercheAffluenceB = new RechercheAffluenceB();
+		RechercheAffluenceB rechercheAffluenceB = new RechercheAffluenceB(this);
         try {
             Font.loadFont(new File("res/fonts/Roboto/Roboto-Regular.ttf").toURI().toURL().toExternalForm(), 12);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
 
+        rechercheAffluenceB.lesCompteursBdd();
+        ArrayList<String> lesCompteurs = rechercheAffluenceB.getLesCompteurs();
+
         // Create UI components
         ComboBox<String> departureStation = new ComboBox<>();
+        for (String compteur : lesCompteurs) {
+            departureStation.getItems().add(compteur);
+        }
         departureStation.getItems().addAll("Station 1", "Station 2", "Station 3");
         DatePicker datePicker = new DatePicker(LocalDate.now());
         Spinner<Integer> hourSpinner = new Spinner<>();
         Spinner<Integer> minuteSpinner = new Spinner<>();
         Button searchButton = new Button("RECHERCHE");
+        searchButton.setOnAction(event -> {
+            String departure = departureStation.getValue();
+            int hour = hourSpinner.getValue();
+            LocalDate date = datePicker.getValue();
+            rechercheAffluenceB.rechercherAffluence(departure, hour, date);
+        });
         searchButton.setGraphic(createIcon("res/images/search_cl.png"));
         searchButton.setFont(Font.font("Roboto", FontWeight.BOLD, 16));
         searchButton.setStyle("-fx-background-color: #8be9fd; -fx-text-fill: #44475a;");

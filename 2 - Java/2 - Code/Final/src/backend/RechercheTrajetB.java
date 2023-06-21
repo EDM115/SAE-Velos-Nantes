@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import utils.ConnexionBdd;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLSyntaxErrorException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -134,9 +135,11 @@ public class RechercheTrajetB extends Application {
             System.out.println("Anomalie à " + arrival + " : " + anomalie2);
 
             
+        } catch (SQLSyntaxErrorException e) {
+            System.out.println("\u001B[31mERREUR\u001B[0m");
         } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            System.out.println("\u001B[31mREQUETE IMPOSSIBLE\u001B[0m");
+        } 
     }
 }
 
