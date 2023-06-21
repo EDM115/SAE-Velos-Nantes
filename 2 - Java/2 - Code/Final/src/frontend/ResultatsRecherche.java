@@ -15,6 +15,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import utils.StageDump;
 import utils.TitleBar;
 import utils.WindowDrag;
@@ -79,7 +81,12 @@ public class ResultatsRecherche extends Application {
         stringLabel.setStyle("-fx-font-weight: bold;");
 
         // Create the left side (Google Maps integration)
-        Pane leftPane = new Pane(); // Placeholder for Google Maps integration
+        WebView webView = new WebView();
+        WebEngine webEngine = webView.getEngine();
+        webEngine.load("https://maps.google.com");
+
+        VBox leftPane = new VBox(webView);
+        leftPane.setAlignment(Pos.CENTER);
 
         // Create the right side (Titles)
         VBox rightPane = new VBox(10);
