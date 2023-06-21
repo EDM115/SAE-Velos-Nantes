@@ -161,11 +161,9 @@ public class RechercheTrajetB extends Application {
             resultatsRecherche.start(this.rechercheTrajet.getStage());
 
             
-        } catch (SQLSyntaxErrorException e) {
-            System.out.println("\u001B[31mERREUR\u001B[0m");
         } catch (SQLException e) {
-            System.out.println("\u001B[31mREQUETE IMPOSSIBLE\u001B[0m");
-        } 
+            e.printStackTrace();
+        }
     }
 }
 
