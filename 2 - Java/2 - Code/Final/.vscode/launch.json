@@ -8,13 +8,6 @@
     "configurations": [
         {
             "type": "java",
-            "name": "RechercheTrajetB",
-            "request": "launch",
-            "mainClass": "backend.RechercheTrajetB",
-            "projectName": "Final_b1a5ed1d"
-        },
-        {
-            "type": "java",
             "name": "Launch App",
             "request": "launch",
             "mainClass": "frontend.Accueil",

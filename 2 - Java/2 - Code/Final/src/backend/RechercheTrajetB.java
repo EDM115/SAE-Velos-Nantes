@@ -65,7 +65,7 @@ public class RechercheTrajetB extends Application {
             } else {
                 // Handle the case when there is no space in the string
                 split[0] = departure;
-                split[1] = ""; // or handle it as needed
+                split[1] = "";
             }
             // bad database
             split[0] = split[0] + " ";
@@ -83,7 +83,7 @@ public class RechercheTrajetB extends Application {
             } else {
                 // Handle the case when there is no space in the string
                 split2[0] = arrival;
-                split2[1] = ""; // or handle it as needed
+                split2[1] = "";
             }
             // bad database
             split2[0] = split2[0] + " ";
