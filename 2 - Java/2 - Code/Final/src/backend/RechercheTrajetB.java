@@ -92,22 +92,47 @@ public class RechercheTrajetB extends Application {
 
             String query2 = "SELECT h" + ajout0 + hour + " FROM Comptage, Compteur, DateInfo WHERE leCompteur = idCompteur AND laDate = dateComptage AND nomCompteur = '" + split2[0] + "' AND sens = '" + split2[1] + "'" + " AND dateComptage = '" + date + "';";
 
+            String query3 = "SELECT presenceAnomalie FROM Comptage, Compteur, DateInfo WHERE leCompteur = idCompteur AND laDate = dateComptage AND nomCompteur = '" + split[0] + "' AND sens = '" + split[1] + "'" + " AND dateComptage = '" + date + "';";
+
+            String query4 = "SELECT presenceAnomalie FROM Comptage, Compteur, DateInfo WHERE leCompteur = idCompteur AND laDate = dateComptage AND nomCompteur = '" + split2[0] + "' AND sens = '" + split2[1] + "'" + " AND dateComptage = '" + date + "';";
+
             ConnexionBdd connexionBdd = new ConnexionBdd();
             Statement statement = connexionBdd.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             Statement statement2 = connexionBdd.getConnection().createStatement();
             ResultSet resultSet2 = statement2.executeQuery(query2);
+            Statement statement3 = connexionBdd.getConnection().createStatement();
+            ResultSet resultSet3 = statement3.executeQuery(query3);
+            Statement statement4 = connexionBdd.getConnection().createStatement();
+            ResultSet resultSet4 = statement4.executeQuery(query4);
             int nbCyclistes = 0;
             int nbCyclistes2 = 0;
+            double temperature = 0;
+            String anomalie = "";
+            String anomalie2 = "";
 
             while(resultSet.next()) {
                 nbCyclistes = resultSet.getInt("h" + ajout0 + hour);
+                temperature = resultSet.getDouble("tempMoy");
             }
 
             while(resultSet2.next()) {
                 nbCyclistes2 = resultSet2.getInt("h" + ajout0 + hour);
             }
-            System.out.println("nbCyclistes : " + (nbCyclistes + nbCyclistes2));
+
+            while(resultSet3.next()) {
+                anomalie = resultSet3.getString("presenceAnomalie");
+            }
+
+            while(resultSet4.next()) {
+                anomalie2 = resultSet4.getString("presenceAnomalie");
+            }
+
+            System.out.println("Affluence estimée : " + (nbCyclistes + nbCyclistes2));
+            System.out.println("Température : " + temperature);
+            System.out.println("Anomalie à " + departure + " : " + anomalie);
+            System.out.println("Anomalie à " + arrival + " : " + anomalie2);
+
             
         } catch (SQLException e) {
             e.printStackTrace();
