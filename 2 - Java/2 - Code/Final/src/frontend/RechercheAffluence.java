@@ -66,7 +66,6 @@ public class RechercheAffluence extends Application {
         departureStation.getItems().addAll("Station 1", "Station 2", "Station 3");
         DatePicker datePicker = new DatePicker(LocalDate.now());
         Spinner<Integer> hourSpinner = new Spinner<>();
-        Spinner<Integer> minuteSpinner = new Spinner<>();
         Button searchButton = new Button("RECHERCHE");
         searchButton.setOnAction(event -> {
             String departure = departureStation.getValue();
@@ -81,10 +80,6 @@ public class RechercheAffluence extends Application {
         // Set up the hour spinner
         SpinnerValueFactory<Integer> hourValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, LocalTime.now().getHour());
         hourSpinner.setValueFactory(hourValueFactory);
-
-        // Set up the minute spinner
-        SpinnerValueFactory<Integer> minuteValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, LocalTime.now().getMinute());
-        minuteSpinner.setValueFactory(minuteValueFactory);
 
         // Set up the layout
         GridPane root = new GridPane();
@@ -109,7 +104,6 @@ public class RechercheAffluence extends Application {
         root.add(datePicker, 1, 1);
         root.add(timeLabel, 0, 2);
         root.add(hourSpinner, 1, 2);
-        root.add(minuteSpinner, 2, 2);
         root.add(searchButton, 1, 3);
 		
         // Create the title bar
