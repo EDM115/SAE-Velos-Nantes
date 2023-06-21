@@ -34,15 +34,15 @@ import backend.ResultatsRechercheB;
 public class ResultatsRecherche extends Application {
 
     private StageDump stageDump = new StageDump();
-	private boolean trajet;
+    private boolean trajet;
     private File data;
     private WindowDrag windowDrag;
     private ResultatsRechercheB resultatsRechercheB = new ResultatsRechercheB();
 
-	public ResultatsRecherche(boolean trajet, File data) {
-		this.trajet = trajet;
-		this.data = data;
-	}
+    public ResultatsRecherche(boolean trajet, File data) {
+        this.trajet = trajet;
+        this.data = data;
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -57,10 +57,10 @@ public class ResultatsRecherche extends Application {
         HBox titleBar = titleBarElement.createTitleBar(newStage, menuButton, minimizeButton, maximizeRestoreButton, closeButton, "Recherche d'affluence");
 
         // used later
-        double departureLat = 0;
-        double departureLon = 0;
-        double arrivalLat = 0;
-        double arrivalLon = 0;
+        String departureLat = "";
+        String departureLon = "";
+        String arrivalLat = "";
+        String arrivalLon = "";
 
         // read the JSON file and get its content this way :
         // for property in the file, add its value to the List<String> search
@@ -80,14 +80,14 @@ public class ResultatsRecherche extends Application {
             for (String key : jsonObject.keySet()) {
                 String value = jsonObject.get(key).getAsString();
                 search.add(value);
+                System.out.println(key + " : " + value);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        // add the departure and arrival coordinates to thieir respective variables from the json
-
-        try (Reader reader = new FileReader("res/data.json")) {
+        // add the departure and arrival coordinates to their respective variables from the json
+        /* try (Reader reader = new FileReader("res/data.json")) {
             // Parse the JSON file into a JsonElement
             JsonElement jsonElement = JsonParser.parseReader(reader);
 
@@ -98,7 +98,7 @@ public class ResultatsRecherche extends Application {
             for (String key : jsonObject.keySet()) {
                 String value = jsonObject.get(key).getAsString();
                 if (key.equals("departureLat")) {
-                    departureLat = Double.parseDouble(value);
+                                        departureLat = Double.parseDouble(value);
                 } else if (key.equals("departureLon")) {
                     departureLon = Double.parseDouble(value);
                 } else if (key.equals("arrivalLat")) {
@@ -109,7 +109,12 @@ public class ResultatsRecherche extends Application {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        } */
+
+        departureLat = search.get(2);
+        departureLon = search.get(3);
+        arrivalLat = search.get(6);
+        arrivalLon = search.get(7);
 
         // Create the string label
         Label stringLabel = new Label(String.join(" • ", search));
@@ -143,6 +148,47 @@ public class ResultatsRecherche extends Application {
             }
         }
 
+        // Update the right side with dynamic content
+        rightPane.getChildren().clear();
+
+        // Présence d'anomalies ?
+        Label anomaliesLabel = new Label("Présence d'anomalies ?");
+        anomaliesLabel.setStyle("-fx-font-weight: bold;");
+        rightPane.getChildren().add(anomaliesLabel);
+        try {
+            rightPane.getChildren().add(new Label(search.get(10)));
+        } catch (IndexOutOfBoundsException e) {
+            rightPane.getChildren().add(new Label("Aucune"));
+        }
+
+        // Affluence estimée :
+        Label affluenceLabel = new Label("Affluence estimée :");
+        affluenceLabel.setStyle("-fx-font-weight: bold;");
+        rightPane.getChildren().add(affluenceLabel);
+        rightPane.getChildren().add(new Label(search.get(8) + " cyclistes le long du parcours"));
+
+        // Température :
+        Label temperatureLabel = new Label("Température :");
+        temperatureLabel.setStyle("-fx-font-weight: bold;");
+        rightPane.getChildren().add(temperatureLabel);
+        rightPane.getChildren().add(new Label(search.get(9) + "°C"));
+
+        // Distance :
+        Label distanceLabel = new Label("Distance :");
+        distanceLabel.setStyle("-fx-font-weight: bold;");
+        rightPane.getChildren().add(distanceLabel);
+        // Replace "dist" with your actual variable for distance
+        double dist = 10.5;
+        rightPane.getChildren().add(new Label(String.valueOf(dist) + " m"));
+
+        // Durée estimée :
+        Label dureeLabel = new Label("Durée estimée :");
+        dureeLabel.setStyle("-fx-font-weight: bold;");
+        rightPane.getChildren().add(dureeLabel);
+        // Replace "time" with your actual variable for duration
+        int time = 45;
+        rightPane.getChildren().add(new Label(String.valueOf(time)));
+
         // Create the root layout
         BorderPane root = new BorderPane();
         root.setTop(titleBar);
@@ -157,22 +203,27 @@ public class ResultatsRecherche extends Application {
         Scene scene = new Scene(scrollPane, 800, 600, Color.WHITE);
         newStage.setScene(scene);
         newStage.setTitle("Résultats de recherche");
-        
+
         windowDrag = new WindowDrag(root, newStage);
 
         menuButton.setOnMouseClicked(event -> {
             resultatsRechercheB.start(newStage);
         });
-        
+
         // Apply the CSS styling
         try {
-			scene.getStylesheets().add(new File("res/style/style.css").toURI().toURL().toExternalForm());
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
+            scene.getStylesheets().add(new File("res/style/style.css").toURI().toURL().toExternalForm());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
 
         // Show the stage
         newStage.show();
+
+        // show the url every time it changes
+        webEngine.locationProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println(newValue);
+        });
     }
 
     public static void main(String[] args) {
