@@ -1,8 +1,12 @@
 {
-  "departure": "Avenue de la Libération Nord",
-  "arrival": "4",
-  "nbCyclistes": "Van Iseghem Nord",
-  "temperature": "54",
-  "anomalie": "41",
-  "anomalie2": "24.68"
+  "departure": "50 Otages Sud",
+  "departureIndex": "3",
+  "departureLat": "47.22",
+  "departureLong": "-1.55504",
+  "arrival": "Madeleine Nord",
+  "arrivalIndex": "23",
+  "arrivalLat": "47.2115",
+  "arrivalLong": "-1.5528",
+  "nbCyclistes": "110",
+  "temperature": "16.45"
 }

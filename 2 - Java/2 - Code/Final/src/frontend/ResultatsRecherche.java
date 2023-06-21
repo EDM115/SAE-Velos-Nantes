@@ -53,6 +53,12 @@ public class ResultatsRecherche extends Application {
         JFXHamburger menuButton = new JFXHamburger();
         HBox titleBar = titleBarElement.createTitleBar(newStage, menuButton, minimizeButton, maximizeRestoreButton, closeButton, "Recherche d'affluence");
 
+        // used later
+        double departureLat = 0;
+        double departureLon = 0;
+        double arrivalLat = 0;
+        double arrivalLon = 0;
+
         // read the JSON file and get its content this way :
         // for property in the file, add its value to the List<String> search
 
@@ -76,6 +82,32 @@ public class ResultatsRecherche extends Application {
             e.printStackTrace();
         }
 
+        // add the departure and arrival coordinates to thieir respective variables from the json
+
+        try (Reader reader = new FileReader("res/data.json")) {
+            // Parse the JSON file into a JsonElement
+            JsonElement jsonElement = JsonParser.parseReader(reader);
+
+            // Convert the JsonElement to a JsonObject
+            JsonObject jsonObject = jsonElement.getAsJsonObject();
+
+            // Get the property values and add them to the List<String>
+            for (String key : jsonObject.keySet()) {
+                String value = jsonObject.get(key).getAsString();
+                if (key.equals("departureLat")) {
+                    departureLat = Double.parseDouble(value);
+                } else if (key.equals("departureLon")) {
+                    departureLon = Double.parseDouble(value);
+                } else if (key.equals("arrivalLat")) {
+                    arrivalLat = Double.parseDouble(value);
+                } else if (key.equals("arrivalLon")) {
+                    arrivalLon = Double.parseDouble(value);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         // Create the string label
         Label stringLabel = new Label(String.join(" • ", search));
         stringLabel.setStyle("-fx-font-weight: bold;");
@@ -83,7 +115,8 @@ public class ResultatsRecherche extends Application {
         // Create the left side (Google Maps integration)
         WebView webView = new WebView();
         WebEngine webEngine = webView.getEngine();
-        webEngine.load("https://maps.google.com");
+        String url = "https://www.google.com/maps/dir/?api=1&origin=" + departureLat + "," + departureLon + "&destination=" + arrivalLat + "," + arrivalLon + "&travelmode=bicycling";
+        webEngine.load(url);
 
         VBox leftPane = new VBox(webView);
         leftPane.setAlignment(Pos.CENTER);

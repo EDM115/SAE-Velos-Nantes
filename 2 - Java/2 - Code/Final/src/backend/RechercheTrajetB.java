@@ -216,15 +216,19 @@ public class RechercheTrajetB extends Application {
             System.out.println("géolocation arrivée : " + getGeo(getCompteurFromId(arrivalIndex))[0] + ", " + getGeo(getCompteurFromId(arrivalIndex))[1]);
 
             // add all data to a String[], including the departure and arrival
-            String[] data = new String[8];
+            String[] data = new String[12];
             data[0] = departure;
             data[1] = departureIndex + "";
-            data[2] = arrival;
-            data[3] = arrivalIndex + "";
-            data[4] = Integer.toString(nbCyclistes + nbCyclistes2);
-            data[5] = Double.toString(temperature);
-            data[6] = anomalie;
-            data[7] = anomalie2;
+            data[2] = getGeo(getCompteurFromId(departureIndex))[0] + "";
+            data[3] = getGeo(getCompteurFromId(departureIndex))[1] + "";
+            data[4] = arrival;
+            data[5] = arrivalIndex + "";
+            data[6] = getGeo(getCompteurFromId(arrivalIndex))[0] + "";
+            data[7] = getGeo(getCompteurFromId(arrivalIndex))[1] + "";
+            data[8] = Integer.toString(nbCyclistes + nbCyclistes2);
+            data[9] = Double.toString(temperature);
+            data[10] = anomalie;
+            data[11] = anomalie2;
 
             File file = writeData(dataToJson(data));
 
@@ -248,11 +252,17 @@ public class RechercheTrajetB extends Application {
 
         // add the data to the JSONObject
         jsonObject.addProperty("departure", data[0]);
-        jsonObject.addProperty("arrival", data[1]);
-        jsonObject.addProperty("nbCyclistes", data[2]);
-        jsonObject.addProperty("temperature", data[3]);
-        jsonObject.addProperty("anomalie", data[4]);
-        jsonObject.addProperty("anomalie2", data[5]);
+        jsonObject.addProperty("departureIndex", data[1]);
+        jsonObject.addProperty("departureLat", data[2]);
+        jsonObject.addProperty("departureLong", data[3]);
+        jsonObject.addProperty("arrival", data[4]);
+        jsonObject.addProperty("arrivalIndex", data[5]);
+        jsonObject.addProperty("arrivalLat", data[6]);
+        jsonObject.addProperty("arrivalLong", data[7]);
+        jsonObject.addProperty("nbCyclistes", data[8]);
+        jsonObject.addProperty("temperature", data[9]);
+        jsonObject.addProperty("anomalie", data[10]);
+        jsonObject.addProperty("anomalie2", data[11]);
 
         return jsonObject;
     }
