@@ -30,7 +30,9 @@ public class RechercheTrajetB extends Application {
         ConnexionBdd connexionBdd = new ConnexionBdd();
 
         try {
-            String query = "SELECT DISTINCT nomCompteur FROM Compteur ORDER BY nomCompteur";
+            String query =  "SELECT CONCAT(nomCompteur, '', sens) AS resultat_concatene\r\n" +
+                            "FROM Compteur\r\n" + 
+                            "ORDER BY nomCompteur;";
             Statement statement = connexionBdd.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 

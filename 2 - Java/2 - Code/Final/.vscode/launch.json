@@ -6,13 +6,6 @@
     "configurations": [
         {
             "type": "java",
-            "name": "ConnexionBdd",
-            "request": "launch",
-            "mainClass": "utils.ConnexionBdd",
-            "projectName": "Final_b1a5ed1d"
-        },
-        {
-            "type": "java",
             "name": "Launch App",
             "request": "launch",
             "mainClass": "frontend.Accueil",
