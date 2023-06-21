@@ -1,14 +1,7 @@
 {
-<<<<<<< HEAD
-  "departure": "Bonduelle sud",
+  "departure": "Bd Malakoff Gare Sud",
   "arrival": "Calvaire Est",
-  "nbCyclistes": "3",
-  "temperature": "10.42",
-  "anomalie": "Forte"
-=======
-  "departure": "Calvaire Est",
-  "arrival": "Avenue de la Libération Nord",
-  "nbCyclistes": "8",
-  "temperature": "18.4"
->>>>>>> baea16c95d8e68cb474c340b4746d3344a1de6c9
+  "nbCyclistes": "1",
+  "temperature": "0.0",
+  "anomalie": ""
 }
