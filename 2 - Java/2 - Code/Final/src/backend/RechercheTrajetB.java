@@ -97,13 +97,15 @@ public class RechercheTrajetB extends Application {
             ResultSet resultSet = statement.executeQuery(query);
             Statement statement2 = connexionBdd.getConnection().createStatement();
             ResultSet resultSet2 = statement2.executeQuery(query2);
+            int nbCyclistes = 0;
+            int nbCyclistes2 = 0;
 
             while(resultSet.next()) {
-                int nbCyclistes = resultSet.getInt("h" + ajout0 + hour);
+                nbCyclistes = resultSet.getInt("h" + ajout0 + hour);
             }
 
             while(resultSet2.next()) {
-                int nbCyclistes2 = resultSet2.getInt("h" + ajout0 + hour);
+                nbCyclistes2 = resultSet2.getInt("h" + ajout0 + hour);
             }
             System.out.println("nbCyclistes : " + (nbCyclistes + nbCyclistes2));
             
