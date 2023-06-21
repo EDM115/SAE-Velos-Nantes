@@ -102,7 +102,6 @@ public class RechercheTrajet extends Application {
         // Create UI components
         // add the strings from lesCompteurs to the departureStation and arrivalStation ComboBoxes
         ComboBox<String> departureStation = new ComboBox<>();
-        //departureStation.getItems().addAll("Station 1", "Station 2", "Station 3");
         for (String compteur : lesCompteurs) {
             departureStation.getItems().add(compteur);
         }

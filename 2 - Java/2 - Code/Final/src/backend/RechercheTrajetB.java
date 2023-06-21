@@ -6,12 +6,20 @@ import frontend.ResultatsRecherche;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import utils.ConnexionBdd;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLSyntaxErrorException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 
 public class RechercheTrajetB extends Application {
 
@@ -156,16 +164,60 @@ public class RechercheTrajetB extends Application {
             data[4] = anomalie;
             data[5] = anomalie2;
 
+            File file = writeData(dataToJson(data));
+
             // start a frontend.ResultatsRecherche with these results
-            ResultatsRecherche resultatsRecherche = new ResultatsRecherche(true, data);
+            ResultatsRecherche resultatsRecherche = new ResultatsRecherche(true, file);
             resultatsRecherche.start(this.rechercheTrajet.getStage());
 
             
         } catch (SQLSyntaxErrorException e) {
-            System.out.println("\u001B[31mERREUR\u001B[0m");
+            System.err.println("\u001B[31mERREUR\u001B[0m");
         } catch (SQLException e) {
-            System.out.println("\u001B[31mREQUETE IMPOSSIBLE\u001B[0m");
-        } 
+            System.err.println("\u001B[31mREQUETE IMPOSSIBLE\u001B[0m");
+        }
+    }
+
+    // writeData(String[] data), takes the data and write it in a readable JSON file
+    public JsonObject dataToJson(String[] data) {
+        // create a new JSONObject
+        JsonObject jsonObject = new JsonObject();
+
+        // add the data to the JSONObject
+        jsonObject.addProperty("departure", data[0]);
+        jsonObject.addProperty("arrival", data[1]);
+        jsonObject.addProperty("nbCyclistes", data[2]);
+        jsonObject.addProperty("temperature", data[3]);
+        jsonObject.addProperty("anomalie", data[4]);
+        jsonObject.addProperty("anomalie2", data[5]);
+
+        return jsonObject;
+    }
+
+    public File writeData(JsonObject jsonObject) {
+        // Create a new JSON file
+        File file = new File("res/data.json");
+
+        try {
+            // Create a Gson instance
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+            // Convert the JsonObject to a JSON string
+            String jsonString = gson.toJson(jsonObject);
+
+            // Create a FileWriter
+            FileWriter fileWriter = new FileWriter(file);
+
+            // Write the JSON string to the file
+            fileWriter.write(jsonString);
+
+            // Close the FileWriter
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return file;
     }
 }
 
