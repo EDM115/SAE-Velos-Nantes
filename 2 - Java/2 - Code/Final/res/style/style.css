@@ -4,5 +4,20 @@
 
 
 .jfx-hamburger StackPane {
-	-fx-background-color: #f8f8f2;
+    -fx-background-color: #f8f8f2;
+}
+
+.jfx-toggle-button {
+    -jfx-toggle-color: #bd93f9;
+    -jfx-untoggle-color: #f8f8f2;
+    -jfx-toggle-line-color: #a88ad2;
+    -jfx-untoggle-line-color: #979797;
+}
+
+.jfx-toggle-button .jfx-rippler {
+    -jfx-rippler-fill: #a88ad2;
+}
+
+.jfx-toggle-button:selected .jfx-rippler {
+    -jfx-rippler-fill: #cba9fb;
 }

@@ -5,6 +5,7 @@
         "${env:JAVAFX}/**/*.jar",
         "${workspaceFolder}/lib/*.jar",
         "${workspaceFolder}/lib/**/*.jar",
+        "lib/gson-2.10.1.jar",
         "lib/javafx.base.jar",
         "lib/javafx.controls.jar",
         "lib/javafx.fxml.jar",

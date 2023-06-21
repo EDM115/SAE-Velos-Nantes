@@ -5,23 +5,28 @@ import java.net.MalformedURLException;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
+import com.jfoenix.controls.JFXToggleButton;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.beans.binding.Bindings;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.application.Platform;
 
 import backend.MenuB;
 import utils.TitleBar;
+import utils.GlobalVar;
 
 public class Menu extends Stage {
     private double xOffset = 0;
@@ -36,7 +41,7 @@ public class Menu extends Stage {
     JFXButton addDataButton = new JFXButton("Saisie de données");
     JFXButton editDataButton = new JFXButton("Modification de données");
     Stage previousStage;
-    // /!\ Add accueil icon /!\
+    GlobalVar globalVar = new GlobalVar();
 
     public Menu(Stage previousStage) {
         this.previousStage = previousStage;
@@ -67,11 +72,26 @@ public class Menu extends Stage {
         editDataButton.setGraphic(createIcon("res/images/pencil.png"));
         editDataButton.setStyle("-fx-text-fill: #f8f8f2");
 
+        Text adminLabel = new Text("Administrateur");
+        adminLabel.setFill(Color.web("#f8f8f2"));
+
+        // Create the toggle button
+        JFXToggleButton adminToggle = new JFXToggleButton();
+        // Set the initial state of the toggle button based on the value of 'admin' variable
+        adminToggle.setSelected(globalVar.isAdmin());
+        adminToggle.getStyleClass().add("jfx-toggle-button");
+
+        // Create an HBox to hold the label and toggle button
+        HBox adminToggleContainer = new HBox(10);
+        adminToggleContainer.setAlignment(Pos.CENTER);
+        adminToggleContainer.getChildren().addAll(adminLabel, adminToggle);
+
         VBox menuLayout = new VBox();
         menuLayout.setSpacing(10);
         menuLayout.setAlignment(Pos.CENTER);
         menuLayout.setPadding(new Insets(150));
-        menuLayout.getChildren().addAll(closeMenuButton, homeButton, option1, option2, option3, option4, addDataButton, editDataButton);
+        menuLayout.getChildren().addAll(closeMenuButton, homeButton, option1, option2, option3, option4, addDataButton, editDataButton, adminToggleContainer);
+
 
         // Create the popup
         JFXPopup popup = new JFXPopup(menuLayout);
@@ -146,6 +166,11 @@ public class Menu extends Stage {
             event.consume();
             hide();
             previousStage.show();
+        });
+
+        // Handle toggle button event
+        adminToggle.setOnAction(event -> {
+            globalVar.setAdmin(adminToggle.isSelected());
         });
     }
 
