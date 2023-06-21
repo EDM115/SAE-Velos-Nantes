@@ -1,6 +1,7 @@
 {
-  "departure": "Avenue de la Libération Nord",
-  "arrival": "Avenue de la Libération Sud",
-  "nbCyclistes": "7",
-  "temperature": "17.58"
+  "departure": "Bonduelle sud",
+  "arrival": "Calvaire Est",
+  "nbCyclistes": "3",
+  "temperature": "10.42",
+  "anomalie": "Forte"
 }
