@@ -10,7 +10,7 @@ public class ConnexionBdd {
 
     public ConnexionBdd() {
         try {
-            this.connexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/sae", "root", "#dElOpA_83/");
+            this.connexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/bd_velos_nantes", "root", "basolympe2004");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
