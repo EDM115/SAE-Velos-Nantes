@@ -1,10 +1,14 @@
 package frontend;
 
+import com.jfoenix.controls.JFXSpinner;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -25,12 +29,13 @@ import javafx.stage.StageStyle;
 import backend.RechercheTrajetB;
 import utils.TitleBar;
 import utils.StageDump;
-import utils.
+import utils.ConnexionBdd;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -45,9 +50,42 @@ public class RechercheTrajet extends Application {
     @Override
     public void start(Stage primaryStage) {
 		// copy primaryStage to newStage (new object, not a reference)
-		Stage newStage = stageDump.dump(primaryStage);
+        Stage newStage = stageDump.dump(primaryStage);
         // Import stuff
-		RechercheTrajetB rechercheTrajetB = new RechercheTrajetB();
+        RechercheTrajetB rechercheTrajetB = new RechercheTrajetB();
+
+                // Create the spinner and text for the popup
+        JFXSpinner spinner = new JFXSpinner();
+        Text text = new Text("Connexion à la base de données");
+
+        // Create the popup layout
+        JFXDialogLayout popupLayout = new JFXDialogLayout();
+        popupLayout.setBody(new VBox(spinner, text));
+        popupLayout.setStyle("-fx-background-color: white; -fx-padding: 20;");
+
+        // Create a new StackPane object
+        StackPane stackPane = new StackPane();
+
+        // Get the root node of the scene
+        Parent root1 = newStage.getScene().getRoot();
+
+        // Add the StackPane object to the root node
+        ((Pane) root1).getChildren().add(stackPane);
+
+        // Create the popup dialog
+        JFXDialog popup = new JFXDialog(stackPane, popupLayout, JFXDialog.DialogTransition.CENTER);
+
+        // Show the popup
+        popup.show();
+
+        // Connect to the database
+        ConnexionBdd connexionBdd = new ConnexionBdd();
+        rechercheTrajetB.lesCompteursBdd();
+        ArrayList<String> lesCompteurs = rechercheTrajetB.getLesCompteurs();
+
+        // Close the popup
+        popup.close();
+
         try {
             Font.loadFont(new File("res/fonts/Roboto/Roboto-Regular.ttf").toURI().toURL().toExternalForm(), 12);
         } catch (MalformedURLException e) {
@@ -55,10 +93,17 @@ public class RechercheTrajet extends Application {
         }
 
         // Create UI components
+        // add the strings from lesCompteurs to the departureStation and arrivalStation ComboBoxes
         ComboBox<String> departureStation = new ComboBox<>();
-        departureStation.getItems().addAll("Station 1", "Station 2", "Station 3");
+        //departureStation.getItems().addAll("Station 1", "Station 2", "Station 3");
+        for (String compteur : lesCompteurs) {
+            departureStation.getItems().add(compteur);
+        }
         ComboBox<String> arrivalStation = new ComboBox<>();
-        arrivalStation.getItems().addAll("Station A", "Station B", "Station C");
+        //arrivalStation.getItems().addAll("Station A", "Station B", "Station C");
+        for (String compteur : lesCompteurs) {
+            arrivalStation.getItems().add(compteur);
+        }
         DatePicker datePicker = new DatePicker(LocalDate.now());
         Spinner<Integer> hourSpinner = new Spinner<>();
         Spinner<Integer> minuteSpinner = new Spinner<>();
