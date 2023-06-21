@@ -106,13 +106,13 @@ public class RechercheTrajet extends Application {
         for (String compteur : lesCompteurs) {
             departureStation.getItems().add(compteur);
         }
-        
-
+        departureStation.setValue(departureStation.getItems().get(0));
         ComboBox<String> arrivalStation = new ComboBox<>();
         //arrivalStation.getItems().addAll("Station A", "Station B", "Station C");
         for (String compteur : lesCompteurs) {
             arrivalStation.getItems().add(compteur);
         }
+        arrivalStation.setValue(arrivalStation.getItems().get(0));
         DatePicker datePicker = new DatePicker(LocalDate.now());
         Spinner<Integer> hourSpinner = new Spinner<>();
         /* searchButton.setOnAction(event -> {
