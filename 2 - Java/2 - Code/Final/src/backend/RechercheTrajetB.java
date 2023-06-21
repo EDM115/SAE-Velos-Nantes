@@ -88,7 +88,7 @@ public class RechercheTrajetB extends Application {
             // bad database
             split2[0] = split2[0] + " ";
 
-            String query = "SELECT h" + ajout0 + hour + " FROM Comptage, Compteur, DateInfo WHERE leCompteur = idCompteur AND laDate = dateComptage AND nomCompteur = '" + split[0] + "' AND sens = '" + split[1] + "'" + " AND dateComptage = '" + date + "';";
+            String query = "SELECT h" + ajout0 + hour + ", tempMoy FROM Comptage, Compteur, DateInfo WHERE leCompteur = idCompteur AND laDate = dateComptage AND nomCompteur = '" + split[0] + "' AND sens = '" + split[1] + "'" + " AND dateComptage = '" + date + "';";
 
             String query2 = "SELECT h" + ajout0 + hour + " FROM Comptage, Compteur, DateInfo WHERE leCompteur = idCompteur AND laDate = dateComptage AND nomCompteur = '" + split2[0] + "' AND sens = '" + split2[1] + "'" + " AND dateComptage = '" + date + "';";
 
@@ -100,13 +100,13 @@ public class RechercheTrajetB extends Application {
 
             while(resultSet.next()) {
                 int nbCyclistes = resultSet.getInt("h" + ajout0 + hour);
-                System.out.println(nbCyclistes);
             }
 
             while(resultSet2.next()) {
-                int nbCyclistes = resultSet2.getInt("h" + ajout0 + hour);
-                System.out.println(nbCyclistes);
+                int nbCyclistes2 = resultSet2.getInt("h" + ajout0 + hour);
             }
+            System.out.println("nbCyclistes : " + (nbCyclistes + nbCyclistes2));
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
