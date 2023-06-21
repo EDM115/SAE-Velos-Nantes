@@ -14,21 +14,23 @@ import javafx.stage.Stage;
 import utils.StageDump;
 import utils.TitleBar;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.util.List;
 
 public class ResultatsRecherche extends Application {
 
     private StageDump stageDump = new StageDump();
+	private boolean trajet;
+    private String[] search;
+
+	public ResultatsRecherche(boolean trajet, String[] search) {
+		this.trajet = trajet;
+		this.search = search;
+	}
 
     @Override
     public void start(Stage primaryStage) {
-        // Retrieve the command line arguments
-        Parameters parameters = getParameters();
-        List<String> rawArguments = parameters.getRaw();
-
-        boolean trajet = Boolean.parseBoolean(rawArguments.get(0));
-        String[] search = rawArguments.subList(1, rawArguments.size()).toArray(new String[0]);
-
         // copy primaryStage to newStage (new object, not a reference)
         Stage newStage = stageDump.dump(primaryStage);
         // Create the title bar
@@ -80,7 +82,11 @@ public class ResultatsRecherche extends Application {
         newStage.setTitle("Résultats de recherche");
 
         // Apply the CSS styling
-        scene.getStylesheets().add(getClass().getResource("/res/style/style.css").toExternalForm());
+        try {
+			scene.getStylesheets().add(new File("res/style/style.css").toURI().toURL().toExternalForm());
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 
         // Show the stage
         newStage.show();

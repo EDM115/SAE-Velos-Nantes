@@ -2,6 +2,7 @@ package backend;
 
 import frontend.Menu;
 import frontend.RechercheTrajet;
+import frontend.ResultatsRecherche;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import utils.ConnexionBdd;
@@ -31,6 +32,7 @@ public class RechercheTrajetB extends Application {
     public RechercheTrajetB(RechercheTrajet rechercheTrajet) {
         this.rechercheTrajet = rechercheTrajet;
         this.lesCompteursBdd();
+        setupButtonActions();
     }
 
     public void lesCompteursBdd() {
@@ -53,6 +55,17 @@ public class RechercheTrajetB extends Application {
 
     public ArrayList<String> getLesCompteurs() {
         return this.lesCompteurs;
+    }
+
+    public void setupButtonActions() {
+        rechercheTrajet.getSearchButton().setOnAction(event -> {
+            String departure = rechercheTrajet.getDeparture();
+            String arrival = rechercheTrajet.getArrival();
+            int hour = rechercheTrajet.getHour();
+            LocalDate date = rechercheTrajet.getDate();
+
+            this.rechercherTrajet(departure, arrival, hour, date);
+        });
     }
 
     public void rechercherTrajet(String departure, String arrival, int hour, LocalDate date) {
@@ -132,6 +145,19 @@ public class RechercheTrajetB extends Application {
             System.out.println("Température : " + temperature);
             System.out.println("Anomalie à " + departure + " : " + anomalie);
             System.out.println("Anomalie à " + arrival + " : " + anomalie2);
+
+            // add all data to a String[], including the departure and arrival
+            String[] data = new String[6];
+            data[0] = departure;
+            data[1] = arrival;
+            data[2] = Integer.toString(nbCyclistes + nbCyclistes2);
+            data[3] = Double.toString(temperature);
+            data[4] = anomalie;
+            data[5] = anomalie2;
+
+            // start a frontend.ResultatsRecherche with these results
+            ResultatsRecherche resultatsRecherche = new ResultatsRecherche(true, data);
+            resultatsRecherche.start(this.rechercheTrajet.getStage());
 
             
         } catch (SQLException e) {

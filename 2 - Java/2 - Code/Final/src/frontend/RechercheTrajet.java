@@ -46,15 +46,21 @@ public class RechercheTrajet extends Application {
     private double xOffset = 0;
     private double yOffset = 0;
 	private StageDump stageDump = new StageDump();
+    Button searchButton = new Button("RECHERCHE");
+    String departure;
+    String arrival;
+    int hour;
+    LocalDate date;
+    Stage newStage;
 
     @Override
     public void start(Stage primaryStage) {
 		// copy primaryStage to newStage (new object, not a reference)
-        Stage newStage = stageDump.dump(primaryStage);
+        newStage = stageDump.dump(primaryStage);
         // Import stuff
         RechercheTrajetB rechercheTrajetB = new RechercheTrajetB(this);
 
-                // Create the spinner and text for the popup
+        // Create the spinner and text for the popup
         JFXSpinner spinner = new JFXSpinner();
         Text text = new Text("Connexion à la base de données");
 
@@ -107,15 +113,13 @@ public class RechercheTrajet extends Application {
         }
         DatePicker datePicker = new DatePicker(LocalDate.now());
         Spinner<Integer> hourSpinner = new Spinner<>();
-        Spinner<Integer> minuteSpinner = new Spinner<>();
-        Button searchButton = new Button("RECHERCHE");
-        searchButton.setOnAction(event -> {
+        /* searchButton.setOnAction(event -> {
             String departure = departureStation.getValue();
             String arrival = arrivalStation.getValue();
             int hour = hourSpinner.getValue();
             LocalDate date = datePicker.getValue();
             rechercheTrajetB.rechercherTrajet(departure, arrival, hour, date);
-        });
+        }); */
 
         
         searchButton.setGraphic(createIcon("res/images/search_cl.png"));
@@ -125,10 +129,6 @@ public class RechercheTrajet extends Application {
         // Set up the hour spinner
         SpinnerValueFactory<Integer> hourValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, LocalTime.now().getHour());
         hourSpinner.setValueFactory(hourValueFactory);
-
-        // Set up the minute spinner
-        SpinnerValueFactory<Integer> minuteValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, LocalTime.now().getMinute());
-        minuteSpinner.setValueFactory(minuteValueFactory);
 
         // Set up the layout
         GridPane root = new GridPane();
@@ -157,7 +157,6 @@ public class RechercheTrajet extends Application {
         root.add(datePicker, 1, 2);
         root.add(timeLabel, 0, 3);
         root.add(hourSpinner, 1, 3);
-        root.add(minuteSpinner, 2, 3);
         root.add(searchButton, 1, 4);
 		
         // Create the title bar
@@ -203,6 +202,20 @@ public class RechercheTrajet extends Application {
 		scene.setFill(Color.TRANSPARENT);
 		newStage.setScene(scene);
 
+        // dynamically updates the values of the instance variables departure, arrival, date, hour everytime the user changes one of the ComboBoxes/Spinners/DatePicker
+        departureStation.valueProperty().addListener((observable, oldValue, newValue) -> {
+            departure = newValue;
+        });
+        arrivalStation.valueProperty().addListener((observable, oldValue, newValue) -> {
+            arrival = newValue;
+        });
+        datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            date = newValue;
+        });
+        hourSpinner.valueProperty().addListener((observable, oldValue, newValue) -> {
+            hour = newValue;
+        });
+
 		// Show the stage
 		newStage.show();
 	}
@@ -224,4 +237,28 @@ public class RechercheTrajet extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+
+    public Button getSearchButton() {
+        return this.searchButton;
+    }
+
+    public String getDeparture() {
+        return this.departure;
+    }
+
+    public String getArrival() {
+        return this.arrival;
+    }
+
+    public LocalDate getDate() {
+        return this.date;
+    }
+
+    public int getHour() {
+        return this.hour;
+    }
+
+    public Stage getStage() {
+        return this.newStage;
+    }
 }
