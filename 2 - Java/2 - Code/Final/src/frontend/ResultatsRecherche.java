@@ -29,12 +29,15 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import backend.ResultatsRechercheB;
+
 public class ResultatsRecherche extends Application {
 
     private StageDump stageDump = new StageDump();
 	private boolean trajet;
     private File data;
     private WindowDrag windowDrag;
+    private ResultatsRechercheB resultatsRechercheB = new ResultatsRechercheB();
 
 	public ResultatsRecherche(boolean trajet, File data) {
 		this.trajet = trajet;
@@ -156,6 +159,10 @@ public class ResultatsRecherche extends Application {
         newStage.setTitle("Résultats de recherche");
         
         windowDrag = new WindowDrag(root, newStage);
+
+        menuButton.setOnMouseClicked(event -> {
+            resultatsRechercheB.start(newStage);
+        });
         
         // Apply the CSS styling
         try {
