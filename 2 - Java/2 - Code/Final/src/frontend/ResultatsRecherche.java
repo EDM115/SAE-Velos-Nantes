@@ -7,6 +7,9 @@ import com.google.gson.stream.JsonReader;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,6 +18,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.concurrent.Worker;
+import javafx.concurrent.Worker.State;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import utils.StageDump;
@@ -32,12 +37,17 @@ import java.util.List;
 import backend.ResultatsRechercheB;
 
 public class ResultatsRecherche extends Application {
-
+    
     private StageDump stageDump = new StageDump();
     private boolean trajet;
     private File data;
     private WindowDrag windowDrag;
     private ResultatsRechercheB resultatsRechercheB = new ResultatsRechercheB();
+    
+    private String dist = "";
+    Label distLabel = new Label(dist);
+    private String time = "";
+    Label timeLabel = new Label(time);
 
     public ResultatsRecherche(boolean trajet, File data) {
         this.trajet = trajet;
@@ -123,6 +133,44 @@ public class ResultatsRecherche extends Application {
         // Create the left side (Google Maps integration)
         WebView webView = new WebView();
         WebEngine webEngine = webView.getEngine();
+
+
+        webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == State.SUCCEEDED) {
+                String currentUrl = webEngine.getLocation();
+
+                if (currentUrl.startsWith("https://consent.google.com/m?continue=")) {
+                    // Simulate a click on the element with class "VfPpkd-RLmnJb"
+                    webEngine.executeScript("document.querySelector('button[aria-label=\\\"Tout refuser\\\"]').click()");
+                } else if (currentUrl.startsWith("https://www.google.com/maps/dir/")) {
+                    // Retrieve duration and distance values
+                    String pageContent = (String) webEngine.executeScript("document.documentElement.outerHTML");
+
+                    int durationStartIndex = pageContent.indexOf("<div class=\"Fk3sm fontHeadlineSmall\">") + "<div class=\"Fk3sm fontHeadlineSmall\">".length();
+                    int durationEndIndex = pageContent.indexOf("</div>", durationStartIndex);
+                    String durationValue = pageContent.substring(durationStartIndex, durationEndIndex).trim();
+
+                    int distanceStartIndex = pageContent.indexOf("<div class=\"ivN21e tUEI8e fontBodyMedium\">") + "<div class=\"ivN21e tUEI8e fontBodyMedium\">".length();
+                    int distanceEndIndex = pageContent.indexOf("</div>", distanceStartIndex);
+                    String distanceValue = pageContent.substring(distanceStartIndex, distanceEndIndex).trim();
+
+                    // Update the variables
+                    dist = distanceValue.replace("&nbsp;", " ");
+                    time = durationValue.replace("&nbsp;", " ");
+
+                    // Update the label texts on the JavaFX application thread
+                    Platform.runLater(() -> {
+                        distLabel.setText(dist);
+                        timeLabel.setText(time);
+                    });
+
+                    // Print the retrieved values
+                    System.out.println("Distance: " + dist);
+                    System.out.println("Duration: " + time);
+                }
+            }
+        });
+
         String url = "https://www.google.com/maps/dir/?api=1&origin=" + departureLat + "," + departureLon + "&destination=" + arrivalLat + "," + arrivalLon + "&travelmode=bicycling";
         webEngine.load(url);
 
@@ -177,17 +225,13 @@ public class ResultatsRecherche extends Application {
         Label distanceLabel = new Label("Distance :");
         distanceLabel.setStyle("-fx-font-weight: bold;");
         rightPane.getChildren().add(distanceLabel);
-        // Replace "dist" with your actual variable for distance
-        double dist = 10.5;
-        rightPane.getChildren().add(new Label(String.valueOf(dist) + " m"));
+        rightPane.getChildren().add(distLabel);
 
         // Durée estimée :
         Label dureeLabel = new Label("Durée estimée :");
         dureeLabel.setStyle("-fx-font-weight: bold;");
         rightPane.getChildren().add(dureeLabel);
-        // Replace "time" with your actual variable for duration
-        int time = 45;
-        rightPane.getChildren().add(new Label(String.valueOf(time)));
+        rightPane.getChildren().add(timeLabel);
 
         // Create the root layout
         BorderPane root = new BorderPane();
