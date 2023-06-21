@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "departure": "Avenue de la Libération Nord",
   "departureIndex": "4",
   "departureLat": "47.1926193237305",
@@ -9,4 +10,16 @@
   "arrivalLong": "-1.5422919988632",
   "nbCyclistes": "36",
   "temperature": "16.45"
+=======
+  "departure": "50 Otages Nord",
+  "departureIndex": "0",
+  "departureLat": "47.22",
+  "departureLong": "-1.55504",
+  "arrival": "Ceineray Est",
+  "arrivalIndex": "9",
+  "arrivalLat": "47.2212",
+  "arrivalLong": "-1.55204",
+  "nbCyclistes": "25",
+  "temperature": "21.62"
+>>>>>>> 909faa47072e911907e7693367606bc089d88299
 }

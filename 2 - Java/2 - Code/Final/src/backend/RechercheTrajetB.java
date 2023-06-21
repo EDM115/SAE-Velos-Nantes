@@ -51,7 +51,7 @@ public class RechercheTrajetB extends Application {
         ConnexionBdd connexionBdd = new ConnexionBdd();
 
         try {
-            String query =  "SELECT DISTINCT CONCAT(nomCompteur, sens) AS resultat, idCompteur FROM Compteur ORDER BY resultat;";
+            String query =  "SELECT CONCAT(nomCompteur, sens) AS resultat, MAX(idCompteur) AS idCompteur FROM Compteur GROUP BY nomCompteur, sens ORDER BY resultat;";
             Statement statement = connexionBdd.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
