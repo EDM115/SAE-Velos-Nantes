@@ -52,7 +52,7 @@ public class RechercheTrajet extends Application {
 		// copy primaryStage to newStage (new object, not a reference)
         Stage newStage = stageDump.dump(primaryStage);
         // Import stuff
-        RechercheTrajetB rechercheTrajetB = new RechercheTrajetB();
+        RechercheTrajetB rechercheTrajetB = new RechercheTrajetB(this);
 
                 // Create the spinner and text for the popup
         JFXSpinner spinner = new JFXSpinner();
@@ -78,8 +78,7 @@ public class RechercheTrajet extends Application {
         // Show the popup
         popup.show();
 
-        // Connect to the database
-        ConnexionBdd connexionBdd = new ConnexionBdd();
+       
         rechercheTrajetB.lesCompteursBdd();
         ArrayList<String> lesCompteurs = rechercheTrajetB.getLesCompteurs();
 
@@ -99,6 +98,8 @@ public class RechercheTrajet extends Application {
         for (String compteur : lesCompteurs) {
             departureStation.getItems().add(compteur);
         }
+        
+
         ComboBox<String> arrivalStation = new ComboBox<>();
         //arrivalStation.getItems().addAll("Station A", "Station B", "Station C");
         for (String compteur : lesCompteurs) {
@@ -108,6 +109,15 @@ public class RechercheTrajet extends Application {
         Spinner<Integer> hourSpinner = new Spinner<>();
         Spinner<Integer> minuteSpinner = new Spinner<>();
         Button searchButton = new Button("RECHERCHE");
+        searchButton.setOnAction(event -> {
+            String departure = departureStation.getValue();
+            String arrival = arrivalStation.getValue();
+            int hour = hourSpinner.getValue();
+            LocalDate date = datePicker.getValue();
+            rechercheTrajetB.rechercherTrajet(departure, arrival, hour, date);
+        });
+
+        
         searchButton.setGraphic(createIcon("res/images/search_cl.png"));
         searchButton.setFont(Font.font("Roboto", FontWeight.BOLD, 16));
         searchButton.setStyle("-fx-background-color: #8be9fd; -fx-text-fill: #44475a;");
