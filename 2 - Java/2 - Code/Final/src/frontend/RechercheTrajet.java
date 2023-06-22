@@ -1,14 +1,8 @@
 package frontend;
 
-import com.jfoenix.controls.JFXSpinner;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
 import javafx.application.Application;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -17,7 +11,6 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -29,23 +22,18 @@ import javafx.stage.StageStyle;
 import backend.RechercheTrajetB;
 import utils.TitleBar;
 import utils.StageDump;
-import utils.ConnexionBdd;
 import utils.WindowDrag;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXHamburger;
 
 public class RechercheTrajet extends Application {
 
-    private double xOffset = 0;
-    private double yOffset = 0;
 	private StageDump stageDump = new StageDump();
     private WindowDrag windowDrag;
     Button searchButton = new Button("RECHERCHE");
@@ -64,36 +52,8 @@ public class RechercheTrajet extends Application {
         // Import stuff
         RechercheTrajetB rechercheTrajetB = new RechercheTrajetB(this);
 
-        /* // Create the spinner and text for the popup
-        JFXSpinner spinner = new JFXSpinner();
-        Text text = new Text("Connexion à la base de données");
-
-        // Create the popup layout
-        JFXDialogLayout popupLayout = new JFXDialogLayout();
-        popupLayout.setBody(new VBox(spinner, text));
-        popupLayout.setStyle("-fx-background-color: white; -fx-padding: 20;");
-
-        // Create a new StackPane object
-        StackPane stackPane = new StackPane();
-
-        // Get the root node of the scene
-        Parent root1 = newStage.getScene().getRoot();
-
-        // Add the StackPane object to the root node
-        ((Pane) root1).getChildren().add(stackPane);
-
-        // Create the popup dialog
-        JFXDialog popup = new JFXDialog(stackPane, popupLayout, JFXDialog.DialogTransition.CENTER);
-
-        // Show the popup
-        popup.show(); */
-
-       
         rechercheTrajetB.lesCompteursBdd();
         ArrayList<String> lesCompteurs = rechercheTrajetB.getLesCompteurs();
-
-        // Close the popup
-        //popup.close();
 
         try {
             Font.loadFont(new File("res/fonts/Roboto/Roboto-Regular.ttf").toURI().toURL().toExternalForm(), 12);
@@ -107,24 +67,13 @@ public class RechercheTrajet extends Application {
         for (String compteur : lesCompteurs) {
             departureStation.getItems().add(compteur);
         }
-        //departureStation.setValue(departureStation.getItems().get(0));
         ComboBox<String> arrivalStation = new ComboBox<>();
-        //arrivalStation.getItems().addAll("Station A", "Station B", "Station C");
         for (String compteur : lesCompteurs) {
             arrivalStation.getItems().add(compteur);
         }
-        //arrivalStation.setValue(arrivalStation.getItems().get(0));
         DatePicker datePicker = new DatePicker();
         Spinner<Integer> hourSpinner = new Spinner<>();
-        /* searchButton.setOnAction(event -> {
-            String departure = departureStation.getValue();
-            String arrival = arrivalStation.getValue();
-            int hour = hourSpinner.getValue();
-            LocalDate date = datePicker.getValue();
-            rechercheTrajetB.rechercherTrajet(departure, arrival, hour, date);
-        }); */
 
-        
         searchButton.setGraphic(createIcon("res/images/search_cl.png"));
         searchButton.setFont(Font.font("Roboto", FontWeight.BOLD, 16));
         searchButton.setStyle("-fx-background-color: #8be9fd; -fx-text-fill: #44475a;");

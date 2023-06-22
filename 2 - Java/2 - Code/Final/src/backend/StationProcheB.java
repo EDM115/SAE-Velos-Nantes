@@ -3,11 +3,9 @@ package backend;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import frontend.Menu;
-import frontend.RechercheAffluence;
 import frontend.StationProche;
 import javafx.application.Application;
 import javafx.stage.Stage;

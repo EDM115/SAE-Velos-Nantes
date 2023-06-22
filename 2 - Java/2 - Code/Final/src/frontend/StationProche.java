@@ -1,19 +1,13 @@
 package frontend;
 
 import javafx.application.Application;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Spinner; 
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -22,8 +16,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import backend.RechercheAffluenceB;
-import backend.RechercheTrajetB;
 import backend.StationProcheB;
 import utils.TitleBar;
 import utils.StageDump;
@@ -31,18 +23,13 @@ import utils.WindowDrag;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXHamburger;
 
 public class StationProche extends Application {
 
-    private double xOffset = 0;
-    private double yOffset = 0;
 	private StageDump stageDump = new StageDump();
     private WindowDrag windowDrag;
 
@@ -115,7 +102,7 @@ public class StationProche extends Application {
 
 		// Customize stage
 		newStage.initStyle(StageStyle.UNDECORATED);
-		newStage.setTitle("Recherche d'affluence");
+		newStage.setTitle("Station la plus proche");
 		
 		// Set the root pane as the scene content
 		Scene scene = new Scene(rootPane, 400, 400);

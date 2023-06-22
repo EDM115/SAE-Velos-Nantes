@@ -35,7 +35,7 @@ Tous les fichiers ici, c'est plus simple et collaboratif
 - [x] Style cohérent partout
 - [x] Graphes
 - [ ] Partie graphique StationProche
-- [ ] Nantes open site
+- [x] Nantes open site
 - [ ] saisie/modif de données : récupérer l'affichage du terminal et l'afficher
 - [ ] pas admin = message quand on clique sur les boutons saisie/modif
 - [ ] Gérer les exceptions
