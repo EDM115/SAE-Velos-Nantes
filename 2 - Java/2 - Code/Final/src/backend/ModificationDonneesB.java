@@ -125,7 +125,7 @@ public class ModificationDonneesB extends Application {
             }
 
         } catch (SQLException e) {
-            System.out.println("\u001B[31mERREUR UPDATE IMPOSSIBLE\u001B[0m");
+            e.printStackTrace();
         }
     }
 
@@ -143,7 +143,7 @@ public class ModificationDonneesB extends Application {
             }
 
         } catch (SQLException e) {
-            System.out.println("\u001B[31mERREUR UPDATE IMPOSSIBLE\u001B[0m");
+            e.printStackTrace();
         }
     }
 
@@ -166,7 +166,7 @@ public class ModificationDonneesB extends Application {
             }
 
         } catch (SQLException e) {
-            System.out.println("\u001B[31mERREUR UPDATE IMPOSSIBLE\u001B[0m");
+            e.printStackTrace();
         }
     }
 
@@ -186,7 +186,8 @@ public class ModificationDonneesB extends Application {
             modificationDonnees.setEditedData(rowsAffected + " ligne(s) modifiée(s) dans la table Quartier.");
 
         } catch (SQLException e) {
-            System.out.println("\u001B[31mERREUR INSERTION IMPOSSIBLE\u001B[0m");
+            modificationDonnees.setEditedData("Erreur lors de la modification de la table Quartier.");
+            e.printStackTrace();
         } 
     }
 
@@ -201,6 +202,7 @@ public class ModificationDonneesB extends Application {
             modificationDonnees.setEditedData(rowsAffected + " ligne(s) modifiée(s) dans la table Compteur.");
 
         } catch (SQLException e) {
+            modificationDonnees.setEditedData("Erreur lors de la modification de la table Compteur.");
             e.printStackTrace();
         }
     }
@@ -217,6 +219,7 @@ public class ModificationDonneesB extends Application {
             
 
         } catch (SQLException e) {
+            modificationDonnees.setEditedData("Erreur lors de la modification de la table DateInfo.");
             e.printStackTrace();
         }
     }
@@ -232,6 +235,7 @@ public class ModificationDonneesB extends Application {
             modificationDonnees.setEditedData(rowsAffected + " ligne(s) modifiée(s) dans la table Comptage.");
 
         } catch (SQLException e) {
+            modificationDonnees.setEditedData("Erreur lors de la modification de la table Comptage.");
             e.printStackTrace();
         }
     }

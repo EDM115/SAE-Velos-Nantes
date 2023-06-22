@@ -53,7 +53,8 @@ public class SaisieDonneesB extends Application {
         saisieDonnees.setEditedData(rowsAffected + " ligne(s) ajoutée(s) dans la table Quartier.");
 
         } catch (SQLException e) {
-            System.out.println("\u001B[31mERREUR INSERTION IMPOSSIBLE\u001B[0m");
+            saisieDonnees.setEditedData("Erreur lors de l'ajout dans la table Quartier.");
+            e.printStackTrace();
         } 
     }
 
@@ -68,6 +69,7 @@ public class SaisieDonneesB extends Application {
             saisieDonnees.setEditedData(rowsAffected + " ligne(s) ajoutée(s) dans la table Compteur.");
 
         } catch (SQLException e) {
+            saisieDonnees.setEditedData("Erreur lors de l'ajout dans la table Compteur.");
             e.printStackTrace();
         }
     }
@@ -83,6 +85,7 @@ public class SaisieDonneesB extends Application {
             saisieDonnees.setEditedData(rowsAffected + " ligne(s) ajoutée(s) dans la table DateInfo.");
 
         } catch (SQLException e) {
+            saisieDonnees.setEditedData("Erreur lors de l'ajout dans la table DateInfo.");
             e.printStackTrace();
         }
     }
@@ -98,6 +101,7 @@ public class SaisieDonneesB extends Application {
             saisieDonnees.setEditedData(rowsAffected + " ligne(s) ajoutée(s) dans la table Comptage.");
 
         } catch (SQLException e) {
+            saisieDonnees.setEditedData("Erreur lors de l'ajout dans la table Comptage.");
             e.printStackTrace();
         }
     }
