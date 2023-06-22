@@ -52,6 +52,8 @@ Tous les fichiers ici, c'est plus simple et collaboratif
 ```bash
 \connect root@localhost
 \sql
+CREATE DATABASE bd_velos_nantes;
+\use bd_velos_nantes
 \source SAE_creation.sql
 \source SAE_remplissage_Quartier_Compteur_Date.sql
 \source SAE_remplissage_Comptage.sql
