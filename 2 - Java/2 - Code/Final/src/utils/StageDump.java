@@ -3,9 +3,21 @@ package utils;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * StageDump, allows to dump a stage
+ */
 public class StageDump {
+
+	/**
+	 * StageDump constructor
+	 */
 	public StageDump() {}
 
+	/**
+	 * Dump a stage
+	 * @param otherStage the stage to dump
+	 * @return the dumped stage
+	 */
 	public Stage dump(Stage otherStage) {
 		Stage newStage = new Stage();
 
@@ -35,4 +47,5 @@ public class StageDump {
 		
 		return newStage;
 	}
+
 }

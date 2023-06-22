@@ -25,7 +25,7 @@ Tous les fichiers ici, c'est plus simple et collaboratif
   - [x] Préparation aux questions
   
   
-## TODO
+## TODO (finito)
 
 - [x] Page ResultatsRecherche (récupérer les données depuis les paramètres)
 - [x] Intégration Google Maps
@@ -37,14 +37,12 @@ Tous les fichiers ici, c'est plus simple et collaboratif
 - [x] saisie/modif de données : récupérer l'affichage du terminal et l'afficher
 - [x] pas admin = message quand on clique sur les boutons saisie/modif
 - [x] popup connexion bdd
-- [ ] Gérer les exceptions
-- [ ] JavaDoc
+- [x] Gérer les exceptions
+- [x] JavaDoc
 - [x] Page ModificationDonnees
 - [x] Page SaisieDonnees
-  
-...  
 - [x] Utiliser `utils.WindowDrag()`
-- [ ] Clean code
+- [x] Clean code
 
 
 ## How to run the app ?

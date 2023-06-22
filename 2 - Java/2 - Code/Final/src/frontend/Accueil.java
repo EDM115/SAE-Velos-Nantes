@@ -1,5 +1,6 @@
 package frontend;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -7,6 +8,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import com.jfoenix.controls.*;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,13 +22,15 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import java.awt.*;
 
 import backend.AccueilB;
-import utils.StageDump;
 import utils.TitleBar;
+import utils.StageDump;
 import utils.WindowDrag;
 
+/**
+ * The Accueil class, allows to create the home page
+ */
 public class Accueil extends Application {
     private AccueilB accueilB;
     private StageDump stageDump = new StageDump();
@@ -174,4 +178,5 @@ public class Accueil extends Application {
     public void setFirstTime(boolean b) {
         this.firstTime = b;
     }
+
 }

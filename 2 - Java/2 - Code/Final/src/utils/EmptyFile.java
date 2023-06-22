@@ -4,8 +4,15 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * EmptyFile, allows to empty a file
+ */
 public class EmptyFile {
-	// take a string in parameter, open the file (catch exception if not found), and empties it (note that it's a json file)
+
+	/**
+	 * Empty a file
+	 * @param fileName the file to empty
+	 */
 	public static void emptyFile(String fileName) {
 		try {
 			File file = new File(fileName);
@@ -18,6 +25,9 @@ public class EmptyFile {
 		}
 	}
 
-	public EmptyFile() {
-	}
+	/**
+	 * EmptyFile constructor
+	 */
+	public EmptyFile() {}
+
 }

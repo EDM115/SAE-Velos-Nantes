@@ -5,11 +5,24 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.SQLSyntaxErrorException;
 
+/**
+ * ConnexionBdd, allows to connect to the database
+ */
 public class ConnexionBdd {
 
+    /**
+     * Connection to the database
+     */
     private Connection connexion;
+
+    /**
+     * GlobalVar, allows to know if the user is an admin or not
+     */
     private GlobalVar globalVar = new GlobalVar();
 
+    /**
+     * ConnexionBdd constructor
+     */
     public ConnexionBdd() {
         try {
             if (globalVar.isAdmin()) {
@@ -24,7 +37,12 @@ public class ConnexionBdd {
         } 
     }
 
+    /**
+     * Get the connection to the database
+     * @return Connection
+     */
     public Connection getConnection() {
         return this.connexion;
     }
+
 }

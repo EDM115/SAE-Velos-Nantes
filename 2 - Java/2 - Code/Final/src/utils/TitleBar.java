@@ -12,9 +12,21 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.*;
 
-
+/**
+ * TitleBar, allows to create a title bar
+ */
 public class TitleBar {
 
+	/**
+	 * TitleBar constructor
+	 * @param stage the stage
+	 * @param menuButton the menu button
+	 * @param minimizeButton the minimize button
+	 * @param maximizeRestoreButton the maximize/restore button
+	 * @param closeButton the close button
+	 * @param title the title
+	 * @return the title bar
+	 */
 	public HBox createTitleBar(Stage stage, JFXHamburger menuButton, JFXButton minimizeButton, JFXButton maximizeRestoreButton, JFXButton closeButton, String title) {
 		HBox titleBar = new HBox(10);
 		titleBar.setPadding(new Insets(5));
@@ -52,7 +64,16 @@ public class TitleBar {
 		return titleBar;
 	}
 
-	// just for menu
+	/**
+	 * Create a title label, for the menu
+	 * @param stage the stage
+	 * @param closeMenu the close menu button
+	 * @param minimizeButton the minimize button
+	 * @param maximizeRestoreButton the maximize/restore button
+	 * @param closeButton the close button
+	 * @param title the title
+	 * @return the title label
+	 */
 	public HBox createTitleBar(Stage stage, JFXButton closeMenu, JFXButton minimizeButton, JFXButton maximizeRestoreButton, JFXButton closeButton, String title) {
 		HBox titleBar = new HBox(10);
 		titleBar.setPadding(new Insets(5));
@@ -87,7 +108,15 @@ public class TitleBar {
 		return titleBar;
 	}
 
-	// empty menu ?
+	/**
+	 * Create a title label, for an empty menu
+	 * @param stage the stage
+	 * @param minimizeButton the minimize button
+	 * @param maximizeRestoreButton the maximize/restore button
+	 * @param closeButton the close button
+	 * @param title the title
+	 * @return the title label
+	 */
 	public HBox createTitleBar(Stage stage, JFXButton minimizeButton, JFXButton maximizeRestoreButton, JFXButton closeButton, String title) {
 		HBox titleBar = new HBox(10);
 		titleBar.setPadding(new Insets(5));
@@ -119,6 +148,11 @@ public class TitleBar {
 		return titleBar;
 	}
 
+	/**
+	 * Create a title label
+	 * @param title the title
+	 * @return the title label
+	 */
 	public Label createTitleLabel(String title) {
 		Label titleLabel = new Label(title);
 		titleLabel.setFont(Font.font("Roboto", FontWeight.LIGHT, 20));
@@ -126,6 +160,9 @@ public class TitleBar {
 		return titleLabel;
 	}
 
-	public TitleBar() {
-	}
+	/**
+	 * Create a title label, for the menu
+	 */
+	public TitleBar() {}
+
 }

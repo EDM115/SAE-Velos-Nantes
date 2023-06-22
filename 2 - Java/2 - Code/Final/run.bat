@@ -1,2 +1,2 @@
 @echo off
-"./w-jdk-20/bin/java.exe" --module-path "./lib" --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.web,com.google.gson,com.jfoenix --enable-preview -cp "./CycloNantais.jar;class" frontend.Accueil
+"./w-jdk-20/bin/java.exe" --module-path "./lib" --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.web,com.google.gson,com.jfoenix --enable-preview --add-exports javafx.graphics/com.sun.javafx.scene=ALL-UNNAMED --illegal-access=permit --add-opens javafx.graphics/com.sun.javafx.scene=com.jfoenix -cp "./CycloNantais.jar;class" frontend.Accueil
