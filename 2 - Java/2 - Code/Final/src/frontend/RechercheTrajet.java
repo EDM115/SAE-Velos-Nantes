@@ -213,6 +213,8 @@ public class RechercheTrajet extends Application {
             hour = newValue;
         });
 
+        windowDrag = new WindowDrag(rootPane, newStage);
+
 		// Show the stage
 		newStage.show();
 	}

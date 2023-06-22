@@ -66,7 +66,11 @@ public class ResultatsRecherche extends Application {
         JFXHamburger menuButton = new JFXHamburger();
         HBox titleBar = titleBarElement.createTitleBar(newStage, menuButton, minimizeButton, maximizeRestoreButton, closeButton, "Recherche d'affluence");
 
-        BorderPane root = new BorderPane();
+        VBox root = new VBox();
+        root.setStyle("-fx-background-color: #282a36;");
+        Label stringLabel = new Label("");
+        VBox leftPane;
+        VBox rightPane;
 
         if (trajet) {
 
@@ -105,8 +109,8 @@ public class ResultatsRecherche extends Application {
             arrivalLon = search.get(7);
 
             // Create the string label
-            Label stringLabel = new Label(String.join(" • ", search));
-            stringLabel.setStyle("-fx-font-weight: bold;");
+            stringLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #f8f8f2; -fx-font-size: 20px; -fx-padding: 0 0 0 20px;");
+            stringLabel.setText(String.join(" • ", search));
 
             // Create the left side (Google Maps integration)
             WebView webView = new WebView();
@@ -145,58 +149,77 @@ public class ResultatsRecherche extends Application {
                 }
             });
 
-            String url = "https://www.google.com/maps/dir/?api=1&origin=" + departureLat + "," + departureLon + "&destination=" + arrivalLat + "," + arrivalLon + "&travelmode=bicycling&mode=dark&hl=fr";
+            String url = "";
+            if (departureLat.equals("0.0") || departureLon.equals("0.0") || arrivalLat.equals("0.0") || arrivalLon.equals("0.0")) {
+                String origin = departureLat + "," + departureLon;
+                String destination = arrivalLat + "," + arrivalLon;
+                if (departureLat.equals("0.0") || departureLon.equals("0.0")) {
+                    origin = search.get(0) + " Nantes";
+                } else if (arrivalLat.equals("0.0") || arrivalLon.equals("0.0")) {
+                    destination = search.get(4) + " Nantes";
+                }
+                url = "https://www.google.com/maps/dir/?api=1&origin=" + origin + "&destination=" + destination + "&travelmode=bicycling&mode=dark&hl=fr";
+            } else {
+                url = "https://www.google.com/maps/dir/?api=1&origin=" + departureLat + "," + departureLon + "&destination=" + arrivalLat + "," + arrivalLon + "&travelmode=bicycling&mode=dark&hl=fr";
+            }
             webEngine.load(url);
 
-            VBox leftPane = new VBox(webView);
+            leftPane = new VBox(webView);
             leftPane.setAlignment(Pos.CENTER);
 
             // Create the right side (Titles)
-            VBox rightPane = new VBox(10);
+            rightPane = new VBox(10);
             rightPane.setAlignment(Pos.TOP_LEFT);
             rightPane.setPadding(new Insets(10));
 
             // Présence d'anomalies ?
             Label anomaliesLabel = new Label("Présence d'anomalies ?");
-            anomaliesLabel.setStyle("-fx-font-weight: bold;");
+            anomaliesLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #f8f8f2;");
             rightPane.getChildren().add(anomaliesLabel);
             try {
-                rightPane.getChildren().add(new Label(search.get(13)));
+                Label temp = new Label(search.get(13));
+                temp.setStyle("-fx-text-fill: #f8f8f2;");
+                rightPane.getChildren().add(temp);
             } catch (IndexOutOfBoundsException e) {
-                rightPane.getChildren().add(new Label("Aucune"));
+                Label temp = new Label("Aucune");
+                temp.setStyle("-fx-text-fill: #f8f8f2;");
+                rightPane.getChildren().add(temp);
             }
 
             // Affluence estimée :
             Label affluenceLabel = new Label("Affluence estimée :");
-            affluenceLabel.setStyle("-fx-font-weight: bold;");
+            affluenceLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #f8f8f2;");
             rightPane.getChildren().add(affluenceLabel);
-            rightPane.getChildren().add(new Label(search.get(8) + " cyclistes le long du parcours"));
+            Label temp2 = new Label(search.get(8) + " cyclistes le long du parcours");
+            temp2.setStyle("-fx-text-fill: #f8f8f2;");
+            rightPane.getChildren().add(temp2);
 
             // Température :
             Label temperatureLabel = new Label("Température :");
-            temperatureLabel.setStyle("-fx-font-weight: bold;");
+            temperatureLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #f8f8f2;");
             rightPane.getChildren().add(temperatureLabel);
-            rightPane.getChildren().add(new Label(search.get(9) + "°C"));
+            Label temp3 = new Label(search.get(9) + "°C");
+            temp3.setStyle("-fx-text-fill: #f8f8f2;");
+            rightPane.getChildren().add(temp3);
 
             // Distance :
             Label distanceLabel = new Label("Distance :");
-            distanceLabel.setStyle("-fx-font-weight: bold;");
+            distanceLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #f8f8f2;");
             rightPane.getChildren().add(distanceLabel);
+            distLabel.setStyle("-fx-text-fill: #f8f8f2;");
             rightPane.getChildren().add(distLabel);
 
             // Durée estimée :
             Label dureeLabel = new Label("Durée estimée :");
-            dureeLabel.setStyle("-fx-font-weight: bold;");
+            dureeLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #f8f8f2;");
             rightPane.getChildren().add(dureeLabel);
+            timeLabel.setStyle("-fx-text-fill: #f8f8f2;");
             rightPane.getChildren().add(timeLabel);
 
             // Create the root layout
-            root = new BorderPane();
-            root.setTop(titleBar);
-            root.setBottom(stringLabel);
-            root.setLeft(leftPane);
-            root.setRight(rightPane);
-
+            root.setAlignment(Pos.CENTER);
+            root.setStyle("-fx-background-color: #282a36");
+            
         } else {
 
             // used later
@@ -230,8 +253,8 @@ public class ResultatsRecherche extends Application {
             compteurLon = search.get(3);
 
             // Create the string label
-            Label stringLabel = new Label(String.join(" • ", search));
-            stringLabel.setStyle("-fx-font-weight: bold;");
+            stringLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #f8f8f2; -fx-font-size: 20px; -fx-padding: 0 0 0 20px;");
+            stringLabel.setText(String.join(" • ", search));
 
             // Create the left side (Google Maps integration)
             WebView webView = new WebView();
@@ -249,40 +272,56 @@ public class ResultatsRecherche extends Application {
                 }
             });
 
-            String url = "https://www.google.com/maps/search/?api=1&query=" + compteurLat + "," + compteurLon + "&travelmode=bicycling&mode=dark&hl=fr";
+            // in cas the coordinates are not available (bad request, idk)
+            String url = "";
+            if (compteurLat.equals("0.0") || compteurLon.equals("0.0")) {
+                url = "https://www.google.com/maps/search/?api=1&query=" + search.get(0) + " Nantes" + "&travelmode=bicycling&mode=dark&hl=fr";
+            } else {
+                url = "https://www.google.com/maps/search/?api=1&query=" + compteurLat + "," + compteurLon + "&travelmode=bicycling&mode=dark&hl=fr";
+            }
+
             webEngine.load(url);
 
-            VBox leftPane = new VBox(webView);
+            leftPane = new VBox(webView);
             leftPane.setAlignment(Pos.CENTER);
 
             // Create the right side (Titles)
-            VBox rightPane = new VBox(10);
+            rightPane = new VBox(10);
             rightPane.setAlignment(Pos.TOP_LEFT);
             rightPane.setPadding(new Insets(10));
 
             // Affluence estimée :
             Label affluenceLabel = new Label("Affluence estimée :");
-            affluenceLabel.setStyle("-fx-font-weight: bold;");
+            affluenceLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #f8f8f2;");
             rightPane.getChildren().add(affluenceLabel);
-            rightPane.getChildren().add(new Label(search.get(6) + " cyclistes le long du parcours"));
+            Label temp1 = new Label(search.get(6) + " cyclistes proches de la station");
+            temp1.setStyle("-fx-text-fill: #f8f8f2;");
+            rightPane.getChildren().add(temp1);
 
             // Create the root layout
-            root.setTop(titleBar);
-            root.setBottom(stringLabel);
-            root.setLeft(leftPane);
-            root.setRight(rightPane);
-            
+            root.setAlignment(Pos.CENTER);
+            root.setStyle("-fx-background-color: #282a36");
         }
-
-        
 
         // Scroll pane for the right side (Titles)
         ScrollPane scrollPane = new ScrollPane(root);
         scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setStyle("-fx-background-color: radial-gradient(focus-angle 45deg, focus-distance 0%, center 100% 100%, radius 60%, #bd93f9 0%, rgba(40, 42, 54, 0.9) 70%, #282a36 100%)");
 
-        Scene scene = new Scene(scrollPane, 800, 600, Color.WHITE);
+        Scene scene = new Scene(scrollPane, 800, 600, Color.web("#282a36"));
         newStage.setScene(scene);
         newStage.setTitle("Résultats de recherche");
+
+        root.getChildren().addAll(titleBar, stringLabel);
+
+        HBox centerPane = new HBox();
+        centerPane.setAlignment(Pos.CENTER);
+        centerPane.setStyle("-fx-background-color: radial-gradient(focus-angle 45deg, focus-distance 0%, center 100% 100%, radius 60%, #bd93f9 0%, rgba(40, 42, 54, 0.9) 70%, #282a36 100%)");
+        centerPane.getChildren().addAll(leftPane, rightPane);
+
+        root.getChildren().add(centerPane);
+
 
         windowDrag = new WindowDrag(root, newStage);
 
@@ -293,6 +332,7 @@ public class ResultatsRecherche extends Application {
         // Apply the CSS styling
         try {
             scene.getStylesheets().add(new File("res/style/style.css").toURI().toURL().toExternalForm());
+            root.getStylesheets().add(new File("res/style/style.css").toURI().toURL().toExternalForm());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
