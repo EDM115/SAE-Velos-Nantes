@@ -223,7 +223,7 @@ public class ModificationDonneesB extends Application {
 
     public void modifComptage(String colonne, int clePrimaire1, LocalDate clePrimaire2, String newValeur) {
         try {
-            String query = "UPDATE Comptage SET " + colonne + " = '" + newValeur + "' WHERE idCompteur = '" + clePrimaire1 + "' AND dateComptage = '" + clePrimaire2 + "';";
+            String query = "UPDATE Comptage SET " + colonne + " = '" + newValeur + "' WHERE leCompteur = '" + clePrimaire1 + "' AND dateComptage = '" + clePrimaire2 + "';";
 
             ConnexionBdd connexionBdd = new ConnexionBdd();
             Statement statement = connexionBdd.getConnection().createStatement();
