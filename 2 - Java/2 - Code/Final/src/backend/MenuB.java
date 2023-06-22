@@ -39,15 +39,15 @@ public class MenuB {
             stationProche.start(this.menu.getPreviousStage());
             menu.hide();
         });
-        /* 
-        menu.getOption4().setOnAction(event -> {
+        
+        menu.getGraph().setOnAction(event -> {
             // Handle option 4 button click
-            PrecedentesRecherches precedentesRecherches = new PrecedentesRecherches();
-            precedentesRecherches.show();
+            Graphes graphes = new Graphes();
+            graphes.start(this.menu.getPreviousStage());
             menu.hide();
         });
 
-        menu.getAddDataButton().setOnAction(event -> {
+        /*menu.getAddDataButton().setOnAction(event -> {
             // Handle add data button click
             SaisieDonnees saisieDonnees = new SaisieDonnees();
             saisieDonnees.show();

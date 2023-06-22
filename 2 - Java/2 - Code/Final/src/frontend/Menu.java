@@ -37,7 +37,7 @@ public class Menu extends Stage {
     JFXButton option1 = new JFXButton("Recherche de trajet");
     JFXButton option2 = new JFXButton("Recherche d'affluence");
     JFXButton option3 = new JFXButton("Station la plus proche");
-    JFXButton option4 = new JFXButton("Précédentes recherches");
+    JFXButton graphesButton = new JFXButton("Graphes");
     JFXButton addDataButton = new JFXButton("Saisie de données");
     JFXButton editDataButton = new JFXButton("Modification de données");
     Stage previousStage;
@@ -65,8 +65,8 @@ public class Menu extends Stage {
         option2.setStyle("-fx-text-fill: #f8f8f2");
         option3.setGraphic(createIcon("res/images/search.png"));
         option3.setStyle("-fx-text-fill: #f8f8f2");
-        option4.setGraphic(createIcon("res/images/search.png"));
-        option4.setStyle("-fx-text-fill: #f8f8f2");
+        graphesButton.setGraphic(createIcon("res/images/graph.png"));
+        graphesButton.setStyle("-fx-text-fill: #f8f8f2");
         addDataButton.setGraphic(createIcon("res/images/plus.png"));
         addDataButton.setStyle("-fx-text-fill: #f8f8f2");
         editDataButton.setGraphic(createIcon("res/images/pencil.png"));
@@ -90,7 +90,7 @@ public class Menu extends Stage {
         menuLayout.setSpacing(10);
         menuLayout.setAlignment(Pos.CENTER);
         menuLayout.setPadding(new Insets(150));
-        menuLayout.getChildren().addAll(closeMenuButton, homeButton, option1, option2, option3, option4, addDataButton, editDataButton, adminToggleContainer);
+        menuLayout.getChildren().addAll(closeMenuButton, homeButton, option1, option2, option3, graphesButton, addDataButton, editDataButton, adminToggleContainer);
 
 
         // Create the popup
@@ -204,8 +204,8 @@ public class Menu extends Stage {
         return this.option3;
     }
 
-    public JFXButton getOption4() {
-        return this.option4;
+    public JFXButton getGraph() {
+        return this.graphesButton;
     }
 
     public JFXButton getAddDataButton() {
