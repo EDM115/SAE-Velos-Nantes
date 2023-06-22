@@ -61,11 +61,16 @@ public class MenuB {
             menu.hide();
         });
 
-        /* menu.getEditDataButton().setOnAction(event -> {
+        menu.getEditDataButton().setOnAction(event -> {
             // Handle edit data button click
-            ModificationDonnees modificationDonnees = new ModificationDonnees();
-            modificationDonnees.show();
-            menu.hide();
-        }); */
+            GlobalVar globalVar = new GlobalVar();
+            if (globalVar.isAdmin()) {
+                ModificationDonnees modificationDonnees = new ModificationDonnees();
+                modificationDonnees.start(this.menu.getPreviousStage());
+                menu.hide();
+            } else {
+                System.out.println("\u001B[31mERREUR PAS ADMIN\u001B[0m");
+            }
+        }); 
     }
 }
