@@ -31,7 +31,7 @@ Tous les fichiers ici, c'est plus simple et collaboratif
 
 - [x] Page ResultatsRecherche (récupérer les données depuis les paramètres)
 - [x] Intégration Google Maps
-- [ ] ResultatsRecherche pour Affluence
+- [x] ResultatsRecherche pour Affluence
 - [ ] Style cohérent partout
 - [ ] Gérer les exceptions
 - [ ] Page ModificationDonnees
