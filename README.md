@@ -34,9 +34,13 @@ Tous les fichiers ici, c'est plus simple et collaboratif
 - [x] ResultatsRecherche pour Affluence
 - [x] Style cohérent partout
 - [x] Graphes
+- [ ] Partie graphique StationProche
+- [ ] Nantes open site
+- [ ] saisie/modif de données : récupérer l'affichage du terminal et l'afficher
+- [ ] pas admin = message quand on clique sur les boutons saisie/modif
 - [ ] Gérer les exceptions
-- [ ] Page ModificationDonnees
-- [ ] Page SaisieDonnees
+- [x] Page ModificationDonnees
+- [x] Page SaisieDonnees
   
 ...  
 - [ ] Utiliser `utils.WindowDrag()`
@@ -64,7 +68,7 @@ SQL files :
 [SAE_remplissage_Comptage.sql](https://github.com/EDM115/school-codes-v2/raw/master/BUT1/Moodle/S2/R2.06/SAE_remplissage_Comptage.sql)  
 
 3) Go in [2 - Java/2 - Code/Final](./2%20-%20Java/2%20-%20Code/Final) and open a terminal there
-  1) Linux : `chmod +x run.sh && run.sh`
+  1) Linux : `chmod +x run.sh && ./run.sh` (it seems that the class can't be found...)
   2) Windows :  
     - CMD : `run.bat`  
     - PowerShell : `.\run.bat`  
