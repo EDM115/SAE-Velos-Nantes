@@ -64,7 +64,7 @@ public class RechercheTrajet extends Application {
         // Import stuff
         RechercheTrajetB rechercheTrajetB = new RechercheTrajetB(this);
 
-        // Create the spinner and text for the popup
+        /* // Create the spinner and text for the popup
         JFXSpinner spinner = new JFXSpinner();
         Text text = new Text("Connexion à la base de données");
 
@@ -86,14 +86,14 @@ public class RechercheTrajet extends Application {
         JFXDialog popup = new JFXDialog(stackPane, popupLayout, JFXDialog.DialogTransition.CENTER);
 
         // Show the popup
-        popup.show();
+        popup.show(); */
 
        
         rechercheTrajetB.lesCompteursBdd();
         ArrayList<String> lesCompteurs = rechercheTrajetB.getLesCompteurs();
 
         // Close the popup
-        popup.close();
+        //popup.close();
 
         try {
             Font.loadFont(new File("res/fonts/Roboto/Roboto-Regular.ttf").toURI().toURL().toExternalForm(), 12);
@@ -212,6 +212,8 @@ public class RechercheTrajet extends Application {
         hourSpinner.valueProperty().addListener((observable, oldValue, newValue) -> {
             hour = newValue;
         });
+
+        windowDrag = new WindowDrag(rootPane, newStage);
 
 		// Show the stage
 		newStage.show();

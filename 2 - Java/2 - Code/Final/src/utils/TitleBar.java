@@ -18,6 +18,7 @@ import javafx.stage.*;
 
 public class TitleBar {
 
+	
 	public HBox createTitleBar(Stage stage, JFXHamburger menuButton, JFXButton minimizeButton, JFXButton maximizeRestoreButton, JFXButton closeButton, String title) {
 		HBox titleBar = new HBox(10);
 		titleBar.setPadding(new Insets(5));
@@ -40,7 +41,10 @@ public class TitleBar {
 				maximizeRestoreButton.setText("🗖");
 			}
 		});
-		closeButton.setOnAction(event -> stage.close());
+		closeButton.setOnAction(event -> {
+			EmptyFile.emptyFile("res/data.json");
+			stage.close();
+		});
 
 		HBox.setHgrow(menuButton, Priority.NEVER);
 		HBox.setHgrow(maximizeRestoreButton, Priority.NEVER);

@@ -28,19 +28,15 @@ Tous les fichiers ici, c'est plus simple et collaboratif
   
   
 ## TODO
-- [ ] Utiliser `utils.WindowDrag()`
-- [ ] Page ResultatsRecherche (récupérer les données depuis les paramètres)
-- [ ] Intégration Google Maps
+
+- [x] Page ResultatsRecherche (récupérer les données depuis les paramètres)
+- [x] Intégration Google Maps
+- [x] ResultatsRecherche pour Affluence
 - [ ] Style cohérent partout
 - [ ] Gérer les exceptions
 - [ ] Page ModificationDonnees
 - [ ] Page SaisieDonnees
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
+...
+- [ ] Utiliser `utils.WindowDrag()`
 - [ ] Clean code
 

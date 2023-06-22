@@ -44,11 +44,17 @@ public class RechercheAffluence extends Application {
     private double yOffset = 0;
 	private StageDump stageDump = new StageDump();
     private WindowDrag windowDrag;
+    Button searchButton = new Button("RECHERCHE");
+    String compteur;
+    int compteurIndex;
+    int hour;
+    LocalDate date;
+    Stage newStage;
 
     @Override
     public void start(Stage primaryStage) {
 		// copy primaryStage to newStage (new object, not a reference)
-		Stage newStage = stageDump.dump(primaryStage);
+		newStage = stageDump.dump(primaryStage);
         // Import stuff
 		RechercheAffluenceB rechercheAffluenceB = new RechercheAffluenceB(this);
         try {
@@ -68,13 +74,12 @@ public class RechercheAffluence extends Application {
         //departureStation.setValue(departureStation.getItems().get(0));
         DatePicker datePicker = new DatePicker(LocalDate.now());
         Spinner<Integer> hourSpinner = new Spinner<>();
-        Button searchButton = new Button("RECHERCHE");
-        searchButton.setOnAction(event -> {
+        /* searchButton.setOnAction(event -> {
             String departure = departureStation.getValue();
             int hour = hourSpinner.getValue();
             LocalDate date = datePicker.getValue();
             rechercheAffluenceB.rechercherAffluence(departure, hour, date);
-        });
+        }); */
         searchButton.setGraphic(createIcon("res/images/search_cl.png"));
         searchButton.setFont(Font.font("Roboto", FontWeight.BOLD, 16));
         searchButton.setStyle("-fx-background-color: #8be9fd; -fx-text-fill: #44475a;");
@@ -142,6 +147,18 @@ public class RechercheAffluence extends Application {
 		scene.setFill(Color.TRANSPARENT);
 		newStage.setScene(scene);
 
+        // dynamically updates the values of the instance variables departure, arrival, date, hour everytime the user changes one of the ComboBoxes/Spinners/DatePicker
+        departureStation.valueProperty().addListener((observable, oldValue, newValue) -> {
+            compteur = newValue;
+            compteurIndex = departureStation.getSelectionModel().getSelectedIndex();
+        });
+        datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            date = newValue;
+        });
+        hourSpinner.valueProperty().addListener((observable, oldValue, newValue) -> {
+            hour = newValue;
+        });
+
 		// Show the stage
 		newStage.show();
 	}
@@ -163,4 +180,28 @@ public class RechercheAffluence extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+
+    public Button getSearchButton() {
+        return searchButton;
+    }
+
+    public String getCompteur() {
+        return compteur;
+    }
+
+    public int getCompteurIndex() {
+        return compteurIndex;
+    }
+
+    public int getHour() {
+        return hour;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public Stage getStage() {
+        return newStage;
+    }
 }

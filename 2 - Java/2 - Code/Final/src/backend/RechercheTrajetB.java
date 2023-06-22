@@ -73,13 +73,13 @@ public class RechercheTrajetB extends Application {
         double[] geo = new double[2];
         ConnexionBdd connexionBdd = new ConnexionBdd();
         try {
-            String query =  "SELECT coord_X, coord_Y FROM Compteur WHERE idCompteur = " + idCompteur + ";";
+            String query = "SELECT FORMAT(coord_X, 13) AS formatted_coord_X, FORMAT(coord_Y, 13) AS formatted_coord_Y FROM Compteur WHERE idCompteur = " + idCompteur + ";";
             Statement statement = connexionBdd.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             while(resultSet.next()) {
-                geo[0] = resultSet.getDouble("coord_X");
-                geo[1] = resultSet.getDouble("coord_Y");
+                geo[0] = resultSet.getDouble("formatted_coord_X");
+                geo[1] = resultSet.getDouble("formatted_coord_Y");
             }
 
         } catch (SQLException e) {
@@ -88,8 +88,9 @@ public class RechercheTrajetB extends Application {
         return geo;
     }
 
-    public int getCompteurFromId(int index) {
-        String compteur = this.lesCompteurs.get(index);
+
+    public int getCompteurFromId(int index, ArrayList<String> lesCompteurs) {
+        String compteur = lesCompteurs.get(index);
         String[] split = new String[2];
         int lastIndex = compteur.lastIndexOf(" ");
         if (lastIndex != -1) {
@@ -206,29 +207,22 @@ public class RechercheTrajetB extends Application {
                 anomalie2 = resultSet4.getString("presenceAnomalie");
             }
 
-            System.out.println("Affluence estimée : " + (nbCyclistes + nbCyclistes2));
-            System.out.println("Température : " + temperature);
-            System.out.println("Anomalie à " + departure + " : " + anomalie);
-            System.out.println("Anomalie à " + arrival + " : " + anomalie2);
-            System.out.println("idCompteurDepart : " + getCompteurFromId(departureIndex));
-            System.out.println("idCompteurArrivee : " + getCompteurFromId(arrivalIndex));
-            System.out.println("géolocation départ : " + getGeo(getCompteurFromId(departureIndex))[0] + ", " + getGeo(getCompteurFromId(departureIndex))[1]);
-            System.out.println("géolocation arrivée : " + getGeo(getCompteurFromId(arrivalIndex))[0] + ", " + getGeo(getCompteurFromId(arrivalIndex))[1]);
-
             // add all data to a String[], including the departure and arrival
-            String[] data = new String[12];
+            String[] data = new String[14];
             data[0] = departure;
             data[1] = departureIndex + "";
-            data[2] = getGeo(getCompteurFromId(departureIndex))[0] + "";
-            data[3] = getGeo(getCompteurFromId(departureIndex))[1] + "";
+            data[2] = getGeo(getCompteurFromId(departureIndex, this.lesCompteurs))[0] + "";
+            data[3] = getGeo(getCompteurFromId(departureIndex, this.lesCompteurs))[1] + "";
             data[4] = arrival;
             data[5] = arrivalIndex + "";
-            data[6] = getGeo(getCompteurFromId(arrivalIndex))[0] + "";
-            data[7] = getGeo(getCompteurFromId(arrivalIndex))[1] + "";
+            data[6] = getGeo(getCompteurFromId(arrivalIndex, this.lesCompteurs))[0] + "";
+            data[7] = getGeo(getCompteurFromId(arrivalIndex, this.lesCompteurs))[1] + "";
             data[8] = Integer.toString(nbCyclistes + nbCyclistes2);
             data[9] = Double.toString(temperature);
-            data[10] = anomalie;
-            data[11] = anomalie2;
+            data[10] = date.toString();
+            data[11] = hour + "";
+            data[12] = anomalie;
+            data[13] = anomalie2;
 
             File file = writeData(dataToJson(data));
 
@@ -261,8 +255,10 @@ public class RechercheTrajetB extends Application {
         jsonObject.addProperty("arrivalLong", data[7]);
         jsonObject.addProperty("nbCyclistes", data[8]);
         jsonObject.addProperty("temperature", data[9]);
-        jsonObject.addProperty("anomalie", data[10]);
-        jsonObject.addProperty("anomalie2", data[11]);
+        jsonObject.addProperty("date", data[10]);
+        jsonObject.addProperty("hour", data[11]);
+        jsonObject.addProperty("anomalie", data[12]);
+        jsonObject.addProperty("anomalie2", data[13]);
 
         return jsonObject;
     }
@@ -291,6 +287,9 @@ public class RechercheTrajetB extends Application {
         }
 
         return file;
+    }
+
+    public RechercheTrajetB() {
     }
 }
 
