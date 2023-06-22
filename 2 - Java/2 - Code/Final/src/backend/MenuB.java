@@ -1,9 +1,11 @@
 package backend;
 
 import frontend.*;
+import utils.GlobalVar;
 
 public class MenuB {
     private Menu menu;
+    private GlobalVar globalVar = new GlobalVar();
 
     public MenuB(Menu menu) {
         this.menu = menu;
@@ -39,18 +41,24 @@ public class MenuB {
             stationProche.start(this.menu.getPreviousStage());
             menu.hide();
         });
+
+        menu.getAddDataButton().setOnAction(event -> {
+            // Handle add data button click
+            if (globalVar.isAdmin()) {
+                SaisieDonnees saisieDonnees = new SaisieDonnees();
+                saisieDonnees.start(this.menu.getPreviousStage());
+                menu.hide();
+            } else {
+                System.out.println("\u001B[31mERREUR PAS ADMIN\u001B[0m");
+            }
+        });
+
         /* 
+
         menu.getOption4().setOnAction(event -> {
             // Handle option 4 button click
             PrecedentesRecherches precedentesRecherches = new PrecedentesRecherches();
             precedentesRecherches.show();
-            menu.hide();
-        });
-
-        menu.getAddDataButton().setOnAction(event -> {
-            // Handle add data button click
-            SaisieDonnees saisieDonnees = new SaisieDonnees();
-            saisieDonnees.show();
             menu.hide();
         });
 
