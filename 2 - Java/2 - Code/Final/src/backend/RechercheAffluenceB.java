@@ -1,5 +1,7 @@
 package backend;
 
+import com.google.gson.JsonObject;
+
 import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,26 +10,51 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import com.google.gson.JsonObject;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 import frontend.Menu;
 import frontend.RechercheAffluence;
 import frontend.ResultatsRecherche;
-import javafx.application.Application;
-import javafx.stage.Stage;
 import utils.ConnexionBdd;
 
+/**
+ * The RechercheAffluenceB class, backend of the search window
+ */
 public class RechercheAffluenceB extends Application {
 
+    /**
+     * ArrayList of the counters
+     */
     private ArrayList<String> lesCompteurs;
+
+    /**
+     * ArrayList of the counters id
+     */
     private ArrayList<Integer> lesIdCompteurs;
+
+    /**
+     * The crowd search window
+     */
     private RechercheAffluence rechercheAffluence;
+
+    /**
+     * The travel search window, to use its methods
+     */
     private RechercheTrajetB rechercheTrajetB = new RechercheTrajetB();
 
+    /**
+     * The main method
+     * @param args the arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * The start method, called when the window is created
+     * @param primaryStage the primary stage
+     */
     @Override
     public void start(Stage primaryStage) {
         // Create menu
@@ -36,12 +63,19 @@ public class RechercheAffluenceB extends Application {
         primaryStage.hide();
     }
 
+    /**
+     * The constructor
+     * @param rechercheAffluence the crowd search window
+     */
     public RechercheAffluenceB(RechercheAffluence rechercheAffluence) {
         this.rechercheAffluence = rechercheAffluence;
         this.lesCompteursBdd();
         this.setupButtonActions();
     }
 
+    /**
+     * Get the counters from the database
+     */
     public void lesCompteursBdd() {
         this.lesCompteurs = new ArrayList<String>();
         this.lesIdCompteurs = new ArrayList<Integer>();
@@ -56,16 +90,22 @@ public class RechercheAffluenceB extends Application {
                 this.lesCompteurs.add(resultSet.getString("resultat"));
                 this.lesIdCompteurs.add(resultSet.getInt("idCompteur"));
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Get the counters
+     * @return the counters
+     */
     public ArrayList<String> getLesCompteurs() {
         return this.lesCompteurs;
     }
 
+    /**
+     * Set up the button actions
+     */
     public void setupButtonActions() {
         this.rechercheAffluence.getSearchButton().setOnAction(event -> {
             String compteur = this.rechercheAffluence.getCompteur();
@@ -77,6 +117,13 @@ public class RechercheAffluenceB extends Application {
         });
     }
 
+    /**
+     * Search the crowd, and put the results in a JSON file
+     * @param compteur the counter
+     * @param compteurIndex the counter index
+     * @param hour the hour
+     * @param date the date
+     */
     public void rechercherAffluence(String compteur, int compteurIndex, int hour, LocalDate date) {
         try {
             String[] split = new String[2];
@@ -122,16 +169,19 @@ public class RechercheAffluenceB extends Application {
             ResultatsRecherche resultatsRecherche = new ResultatsRecherche(false, file);
             resultatsRecherche.start(this.rechercheAffluence.getStage());
             this.rechercheAffluence.getStage().hide();
-
         } catch (SQLSyntaxErrorException e) {
             System.err.println("\u001B[31mERREUR\u001B[0m");
         } catch (SQLException e) {
             System.err.println("\u001B[31mREQUETE IMPOSSIBLE\u001B[0m");
             e.printStackTrace();
         }
-
     }
 
+    /**
+     * Put the data in a JSON object
+     * @param data the data
+     * @return the JSON object
+     */
     public JsonObject dataToJson(String[] data) {
         // create a new JSONObject
         JsonObject jsonObject = new JsonObject();
@@ -146,4 +196,5 @@ public class RechercheAffluenceB extends Application {
         jsonObject.addProperty("nbCyclistes", data[6]);
         return jsonObject;
     }
+
 }

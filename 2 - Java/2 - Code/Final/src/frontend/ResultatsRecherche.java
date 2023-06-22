@@ -1,12 +1,21 @@
 package frontend;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
+
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.concurrent.Worker.State;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,44 +24,80 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.concurrent.Worker.State;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+
+import backend.ResultatsRechercheB;
 import utils.StageDump;
 import utils.TitleBar;
 import utils.WindowDrag;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import backend.ResultatsRechercheB;
-
+/**
+ * The ResultatsRecherche class, allows to create the search results window
+ */
 public class ResultatsRecherche extends Application {
     
+    /**
+     * The stage dump
+     */
     private StageDump stageDump = new StageDump();
+
+    /**
+     * The boolean trajet, true if the user wants to search for a route, false if he wants to search for a crowd
+     */ 
     private boolean trajet;
+
+    /**
+     * The data file
+     */
     private File data;
+
+    /**
+     * The window drag
+     */
     private WindowDrag windowDrag;
+
+    /**
+     * The resultatsRechercheB object, used to call the backend methods
+     */
     private ResultatsRechercheB resultatsRechercheB = new ResultatsRechercheB();
     
+    /**
+     * The dist string
+     */
     private String dist = "";
-    Label distLabel = new Label(dist);
-    private String time = "";
-    Label timeLabel = new Label(time);
 
+    /**
+     * The dist label
+     */
+    private Label distLabel = new Label(dist);
+
+    /**
+     * The time string
+     */
+    private String time = "";
+
+    /**
+     * The time label
+     */
+    private Label timeLabel = new Label(time);
+
+    /**
+     * The constructor of ResultatsRecherche
+     * @param trajet true if the user wants to search for a route, false if he wants to search for a crowd
+     * @param data the data file
+     */
     public ResultatsRecherche(boolean trajet, File data) {
         this.trajet = trajet;
         this.data = data;
     }
 
+    /**
+     * The start method, called when the window is created
+     * @param primaryStage the primary stage
+     */
     @Override
     public void start(Stage primaryStage) {
-        // copy primaryStage to newStage (new object, not a reference)
         Stage newStage = stageDump.dump(primaryStage);
         // Create the title bar
         JFXButton closeButton = new JFXButton("✕");
@@ -69,17 +114,10 @@ public class ResultatsRecherche extends Application {
         VBox rightPane;
 
         if (trajet) {
-
-            // used later
             String departureLat = "";
             String departureLon = "";
             String arrivalLat = "";
             String arrivalLon = "";
-
-            // read the JSON file and get its content this way :
-            // for property in the file, add its value to the List<String> search
-
-            // Read the JSON file
             List<String> search = new ArrayList<>();
 
             // Read the JSON file
@@ -106,21 +144,20 @@ public class ResultatsRecherche extends Application {
 
             // Create the string label
             stringLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #f8f8f2; -fx-font-size: 20px; -fx-padding: 0 0 0 20px;");
-            //stringLabel.setText(String.join(" • ", search));
             stringLabel.setText(search.get(0) + " \u2192 " + search.get(4) + " • " + search.get(10) + " • " + search.get(11) + ":00");
-
 
             // Create the left side (Google Maps integration)
             WebView webView = new WebView();
             WebEngine webEngine = webView.getEngine();
 
-
             webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
+                // Wait for the page to load
                 if (newValue == State.SUCCEEDED) {
                     String currentUrl = webEngine.getLocation();
 
+                    // If it's the cookie consent page
                     if (currentUrl.startsWith("https://consent.google.com/m?continue=")) {
-                        // Simulate a click on the element with class "VfPpkd-RLmnJb"
+                        // Simulate a click on the element with the "Tout refuser" attribute
                         webEngine.executeScript("document.querySelector('button[aria-label=\\\"Tout refuser\\\"]').click()");
                     } else if (currentUrl.startsWith("https://www.google.com/maps/dir/")) {
                         // Retrieve duration and distance values
@@ -147,6 +184,7 @@ public class ResultatsRecherche extends Application {
                 }
             });
 
+            // Build the string, and uses the compteur name if the coordinates are not available
             String url = "";
             if (departureLat.equals("0.0") || departureLon.equals("0.0") || arrivalLat.equals("0.0") || arrivalLon.equals("0.0")) {
                 String origin = departureLat + "," + departureLon;
@@ -170,7 +208,6 @@ public class ResultatsRecherche extends Application {
             rightPane.setAlignment(Pos.TOP_LEFT);
             rightPane.setPadding(new Insets(10));
 
-            // Présence d'anomalies ?
             Label anomaliesLabel = new Label("Présence d'anomalies ?");
             anomaliesLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #f8f8f2;");
             rightPane.getChildren().add(anomaliesLabel);
@@ -184,7 +221,6 @@ public class ResultatsRecherche extends Application {
                 rightPane.getChildren().add(temp);
             }
 
-            // Affluence estimée :
             Label affluenceLabel = new Label("Affluence estimée :");
             affluenceLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #f8f8f2;");
             rightPane.getChildren().add(affluenceLabel);
@@ -192,7 +228,6 @@ public class ResultatsRecherche extends Application {
             temp2.setStyle("-fx-text-fill: #f8f8f2;");
             rightPane.getChildren().add(temp2);
 
-            // Température :
             Label temperatureLabel = new Label("Température :");
             temperatureLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #f8f8f2;");
             rightPane.getChildren().add(temperatureLabel);
@@ -200,14 +235,12 @@ public class ResultatsRecherche extends Application {
             temp3.setStyle("-fx-text-fill: #f8f8f2;");
             rightPane.getChildren().add(temp3);
 
-            // Distance :
             Label distanceLabel = new Label("Distance :");
             distanceLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #f8f8f2;");
             rightPane.getChildren().add(distanceLabel);
             distLabel.setStyle("-fx-text-fill: #f8f8f2;");
             rightPane.getChildren().add(distLabel);
 
-            // Durée estimée :
             Label dureeLabel = new Label("Durée estimée :");
             dureeLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #f8f8f2;");
             rightPane.getChildren().add(dureeLabel);
@@ -217,17 +250,9 @@ public class ResultatsRecherche extends Application {
             // Create the root layout
             root.setAlignment(Pos.CENTER);
             root.setStyle("-fx-background-color: #282a36");
-            
         } else {
-
-            // used later
             String compteurLat = "";
             String compteurLon = "";
-
-            // read the JSON file and get its content this way :
-            // for property in the file, add its value to the List<String> search
-
-            // Read the JSON file
             List<String> search = new ArrayList<>();
 
             // Read the JSON file
@@ -252,13 +277,11 @@ public class ResultatsRecherche extends Application {
 
             // Create the string label
             stringLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #f8f8f2; -fx-font-size: 20px; -fx-padding: 0 0 0 20px;");
-            //stringLabel.setText(String.join(" • ", search));
             stringLabel.setText(search.get(0) + " • " + search.get(4) + " • " + search.get(5) + ":00");
 
             // Create the left side (Google Maps integration)
             WebView webView = new WebView();
             WebEngine webEngine = webView.getEngine();
-
 
             webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue == State.SUCCEEDED) {
@@ -271,7 +294,7 @@ public class ResultatsRecherche extends Application {
                 }
             });
 
-            // in cas the coordinates are not available (bad request, idk)
+            // in case the coordinates are not available (bad request, idk)
             String url = "";
             if (compteurLat.equals("0.0") || compteurLon.equals("0.0")) {
                 url = "https://www.google.com/maps/search/?api=1&query=" + search.get(0) + " Nantes" + "&travelmode=bicycling&mode=dark&hl=fr";
@@ -289,7 +312,6 @@ public class ResultatsRecherche extends Application {
             rightPane.setAlignment(Pos.TOP_LEFT);
             rightPane.setPadding(new Insets(10));
 
-            // Affluence estimée :
             Label affluenceLabel = new Label("Affluence estimée :");
             affluenceLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #f8f8f2;");
             rightPane.getChildren().add(affluenceLabel);
@@ -321,7 +343,6 @@ public class ResultatsRecherche extends Application {
 
         root.getChildren().add(centerPane);
 
-
         windowDrag = new WindowDrag(root, newStage);
 
         menuButton.setOnMouseClicked(event -> {
@@ -332,7 +353,12 @@ public class ResultatsRecherche extends Application {
         newStage.show();
     }
 
+    /**
+     * Main method
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }
+
 }

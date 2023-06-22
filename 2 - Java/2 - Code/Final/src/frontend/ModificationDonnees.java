@@ -1,5 +1,13 @@
 package frontend;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXHamburger;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -19,41 +27,78 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
 import backend.ModificationDonneesB;
 import utils.TitleBar;
 import utils.StageDump;
 import utils.WindowDrag;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXHamburger;
-
+/**
+ * The ModificationDonnees class, allows to edit the data
+ */
 public class ModificationDonnees extends Application {
     
-    String actualTable = "";
-    String actualColumn = "";
-    String actualCle = "";
-    String actualCle2 = "";
-    int num = 0;
+    /**
+     * The actual table
+     */
+    private String actualTable = "";
+
+    /**
+     * The actual column
+     */
+    private String actualColumn = "";
+
+    /**
+     * The actual primary key
+     */
+    private String actualCle = "";
+
+    /**
+     * The actual primary key 2
+     */
+    private String actualCle2 = "";
+
+    /**
+     * The actual value
+     */
+    private int num = 0;
+
+    /**
+     * StageDump object, allows to save the stage
+     */ 
 	private StageDump stageDump = new StageDump();
+
+    /**
+     * WindowDrag object, allows to drag the window
+     */
     private WindowDrag windowDrag;
-    Stage popup;
 
-    Label editedData = new Label();
+    /**
+     * The popup stage
+     */
+    private Stage popup;
 
+    /**
+     * The edited data
+     */
+    private Label editedData = new Label();
+
+    /**
+     * Constructor of the ModificationDonnees class
+     * @param popup the popup stage
+     */
     public ModificationDonnees(Stage popup) {
         this.popup = popup;
     }
 
+    /**
+     * Start method of the ModificationDonnees class
+     * @param primaryStage the stage
+     */
     @Override
     public void start(Stage primaryStage) {
 		// copy primaryStage to newStage (new object, not a reference)
 		Stage newStage = stageDump.dump(primaryStage);
-        // Import stuff
 		ModificationDonneesB modificationDonneesB = new ModificationDonneesB(this);
         try {
             Font.loadFont(new File("res/fonts/Roboto/Roboto-Regular.ttf").toURI().toURL().toExternalForm(), 12);
@@ -92,12 +137,9 @@ public class ModificationDonnees extends Application {
         Platform.runLater(() -> {
             this.popup.close();
         });
-
         
         // Create UI components
-        
 
-        // un label pour chaque textField
         ComboBox<String> clePrimaireQuartier = new ComboBox<>();
         for (String cle : lesClesPrimaireQuartier) {
             clePrimaireQuartier.getItems().add(cle);
@@ -141,7 +183,6 @@ public class ModificationDonnees extends Application {
         for (String laTable : lesTables) {
             tables.getItems().add(laTable);
         }
-
 
         TextField newValeur = new TextField();
         
@@ -202,14 +243,10 @@ public class ModificationDonnees extends Application {
         Text newValeurLabel = new Text("Nouvelle valeur");
         newValeurLabel.setFill(Color.WHITE);
 
-
-        
-
 		// Add components to the grid
         root.add(tableLabel, 0, 0);
         root.add(tables, 1, 0);
         root.add(editedData, 1, 8);
-        //String actualTable = tables.getValue();
         tables.valueProperty().addListener((observable, oldValue, newValue) -> {
             actualTable = newValue;
         });
@@ -231,8 +268,6 @@ public class ModificationDonnees extends Application {
                 root.add(newValeurLabel, 0, 3);
                 root.add(newValeur, 1, 3);
                 root.add(searchButton, 1, 4);
-
-
             } else if (actualTable.equals("Compteur")) {
                 num = 2;
                 root.add(colonneLabel, 0, 1);
@@ -242,9 +277,6 @@ public class ModificationDonnees extends Application {
                 root.add(newValeurLabel, 0, 3);
                 root.add(newValeur, 1, 3);
                 root.add(searchButton, 1, 4);
-
-
-
             } else if (actualTable.equals("DateInfo")) {
                 num = 3;
                 root.add(colonneLabel, 0, 1);
@@ -254,8 +286,6 @@ public class ModificationDonnees extends Application {
                 root.add(newValeurLabel, 0, 3);
                 root.add(newValeur, 1, 3);
                 root.add(searchButton, 1, 4);
-
-
             } else if (actualTable.equals("Comptage")) {
                 num = 4;
                 root.add(colonneLabel, 0, 1);
@@ -266,13 +296,9 @@ public class ModificationDonnees extends Application {
                 root.add(newValeurLabel, 0, 4);
                 root.add(newValeur, 1, 4);
                 root.add(searchButton, 1, 5);
-
             }
-            
         });
 
-        
-		
         // Create the title bar
         JFXButton closeButton = new JFXButton("✕");
         JFXButton minimizeButton = new JFXButton("—");
@@ -311,6 +337,11 @@ public class ModificationDonnees extends Application {
 		newStage.show();
 	}
 
+    /**
+     * Create an icon from an image path
+     * @param imagePath The path to the image
+     * @return The icon
+     */
     private ImageView createIcon(String imagePath) {
         try {
             Image image = new Image(new File(imagePath).toURI().toURL().toExternalForm());
@@ -325,11 +356,20 @@ public class ModificationDonnees extends Application {
 		}
 	}
 
+    /**
+     * Main method, launches the application
+     * @param args The command line arguments
+     */
 	public static void main(String[] args) {
 		launch(args);
 	}
 
+    /**
+     * Set the edited data
+     * @param editedData The edited data
+     */
     public void setEditedData(String editedData) {
         this.editedData.setText(editedData);
     }
+
 }

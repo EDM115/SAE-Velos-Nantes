@@ -1,5 +1,13 @@
 package frontend;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXHamburger;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -25,32 +33,56 @@ import utils.TitleBar;
 import utils.StageDump;
 import utils.WindowDrag;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXHamburger;
-
+/**
+ * The SaisieDonnees class, allows to create the data entry window
+ */
 public class SaisieDonnees extends Application {
     
-    String actualTable = "";
-    int num = 0;
-	private StageDump stageDump = new StageDump();
-    private WindowDrag windowDrag;
-    Stage popupStage;
-    Label editedData = new Label();
+    /**
+     * The actual table
+     */
+    private String actualTable = "";
 
+    /**
+     * The number of the table
+     */
+    private int num = 0;
+
+    /**
+     * The stage dump
+     */
+	private StageDump stageDump = new StageDump();
+
+    /**
+     * The window drag
+     */
+    private WindowDrag windowDrag;
+
+    /**
+     * The popup stage
+     */
+    private Stage popupStage;
+
+    /**
+     * The edited data
+     */
+    private Label editedData = new Label();
+
+    /**
+     * Constructor of the SaisieDonnees class
+     * @param popup the popup stage
+     */
     public SaisieDonnees(Stage popup) {
         this.popupStage = popup;
     }
 
+    /**
+     * The start method, allows to create the data entry window
+     * @param primaryStage the primary stage
+     */
     @Override
     public void start(Stage primaryStage) {
-		// copy primaryStage to newStage (new object, not a reference)
 		Stage newStage = stageDump.dump(primaryStage);
-        // Import stuff
 		SaisieDonneesB saisieDonneesB = new SaisieDonneesB(this);
         try {
             Font.loadFont(new File("res/fonts/Roboto/Roboto-Regular.ttf").toURI().toURL().toExternalForm(), 12);
@@ -110,7 +142,6 @@ public class SaisieDonnees extends Application {
         TextField h23 = new TextField();
         TextField presenceAnomalie = new TextField();
 
-        // un label pour chaque textField
         Text idQuartierLabel = new Text("idQuartier");
         idQuartierLabel.setFill(Color.WHITE);
         Text nomQuartierLabel = new Text("nomQuartier");
@@ -195,7 +226,6 @@ public class SaisieDonnees extends Application {
         Text presenceAnomalieLabel = new Text("presenceAnomalie");
         presenceAnomalieLabel.setFill(Color.WHITE);
 
-
         ComboBox<String> tables = new ComboBox<>();
         for (String laTable : lesTables) {
             tables.getItems().add(laTable);
@@ -219,14 +249,12 @@ public class SaisieDonnees extends Application {
                 double coord_Y2 = Double.parseDouble(coord_Y.getText());
                 int leQuartier2 = Integer.parseInt(leQuartier.getText());
                 saisieDonneesB.ajoutCompteur(idCompteur2, nomCompteur2, sens2, coord_X2, coord_Y2, leQuartier2);
-
             } else if (num == 3) {
                 LocalDate laDate2 = laDate.getValue();
                 double tempMoy2 = Double.parseDouble(tempMoy.getText());
                 String jour2 = jour.getText();
                 String vacances2 = vacances.getText();
                 saisieDonneesB.ajoutDateInfo(laDate2, tempMoy2, jour2, vacances2);
-
             } else if (num == 4) {
                 int leCompteur2 = Integer.parseInt(leCompteur.getText());
                 LocalDate dateComptage2 = dateComptage.getValue();
@@ -278,14 +306,11 @@ public class SaisieDonnees extends Application {
         root.add(tableLabel, 0, 0);
         root.add(tables, 1, 0);
         root.add(editedData, 1, 8);
-        //String actualTable = tables.getValue();
         tables.valueProperty().addListener((observable, oldValue, newValue) -> {
             actualTable = newValue;
         });
-        
 
         tables.setOnAction(event -> {
-            
             root.getChildren().removeAll(
                 idQuartier, nomQuartier, longueurPisteVelo,
                 idCompteur, nomCompteur, sens, coord_X, coord_Y, leQuartier,
@@ -306,7 +331,6 @@ public class SaisieDonnees extends Application {
                 root.add(nomQuartier, 1, 2);
                 root.add(longueurPisteVelo, 1, 3);
                 root.add(searchButton, 1, 4);
-
             } else if (actualTable.equals("Compteur")) {
                 num = 2;
                 root.add(idCompteurLabel, 0, 1);
@@ -322,7 +346,6 @@ public class SaisieDonnees extends Application {
                 root.add(coord_Y, 1, 5);
                 root.add(leQuartier, 1, 6);
                 root.add(searchButton, 1, 7);
-
             } else if (actualTable.equals("DateInfo")) {
                 num = 3;
                 root.add(laDateLabel, 0, 1);
@@ -334,7 +357,6 @@ public class SaisieDonnees extends Application {
                 root.add(jour, 1, 3);
                 root.add(vacances, 1, 4);
                 root.add(searchButton, 1, 5);
-
             } else if (actualTable.equals("Comptage")) {
                 num = 4;
                 root.add(leCompteurLabel, 0, 1);
@@ -344,7 +366,7 @@ public class SaisieDonnees extends Application {
                 root.add(h02Label, 0, 5);
                 root.add(h03Label, 0, 6);
                 root.add(h04Label, 0, 7);
-               
+
                 root.add(leCompteur, 1, 1);
                 root.add(dateComptage, 1, 2);
                 root.add(h00, 1, 3);
@@ -360,7 +382,7 @@ public class SaisieDonnees extends Application {
                 root.add(h09Label, 2, 5);
                 root.add(h10Label, 2, 6);
                 root.add(h11Label, 2, 7);
-                
+
                 root.add(h05, 3, 1);
                 root.add(h06, 3, 2);
                 root.add(h07, 3, 3);
@@ -376,7 +398,7 @@ public class SaisieDonnees extends Application {
                 root.add(h16Label, 4, 5);
                 root.add(h17Label, 4, 6);
                 root.add(h18Label, 4, 7);
-                
+
                 root.add(h12, 5, 1);
                 root.add(h13, 5, 2);
                 root.add(h14, 5, 3);
@@ -400,11 +422,8 @@ public class SaisieDonnees extends Application {
                 root.add(presenceAnomalie, 7, 6);
                 root.add(searchButton, 7, 7);
             }
-            
         });
 
-        
-		
         // Create the title bar
         JFXButton closeButton = new JFXButton("✕");
         JFXButton minimizeButton = new JFXButton("—");
@@ -443,6 +462,11 @@ public class SaisieDonnees extends Application {
 		newStage.show();
 	}
 
+    /**
+     * Create an icon from an image path
+     * @param imagePath The path to the image
+     * @return The icon
+     */
 	private ImageView createIcon(String imagePath) {
         try {
             Image image = new Image(new File(imagePath).toURI().toURL().toExternalForm());
@@ -457,11 +481,20 @@ public class SaisieDonnees extends Application {
 		}
 	}
 
+    /**
+     * The main method
+     * @param args The arguments
+     */
 	public static void main(String[] args) {
 		launch(args);
 	}
 
+    /**
+     * Set the edited data
+     * @param editedData The edited data
+     */
     public void setEditedData(String editedData) {
         this.editedData.setText(editedData);
     }
+
 }

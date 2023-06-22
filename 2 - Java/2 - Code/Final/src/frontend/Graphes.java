@@ -21,21 +21,56 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import backend.GraphesB;
 import utils.StageDump;
 import utils.TitleBar;
 import utils.WindowDrag;
-import backend.GraphesB;
 
+/**
+ * The Graphes class, allows to create the graphs page
+ */
 public class Graphes extends Application {
 
+    /**
+     * The StageDump object, allows to save the stage
+     */
     private StageDump stageDump = new StageDump();
-    private WindowDrag windowDrag;
-    private String imagePath1 = "res/images/graphes/grapheDist.png";
-	private String imagePath2 = "res/images/graphes/grapheDist1.png";
-	private String labelText1 = "Distance à l'échelle";
-	private String labelText2 = "Distance";
-    Stage newStage;
 
+    /**
+     * The WindowDrag object, allows to drag the window
+     */
+    private WindowDrag windowDrag;
+
+    /**
+     * Path to the first image
+     */
+    private String imagePath1 = "res/images/graphes/grapheDist.png";
+
+    /**
+     * Path to the second image
+     */
+	private String imagePath2 = "res/images/graphes/grapheDist1.png";
+
+    /**
+     * Text of the first label
+     */
+	private String labelText1 = "Distance à l'échelle";
+
+    /**
+     * Text of the second label
+     */
+	private String labelText2 = "Distance";
+
+    /**
+     * The Stage object, allows to create the stage
+     */
+    private Stage newStage;
+    
+    /**
+     * The start method, allows to create the stage
+     * @param primaryStage The stage
+     */
     @Override
     public void start(Stage primaryStage) {
         newStage = stageDump.dump(primaryStage);
@@ -62,7 +97,7 @@ public class Graphes extends Application {
         gridPane.setPadding(new Insets(10));
 
         // Add images and labels to the GridPane
-				try {
+		try {
 			Image image1 = new Image(new File(imagePath1).toURI().toURL().toExternalForm());
 			ImageView imageView1 = new ImageView(image1);
 			imageView1.setFitWidth(600);
@@ -131,7 +166,17 @@ public class Graphes extends Application {
         newStage.show();
     }
 
+    /**
+     * The main method, launches the application
+     * @param args The arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }
+
+    /**
+     * Default constructor of the class
+     */
+    public Graphes() {}
+
 }

@@ -12,7 +12,7 @@ Tous les fichiers ici, c'est plus simple et collaboratif
 - Java
   - [x] Diagramme de conception
   - [x] Dossier ergonomie
-  - [ ] Code (anglais)
+  - [x] Code (anglais)
 - Graphes
   - [x] Jupyter Notebook
   - [x] Compte-rendu

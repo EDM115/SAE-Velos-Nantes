@@ -1,5 +1,12 @@
 package frontend;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.util.ArrayList;
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXHamburger;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -23,31 +30,51 @@ import utils.TitleBar;
 import utils.StageDump;
 import utils.WindowDrag;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXHamburger;
-
+/**
+ * The StationProche class, allows to create the nearest station window
+ */
 public class StationProche extends Application {
 
+    /**
+     * The stage dump
+     */
 	private StageDump stageDump = new StageDump();
+
+    /**
+     * The window drag
+     */
     private WindowDrag windowDrag;
     
-    Label nearestStationLabel = new Label();
-    Label distanceLabel = new Label();
-    Stage popupStage;
+    /**
+     * The nearest station label
+     */
+    private Label nearestStationLabel = new Label();
 
+    /**
+     * The distance label
+     */
+    private Label distanceLabel = new Label();
+
+    /**
+     * The popup stage
+     */
+    private Stage popupStage;
+
+    /**
+     * The constructor
+     * @param popup the popup stage
+     */
     public StationProche(Stage popup) {
         this.popupStage = popup;
     }
 
+    /**
+     * The start method, called when the window is created
+     * @param primaryStage the primary stage
+     */
     @Override
     public void start(Stage primaryStage) {
-        // copy primaryStage to newStage (new object, not a reference)
 		Stage newStage = stageDump.dump(primaryStage);
-        // Import stuff
 		StationProcheB stationProcheB = new StationProcheB(this);
         try {
             Font.loadFont(new File("res/fonts/Roboto/Roboto-Regular.ttf").toURI().toURL().toExternalForm(), 12);
@@ -84,7 +111,6 @@ public class StationProche extends Application {
         distanceLabel.setTextFill(Color.web("#f8f8f2"));
         distanceLabel.setFont(Font.font("Roboto", FontWeight.BOLD, 14));
 
-
         // Set up the layout
         GridPane root = new GridPane();
         root.setBackground(new Background(new BackgroundFill(Color.web("#282a36"), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -103,7 +129,6 @@ public class StationProche extends Application {
         root.add(searchButton, 1, 1);
         root.add(nearestStationLabel, 0, 2, 2, 1);
         root.add(distanceLabel, 0, 3, 2, 1);
-
 		
         // Create the title bar
         JFXButton closeButton = new JFXButton("✕");
@@ -143,6 +168,11 @@ public class StationProche extends Application {
 		newStage.show();
 	}
 
+    /**
+     * Create an icon
+     * @param imagePath the image path
+     * @return the image view
+     */
 	private ImageView createIcon(String imagePath) {
         try {
             Image image = new Image(new File(imagePath).toURI().toURL().toExternalForm());
@@ -157,15 +187,28 @@ public class StationProche extends Application {
 		}
 	}
 
+    /**
+     * The main method
+     * @param args the arguments
+     */
 	public static void main(String[] args) {
 		launch(args);
 	}
 
+    /**
+     * Set the nearest station label
+     * @param text the text
+     */
     public void setNearestStationLabel(String text) {
         this.nearestStationLabel.setText(text);
     }
 
+    /**
+     * Set the distance label
+     * @param text the text
+     */
     public void setDistanceLabel(String text) {
         this.distanceLabel.setText(text);
     }
+
 }

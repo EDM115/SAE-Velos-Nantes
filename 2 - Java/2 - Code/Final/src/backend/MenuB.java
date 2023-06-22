@@ -3,7 +3,6 @@ package backend;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSpinner;
 
-import frontend.*;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -25,19 +24,35 @@ import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
 import utils.GlobalVar;
 
+import frontend.*;
+
+/**
+ * The MenuB class, backend of the menu window
+ */
 public class MenuB {
+
+    /**
+     * The menu object
+     */
     private Menu menu;
-    
+
+    /**
+     * The constructor
+     * @param menu the menu
+     */
     public MenuB(Menu menu) {
         this.menu = menu;
         setupButtonActions();
     }
 
+    /**
+     * Set up the button actions
+     */
     private void setupButtonActions() {
         menu.getHomeButton().setOnAction(event -> {
-            // Handle home button click
             Accueil accueil = new Accueil();
             accueil.setFirstTime(false);
             accueil.start(this.menu.getPreviousStage());
@@ -96,7 +111,6 @@ public class MenuB {
         });
 
         menu.getEditDataButton().setOnAction(event -> {
-            // Handle edit data button click
             GlobalVar globalVar = new GlobalVar();
             if (globalVar.isAdmin()) {
                 Stage popup = showSpinnerPopup();
@@ -112,6 +126,10 @@ public class MenuB {
         }); 
     }
 
+    /**
+     * Show the error popup
+     * @param errorMessage the error message to display
+     */
     private void showError(String errorMessage) {
         // Create the error message text
         Text errorText = new Text(errorMessage);
@@ -157,6 +175,10 @@ public class MenuB {
         errorStage.showAndWait();
     }
 
+    /**
+     * Show the spinner popup
+     * @return the stage of the popup
+     */
     public Stage showSpinnerPopup() {
         // Create the spinner
         JFXSpinner spinner = new JFXSpinner();
@@ -187,4 +209,5 @@ public class MenuB {
 
         return popupStage;
     }
+
 }

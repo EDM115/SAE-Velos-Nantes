@@ -23,22 +23,22 @@ public class WindowDrag {
 	/**
 	 * VBox root
 	 */
-	VBox root;
+	private VBox root;
 
 	/**
 	 * BorderPane root2
 	 */
-	BorderPane root2;
+	private BorderPane root2;
 
 	/**
 	 * GridPane root3
 	 */
-	GridPane root3;
+	private GridPane root3;
 
 	/**
 	 * Stage newStage
 	 */
-	Stage newStage;
+	private Stage newStage;
 
 	/**
 	 * WindowDrag constructor

@@ -1,5 +1,13 @@
 package frontend;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXHamburger;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -25,39 +33,82 @@ import utils.TitleBar;
 import utils.StageDump;
 import utils.WindowDrag;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXHamburger;
-
+/**
+ * The RechercheTrajet class, allows to create the travel search window
+ */
 public class RechercheTrajet extends Application {
 
+    /**
+     * The stage dump
+     */
 	private StageDump stageDump = new StageDump();
-    private WindowDrag windowDrag;
-    Button searchButton = new Button("RECHERCHE");
-    String departure;
-    int departureIndex;
-    String arrival;
-    int arrivalIndex;
-    int hour;
-    LocalDate date;
-    Stage newStage;
-    Stage popupStage;
 
+    /**
+     * The window drag
+     */
+    private WindowDrag windowDrag;
+
+    /**
+     * The search button
+     */
+    Button searchButton = new Button("RECHERCHE");
+
+    /**
+     * The departure station
+     */
+    private String departure;
+
+    /**
+     * The departure index
+     */
+    private int departureIndex;
+
+    /**
+     * The arrival station
+     */
+    private String arrival;
+
+    /**
+     * The arrival index
+     */
+    private int arrivalIndex;
+
+    /**
+     * The hour
+     */
+    private int hour;
+
+    /**
+     * The date
+     */
+    private LocalDate date;
+
+    /**
+     * The new stage
+     */
+    private Stage newStage;
+
+    /**
+     * The popup stage
+     */
+    private Stage popupStage;
+
+    /**
+     * The constructor
+     * @param popup the popup stage
+     */
     public RechercheTrajet(Stage popup) {
         this.popupStage = popup;
     }
 
+    /**
+     * The start method
+     * @param primaryStage the primary stage
+     */
     @Override
     public void start(Stage primaryStage) {
-		// copy primaryStage to newStage (new object, not a reference)
         newStage = stageDump.dump(primaryStage);
-        // Import stuff
         RechercheTrajetB rechercheTrajetB = new RechercheTrajetB(this);
-
         rechercheTrajetB.lesCompteursBdd();
         ArrayList<String> lesCompteurs = rechercheTrajetB.getLesCompteurs();
 
@@ -73,7 +124,6 @@ public class RechercheTrajet extends Application {
         }
 
         // Create UI components
-        // add the strings from lesCompteurs to the departureStation and arrivalStation ComboBoxes
         ComboBox<String> departureStation = new ComboBox<>();
         for (String compteur : lesCompteurs) {
             departureStation.getItems().add(compteur);
@@ -134,8 +184,7 @@ public class RechercheTrajet extends Application {
         BorderPane rootPane = new BorderPane();
         rootPane.setTop(titleBar);
         rootPane.setCenter(root);
-		
-        // Make the window draggable
+
         windowDrag = new WindowDrag(rootPane, newStage);
 
 		// Add event listeners
@@ -157,7 +206,6 @@ public class RechercheTrajet extends Application {
 		scene.setFill(Color.TRANSPARENT);
 		newStage.setScene(scene);
 
-        // dynamically updates the values of the instance variables departure, arrival, date, hour everytime the user changes one of the ComboBoxes/Spinners/DatePicker
         departureStation.valueProperty().addListener((observable, oldValue, newValue) -> {
             departure = newValue;
             departureIndex = departureStation.getSelectionModel().getSelectedIndex();
@@ -179,6 +227,11 @@ public class RechercheTrajet extends Application {
 		newStage.show();
 	}
 
+    /**
+     * Create an icon
+     * @param imagePath the path to the image
+     * @return the icon
+     */
 	private ImageView createIcon(String imagePath) {
         try {
             Image image = new Image(new File(imagePath).toURI().toURL().toExternalForm());
@@ -193,39 +246,76 @@ public class RechercheTrajet extends Application {
 		}
 	}
 
+    /**
+     * Main method
+     * @param args the arguments
+     */
 	public static void main(String[] args) {
 		launch(args);
 	}
 
+    /**
+     * Get the search button
+     * @return the search button
+     */
     public Button getSearchButton() {
         return this.searchButton;
     }
 
+    /**
+     * Get the departure station
+     * @return the departure station
+     */
     public String getDeparture() {
         return this.departure;
     }
 
+    /**
+     * Get the departure station index
+     * @return the departure station index
+     */
     public int getDepartureIndex() {
         return this.departureIndex;
     }
 
+    /**
+     * Get the arrival station
+     * @return the arrival station
+     */
     public String getArrival() {
         return this.arrival;
     }
 
+    /**
+     * Get the arrival station index
+     * @return the arrival station index
+     */
     public int getArrivalIndex() {
         return this.arrivalIndex;
     }
 
+    /**
+     * Get the date
+     * @return the date
+     */
     public LocalDate getDate() {
         return this.date;
     }
 
+    /**
+     * Get the hour
+     * @return the hour
+     */
     public int getHour() {
         return this.hour;
     }
 
+    /**
+     * Get the stage
+     * @return the stage
+     */
     public Stage getStage() {
         return this.newStage;
     }
+
 }

@@ -5,21 +5,40 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import frontend.Menu;
-import frontend.StationProche;
 import javafx.application.Application;
 import javafx.stage.Stage;
+
+import frontend.Menu;
+import frontend.StationProche;
 import utils.ConnexionBdd;
 
+/**
+ * The StationProcheB class, backend of the nearest station window
+ */
 public class StationProcheB extends Application {
 
+    /**
+     * ArrayList of the counters
+     */
     private ArrayList<String> lesCompteurs;
+
+    /**
+     * The nearest station window
+     */
     private StationProche stationProche;
 
+    /**
+     * The main method
+     * @param args the arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * The start method, called when the window is created
+     * @param primaryStage the primary stage
+     */
     @Override
     public void start(Stage primaryStage) {
         // Create menu
@@ -28,11 +47,18 @@ public class StationProcheB extends Application {
         primaryStage.hide();
     }
 
+    /**
+     * The constructor of the class
+     * @param stationProche the nearest station window
+     */
     public StationProcheB(StationProche stationProche) {
         this.stationProche = stationProche;
         this.lesCompteursBdd();
     }
 
+    /**
+     * Method to initialize the arraylist of the counters
+     */
     public void lesCompteursBdd() {
         this.lesCompteurs = new ArrayList<String>();
         ConnexionBdd connexionBdd = new ConnexionBdd();
@@ -45,12 +71,15 @@ public class StationProcheB extends Application {
             while(resultSet.next()) {
                 this.lesCompteurs.add(resultSet.getString("resultat"));
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Method to search for the nearest station
+     * @param compteur the counter
+     */
     public void rechercherStation(String compteur) {
         try {
             String[] split = new String[2];
@@ -65,7 +94,6 @@ public class StationProcheB extends Application {
             }
             // bad database
             split[0] = split[0] + " ";
-
 
             String query = "SELECT c2.nomCompteur, c2.sens, MIN(SQRT(POW((RADIANS(c2.coord_Y) - RADIANS(c1.coord_Y)), 2) + POW((RADIANS(c2.coord_X) - RADIANS(c1.coord_X)), 2) * COS(RADIANS(c1.coord_Y)) * COS(RADIANS(c2.coord_Y))) * 6371000) AS distance_metres FROM Compteur c1 JOIN Compteur c2 ON c1.nomCompteur = '" + split[0] + "' AND c1.sens = '" + split[1] + "' WHERE c2.nomCompteur <> '" + split[0] + "' GROUP BY c2.nomCompteur, c2.sens ORDER BY distance_metres LIMIT 1;";
 
@@ -84,15 +112,17 @@ public class StationProcheB extends Application {
             
             stationProche.setNearestStationLabel("Station la plus proche: " + nomCompteur + " " + sens);
             stationProche.setDistanceLabel("Distance: " + nbMetres + " mètres");
-
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
+    /**
+     * Getter of the arraylist of the tables
+     * @return the arraylist of the tables
+     */
     public ArrayList<String> getLesCompteurs() {
         return this.lesCompteurs;
     }
+
 }

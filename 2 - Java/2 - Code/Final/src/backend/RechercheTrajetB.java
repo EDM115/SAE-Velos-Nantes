@@ -1,11 +1,8 @@
 package backend;
 
-import frontend.Menu;
-import frontend.RechercheTrajet;
-import frontend.ResultatsRecherche;
-import javafx.application.Application;
-import javafx.stage.Stage;
-import utils.ConnexionBdd;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -17,20 +14,46 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
+import frontend.Menu;
+import frontend.RechercheTrajet;
+import frontend.ResultatsRecherche;
+import utils.ConnexionBdd;
+
+/**
+ * The RechercheTrajetB class, backend of the search window
+ */
 public class RechercheTrajetB extends Application {
 
+    /**
+     * ArrayList of the counters
+     */
     private ArrayList<String> lesCompteurs;
+
+    /**
+     * ArrayList of the counters id
+     */
     private ArrayList<Integer> lesIdCompteurs;
+
+    /**
+     * The travel search window
+     */
     private RechercheTrajet rechercheTrajet;
 
+    /**
+     * The main method
+     * @param args the arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * The start method, called when the window is created
+     * @param primaryStage the primary stage
+     */
     @Override
     public void start(Stage primaryStage) {
         // Create menu
@@ -39,12 +62,19 @@ public class RechercheTrajetB extends Application {
         primaryStage.hide();
     }
 
+    /**
+     * The constructor
+     * @param rechercheTrajet the travel search window
+     */
     public RechercheTrajetB(RechercheTrajet rechercheTrajet) {
         this.rechercheTrajet = rechercheTrajet;
         this.lesCompteursBdd();
         setupButtonActions();
     }
 
+    /**
+     * Get the counters from the database
+     */
     public void lesCompteursBdd() {
         this.lesCompteurs = new ArrayList<String>();
         this.lesIdCompteurs = new ArrayList<Integer>();
@@ -59,16 +89,24 @@ public class RechercheTrajetB extends Application {
                 this.lesCompteurs.add(resultSet.getString("resultat"));
                 this.lesIdCompteurs.add(resultSet.getInt("idCompteur"));
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Get the counters
+     * @return the counters
+     */
     public ArrayList<String> getLesCompteurs() {
         return this.lesCompteurs;
     }
 
+    /**
+     * Get the geo coordinates of a counter
+     * @param idCompteur the counter id
+     * @return the geo coordinates
+     */
     public double[] getGeo(int idCompteur) {
         double[] geo = new double[2];
         ConnexionBdd connexionBdd = new ConnexionBdd();
@@ -81,14 +119,18 @@ public class RechercheTrajetB extends Application {
                 geo[0] = resultSet.getDouble("formatted_coord_X");
                 geo[1] = resultSet.getDouble("formatted_coord_Y");
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return geo;
     }
 
-
+    /**
+     * Get the counter id from the index
+     * @param index the index
+     * @param lesCompteurs the counters
+     * @return the counter id
+     */
     public int getCompteurFromId(int index, ArrayList<String> lesCompteurs) {
         String compteur = lesCompteurs.get(index);
         String[] split = new String[2];
@@ -114,13 +156,16 @@ public class RechercheTrajetB extends Application {
             while(resultSet.next()) {
                 id = resultSet.getInt("idCompteur");
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return id;
     }
 
+    /**
+     * Set up the actions of the buttons
+     */
     public void setupButtonActions() {
         rechercheTrajet.getSearchButton().setOnAction(event -> {
             String departure = rechercheTrajet.getDeparture();
@@ -134,6 +179,15 @@ public class RechercheTrajetB extends Application {
         });
     }
 
+    /**
+     * Search for a travel, and writ eit to a JSON file
+     * @param departure the departure
+     * @param departureIndex the departure index
+     * @param arrival the arrival
+     * @param arrivalIndex the arrival index
+     * @param hour the hour
+     * @param date the date
+     */
     public void rechercherTrajet(String departure, int departureIndex, String arrival, int arrivalIndex, int hour, LocalDate date) {
         try {
             String[] split = new String[2];
@@ -230,7 +284,6 @@ public class RechercheTrajetB extends Application {
             ResultatsRecherche resultatsRecherche = new ResultatsRecherche(true, file);
             resultatsRecherche.start(this.rechercheTrajet.getStage());
             this.rechercheTrajet.getStage().hide();
-
         } catch (SQLSyntaxErrorException e) {
             System.err.println("\u001B[31mERREUR\u001B[0m");
         } catch (SQLException e) {
@@ -239,7 +292,11 @@ public class RechercheTrajetB extends Application {
         }
     }
 
-    // writeData(String[] data), takes the data and write it in a readable JSON file
+    /**
+     * Write the data in a JSON file
+     * @param data the data to write
+     * @return the JSON file
+     */
     public JsonObject dataToJson(String[] data) {
         // create a new JSONObject
         JsonObject jsonObject = new JsonObject();
@@ -263,6 +320,11 @@ public class RechercheTrajetB extends Application {
         return jsonObject;
     }
 
+    /**
+     * Write the data in a JSON file
+     * @param jsonObject the data to write
+     * @return the JSON file
+     */
     public File writeData(JsonObject jsonObject) {
         // Create a new JSON file
         File file = new File("res/data.json");
@@ -289,7 +351,9 @@ public class RechercheTrajetB extends Application {
         return file;
     }
 
-    public RechercheTrajetB() {
-    }
-}
+    /**
+     * Default constructor
+     */
+    public RechercheTrajetB() {}
 
+}

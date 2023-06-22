@@ -1,5 +1,13 @@
 package frontend;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXHamburger;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -25,35 +33,71 @@ import utils.TitleBar;
 import utils.StageDump;
 import utils.WindowDrag;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXHamburger;
-
+/**
+ * The RechercheAffluence class, allows to create the crowd search window
+ */
 public class RechercheAffluence extends Application {
 
+    /**
+     * The stage dump
+     */
 	private StageDump stageDump = new StageDump();
-    private WindowDrag windowDrag;
-    Button searchButton = new Button("RECHERCHE");
-    String compteur;
-    int compteurIndex;
-    int hour;
-    LocalDate date;
-    Stage newStage;
-    Stage popupStage;
 
+    /**
+     * The window drag
+     */
+    private WindowDrag windowDrag;
+
+    /**
+     * The search button
+     */
+    private Button searchButton = new Button("RECHERCHE");
+
+    /**
+     * The compteur
+     */
+    private String compteur;
+
+    /**
+     * The compteur index
+     */
+    private int compteurIndex;
+
+    /**
+     * The hour
+     */
+    private int hour;
+
+    /**
+     * The date
+     */
+    private LocalDate date;
+
+    /**
+     * The new stage
+     */
+    private Stage newStage;
+
+    /**
+     * The popup stage
+     */
+    private Stage popupStage;
+
+    /**
+     * The constructor
+     * @param popup the popup stage
+     */
     public RechercheAffluence(Stage popup) {
         this.popupStage = popup;
     }
 
+    /**
+     * Start the stage
+     * @param primaryStage the primary stage
+     */
     @Override
     public void start(Stage primaryStage) {
-		// copy primaryStage to newStage (new object, not a reference)
 		newStage = stageDump.dump(primaryStage);
-        // Import stuff
 		RechercheAffluenceB rechercheAffluenceB = new RechercheAffluenceB(this);
         try {
             Font.loadFont(new File("res/fonts/Roboto/Roboto-Regular.ttf").toURI().toURL().toExternalForm(), 12);
@@ -74,7 +118,6 @@ public class RechercheAffluence extends Application {
         for (String compteur : lesCompteurs) {
             departureStation.getItems().add(compteur);
         }
-        //departureStation.setValue(departureStation.getItems().get(0));
         DatePicker datePicker = new DatePicker();
         Spinner<Integer> hourSpinner = new Spinner<>();
         searchButton.setGraphic(createIcon("res/images/search_cl.png"));
@@ -160,6 +203,11 @@ public class RechercheAffluence extends Application {
 		newStage.show();
 	}
 
+    /**
+     * Create an icon
+     * @param imagePath the path of the image
+     * @return the icon
+     */
 	private ImageView createIcon(String imagePath) {
         try {
             Image image = new Image(new File(imagePath).toURI().toURL().toExternalForm());
@@ -174,31 +222,60 @@ public class RechercheAffluence extends Application {
 		}
 	}
 
+    /**
+     * The main method
+     * @param args the arguments
+     */
 	public static void main(String[] args) {
 		launch(args);
 	}
 
+    /**
+     * Get the search button
+     * @return the search button
+     */
     public Button getSearchButton() {
         return searchButton;
     }
 
+    /**
+     * Get the compteur
+     * @return the compteur
+     */
     public String getCompteur() {
         return compteur;
     }
 
+    /**
+     * Get the compteur index
+     * @return the compteur index
+     */
     public int getCompteurIndex() {
         return compteurIndex;
     }
 
+    /**
+     * Get the hour
+     * @return the hour
+     */
     public int getHour() {
         return hour;
     }
 
+    /**
+     * Get the date
+     * @return the date
+     */
     public LocalDate getDate() {
         return date;
     }
 
+    /**
+     * Get the stage
+     * @return the stage
+     */
     public Stage getStage() {
         return newStage;
     }
+
 }

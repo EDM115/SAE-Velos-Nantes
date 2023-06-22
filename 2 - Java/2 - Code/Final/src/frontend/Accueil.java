@@ -32,19 +32,42 @@ import utils.WindowDrag;
  * The Accueil class, allows to create the home page
  */
 public class Accueil extends Application {
+
+    /**
+     * The AccueilB object, allows to use the backend of the home page
+     */
     private AccueilB accueilB;
+
+    /**
+     * The StageDump object, allows to save the stage
+     */
     private StageDump stageDump = new StageDump();
+
+    /**
+     * The boolean firstTime, allows to know if it's the first time the home page is created
+     */
     private boolean firstTime = true;
+
+    /**
+     * The WindowDrag object, allows to drag the window
+     */
     private WindowDrag windowDrag;
 
+    /**
+     * The main method, launches the application
+     * @param args The arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * The start method, creates the home page
+     * @param primaryStage The stage
+     */
     @Override
     public void start(Stage primaryStage) {
         Stage newStage;
-        // Import stuff
         accueilB = new AccueilB();
         TitleBar titleBarElement = new TitleBar();
         if (firstTime) {
@@ -175,8 +198,17 @@ public class Accueil extends Application {
         newStage.show();
     }
 
+    /**
+     * Set the boolean firstTime
+     * @param b the boolean to set
+     */
     public void setFirstTime(boolean b) {
         this.firstTime = b;
     }
+
+    /**
+     * Default constructor of the class
+     */
+    public Accueil() {}
 
 }
