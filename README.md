@@ -62,9 +62,10 @@ SQL files :
 [SAE_creation.sql](https://raw.githubusercontent.com/EDM115/school-codes-v2/master/BUT1/Moodle/S2/R2.06/SAE_creation.sql)  
 [SAE_remplissage_Quartier_Compteur_Date.sql](https://github.com/EDM115/school-codes-v2/raw/master/BUT1/Moodle/S2/R2.06/SAE_remplissage_Quartier_Compteur_Date.sql)  
 [SAE_remplissage_Comptage.sql](https://github.com/EDM115/school-codes-v2/raw/master/BUT1/Moodle/S2/R2.06/SAE_remplissage_Comptage.sql)  
-3) Go in [2 - Java/2 - Code/Final](./2 - Java/2 - Code/Final) and open a terminal there
+
+3) Go in [2 - Java/2 - Code/Final](./2%20-%20Java/2%20-%20Code/Final) and open a terminal there
   1) Linux : `chmod +x run.sh && run.sh`
-  2) Windows :
-    - CMD : `run.bat`
-    - PowerShell : `.\run.bat`
+  2) Windows :  
+    - CMD : `run.bat`  
+    - PowerShell : `.\run.bat`  
 
