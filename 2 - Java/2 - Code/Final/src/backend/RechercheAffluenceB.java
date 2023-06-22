@@ -16,7 +16,6 @@ import frontend.ResultatsRecherche;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import utils.ConnexionBdd;
-import backend.RechercheTrajetB;
 
 public class RechercheAffluenceB extends Application {
 

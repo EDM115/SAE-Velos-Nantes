@@ -1,8 +1,6 @@
 package frontend;
 
 import javafx.application.Application;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,7 +11,6 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -23,7 +20,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import backend.RechercheAffluenceB;
-import backend.RechercheTrajetB;
 import utils.TitleBar;
 import utils.StageDump;
 import utils.WindowDrag;
@@ -31,17 +27,13 @@ import utils.WindowDrag;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXHamburger;
 
 public class RechercheAffluence extends Application {
 
-    private double xOffset = 0;
-    private double yOffset = 0;
 	private StageDump stageDump = new StageDump();
     private WindowDrag windowDrag;
     Button searchButton = new Button("RECHERCHE");
@@ -74,12 +66,6 @@ public class RechercheAffluence extends Application {
         //departureStation.setValue(departureStation.getItems().get(0));
         DatePicker datePicker = new DatePicker();
         Spinner<Integer> hourSpinner = new Spinner<>();
-        /* searchButton.setOnAction(event -> {
-            String departure = departureStation.getValue();
-            int hour = hourSpinner.getValue();
-            LocalDate date = datePicker.getValue();
-            rechercheAffluenceB.rechercherAffluence(departure, hour, date);
-        }); */
         searchButton.setGraphic(createIcon("res/images/search_cl.png"));
         searchButton.setFont(Font.font("Roboto", FontWeight.BOLD, 16));
         searchButton.setStyle("-fx-background-color: #8be9fd; -fx-text-fill: #44475a;");

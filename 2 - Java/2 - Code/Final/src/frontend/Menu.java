@@ -12,10 +12,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.beans.binding.Bindings;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -27,6 +23,7 @@ import javafx.application.Platform;
 import backend.MenuB;
 import utils.TitleBar;
 import utils.GlobalVar;
+import utils.WindowDrag;
 
 public class Menu extends Stage {
     private double xOffset = 0;

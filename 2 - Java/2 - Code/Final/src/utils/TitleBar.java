@@ -3,11 +3,8 @@ package utils;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
 
-import com.jfoenix.controls.*;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -18,7 +15,6 @@ import javafx.stage.*;
 
 public class TitleBar {
 
-	
 	public HBox createTitleBar(Stage stage, JFXHamburger menuButton, JFXButton minimizeButton, JFXButton maximizeRestoreButton, JFXButton closeButton, String title) {
 		HBox titleBar = new HBox(10);
 		titleBar.setPadding(new Insets(5));

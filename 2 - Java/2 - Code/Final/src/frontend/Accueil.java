@@ -1,26 +1,26 @@
 package frontend;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import com.jfoenix.controls.*;
-import com.jfoenix.transitions.JFXFillTransition;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Duration;
+import java.awt.*;
 
 import backend.AccueilB;
 import utils.StageDump;
@@ -28,8 +28,6 @@ import utils.TitleBar;
 import utils.WindowDrag;
 
 public class Accueil extends Application {
-    private double xOffset = 0;
-    private double yOffset = 0;
     private AccueilB accueilB;
     private StageDump stageDump = new StageDump();
     private boolean firstTime = true;
@@ -53,7 +51,7 @@ public class Accueil extends Application {
 
         // Create UI components
         JFXHamburger menuButton = new JFXHamburger();
-        ImageView logoImage = new ImageView(new Image("file:res/images/nantes_white_smaller.png"));
+        ImageView logoImage = new ImageView(new Image("file:res/images/nantes_white_smaller.png"));        
         // Load the Roboto font files
         try {
             Font.loadFont(new File("res/fonts/Roboto/Roboto-Regular.ttf").toURI().toURL().toExternalForm(), 12);
@@ -100,15 +98,7 @@ public class Accueil extends Application {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        /* Font.loadFont(getClass().getResourceAsStream("file:res/fonts/Roboto/Roboto-Regular.ttf"), 12);
-        Font.loadFont(getClass().getResourceAsStream("file:res/fonts/Roboto/Roboto-Bold.ttf"), 12);
-        Font.loadFont(getClass().getResourceAsStream("file:res/fonts/Roboto/Roboto-Light.ttf"), 12);
-        Font.loadFont(getClass().getResourceAsStream("file:res/fonts/Roboto/Roboto-Thin.ttf"), 12);
-        Font.loadFont(getClass().getResourceAsStream("file:res/fonts/Roboto_Mono/static/RobotoMono-Bold.ttf"), 12);
-        Font.loadFont(getClass().getResourceAsStream("file:res/fonts/Roboto_Mono/static/RobotoMono-Regular.ttf"), 12);
-        Font.loadFont(getClass().getResourceAsStream("file:res/fonts/Roboto_Mono/static/RobotoMono-Light.ttf"), 12);
-        Font.loadFont(getClass().getResourceAsStream("file:res/fonts/Roboto_Mono/static/RobotoMono-Medium.ttf"), 12);
-        Font.loadFont(getClass().getResourceAsStream("file:res/fonts/Roboto_Mono/static/RobotoMono-Thin.ttf"), 12); */
+        
         Label titleLabel = new Label("CycloNantais");
         Label subtitleLabel = new Label("L'app qui vous montre la voie !");
         JFXButton closeButton = new JFXButton("✕");
@@ -167,6 +157,15 @@ public class Accueil extends Application {
 
         startButton.setOnAction(event -> {
             accueilB.start(newStage);
+        });
+
+        // Add event listener to the logoImage
+        logoImage.setOnMouseClicked(event -> {
+            try {
+                Desktop.getDesktop().browse(new URI("https://metropole.nantes.fr/"));
+            } catch (IOException | URISyntaxException e) {
+                e.printStackTrace();
+            }
         });
 
         newStage.show();

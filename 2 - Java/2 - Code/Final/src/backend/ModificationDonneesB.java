@@ -8,9 +8,6 @@ import java.util.ArrayList;
 
 import frontend.Menu;
 import frontend.ModificationDonnees;
-import frontend.RechercheAffluence;
-import frontend.SaisieDonnees;
-import frontend.StationProche;
 import javafx.application.Application;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
