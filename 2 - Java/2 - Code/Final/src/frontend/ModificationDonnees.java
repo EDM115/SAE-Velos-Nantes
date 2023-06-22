@@ -166,6 +166,7 @@ public class ModificationDonnees extends Application {
                 String colonne = colonnesDateInfo.getValue();
                 LocalDate clePrimaire = clePrimaireDateInfo.getValue();
                 String valeur = newValeur.getText();
+                System.out.println(colonne + " " + clePrimaire + " " + valeur);
                 modificationDonneesB.modifDateInfo(colonne, clePrimaire, valeur);
 
             } else if (num == 4) {

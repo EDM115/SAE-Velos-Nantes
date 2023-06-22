@@ -217,7 +217,7 @@ public class ModificationDonneesB extends Application {
             int rowsAffected = statement.executeUpdate(query);
 
             System.out.println(rowsAffected + " ligne(s) modifiée(s) dans la table DateInfo.");
-            System.out.println(colonne + " " + clePrimaire + " " + newValeur);
+            
 
         } catch (SQLException e) {
             e.printStackTrace();
