@@ -1,6 +1,7 @@
 package frontend;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -44,6 +45,11 @@ public class RechercheTrajet extends Application {
     int hour;
     LocalDate date;
     Stage newStage;
+    Stage popupStage;
+
+    public RechercheTrajet(Stage popup) {
+        this.popupStage = popup;
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -54,6 +60,11 @@ public class RechercheTrajet extends Application {
 
         rechercheTrajetB.lesCompteursBdd();
         ArrayList<String> lesCompteurs = rechercheTrajetB.getLesCompteurs();
+
+        // Close the popup
+        Platform.runLater(() -> {
+            this.popupStage.close();
+        });
 
         try {
             Font.loadFont(new File("res/fonts/Roboto/Roboto-Regular.ttf").toURI().toURL().toExternalForm(), 12);

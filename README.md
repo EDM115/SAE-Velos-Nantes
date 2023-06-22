@@ -13,7 +13,6 @@ Tous les fichiers ici, c'est plus simple et collaboratif
   - [x] Diagramme de conception
   - [x] Dossier ergonomie
   - [ ] Code (anglais)
-  - [ ] Tests
 - Graphes
   - [x] Jupyter Notebook
   - [x] Compte-rendu
@@ -22,9 +21,8 @@ Tous les fichiers ici, c'est plus simple et collaboratif
   - [x] Diaporama
   - [x] Vidéo
 - Oral
-  - [ ] Présentation
-  - [ ] Préparation aux questions
-  - [ ] ...
+  - [x] Présentation
+  - [x] Préparation aux questions
   
   
 ## TODO
@@ -36,15 +34,16 @@ Tous les fichiers ici, c'est plus simple et collaboratif
 - [x] Graphes
 - [x] Partie graphique StationProche
 - [x] Nantes open site
-- [ ] saisie/modif de données : récupérer l'affichage du terminal et l'afficher
-- [ ] pas admin = message quand on clique sur les boutons saisie/modif
+- [x] saisie/modif de données : récupérer l'affichage du terminal et l'afficher
+- [x] pas admin = message quand on clique sur les boutons saisie/modif
+- [x] popup connexion bdd
 - [ ] Gérer les exceptions
 - [ ] JavaDoc
 - [x] Page ModificationDonnees
 - [x] Page SaisieDonnees
   
 ...  
-- [ ] Utiliser `utils.WindowDrag()`
+- [x] Utiliser `utils.WindowDrag()`
 - [ ] Clean code
 
 
@@ -73,4 +72,6 @@ SQL files :
   2) Windows :  
     - CMD : `run.bat`  
     - PowerShell : `.\run.bat`  
+Alternatively, open that folder in VS Code (Ctrl + K, Ctrl + O), get Java JDK 20 installed, and edit the module path in `.vscode/launch.json` to the /lib folder  
+Then go on Run and Debug tab, and F5
 

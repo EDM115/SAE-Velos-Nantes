@@ -23,7 +23,6 @@ import javafx.application.Platform;
 import backend.MenuB;
 import utils.TitleBar;
 import utils.GlobalVar;
-import utils.WindowDrag;
 
 public class Menu extends Stage {
     private double xOffset = 0;

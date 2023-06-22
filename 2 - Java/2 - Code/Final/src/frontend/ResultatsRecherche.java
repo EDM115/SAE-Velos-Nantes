@@ -317,7 +317,6 @@ public class ResultatsRecherche extends Application {
 
         HBox centerPane = new HBox();
         centerPane.setAlignment(Pos.CENTER);
-        centerPane.setStyle("-fx-background-color: radial-gradient(focus-angle 45deg, focus-distance 0%, center 100% 100%, radius 60%, #bd93f9 0%, rgba(40, 42, 54, 0.9) 70%, #282a36 100%)");
         centerPane.getChildren().addAll(leftPane, rightPane);
 
         root.getChildren().add(centerPane);
@@ -328,14 +327,6 @@ public class ResultatsRecherche extends Application {
         menuButton.setOnMouseClicked(event -> {
             resultatsRechercheB.start(newStage);
         });
-
-        // Apply the CSS styling
-        try {
-            scene.getStylesheets().add(new File("res/style/style.css").toURI().toURL().toExternalForm());
-            root.getStylesheets().add(new File("res/style/style.css").toURI().toURL().toExternalForm());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
 
         // Show the stage
         newStage.show();

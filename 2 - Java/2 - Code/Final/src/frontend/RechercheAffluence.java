@@ -1,6 +1,7 @@
 package frontend;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -42,6 +43,11 @@ public class RechercheAffluence extends Application {
     int hour;
     LocalDate date;
     Stage newStage;
+    Stage popupStage;
+
+    public RechercheAffluence(Stage popup) {
+        this.popupStage = popup;
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -57,6 +63,11 @@ public class RechercheAffluence extends Application {
 
         rechercheAffluenceB.lesCompteursBdd();
         ArrayList<String> lesCompteurs = rechercheAffluenceB.getLesCompteurs();
+
+        // Close the popup
+        Platform.runLater(() -> {
+            this.popupStage.close();
+        });
 
         // Create UI components
         ComboBox<String> departureStation = new ComboBox<>();

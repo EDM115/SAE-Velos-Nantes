@@ -166,7 +166,7 @@ public class ModificationDonneesB extends Application {
             }
 
         } catch (SQLException e) {
-            System.out.println("\u001B[31mERREUR UPDATE IMPOSSIBLE ouo\u001B[0m");
+            System.out.println("\u001B[31mERREUR UPDATE IMPOSSIBLE\u001B[0m");
         }
     }
 
@@ -183,7 +183,7 @@ public class ModificationDonneesB extends Application {
             Statement statement = connexionBdd.getConnection().createStatement();
             int rowsAffected = statement.executeUpdate(query);
 
-            System.out.println(rowsAffected + " ligne(s) modifiée(s) dans la table Quartier.");
+            modificationDonnees.setEditedData(rowsAffected + " ligne(s) modifiée(s) dans la table Quartier.");
 
         } catch (SQLException e) {
             System.out.println("\u001B[31mERREUR INSERTION IMPOSSIBLE\u001B[0m");
@@ -198,7 +198,7 @@ public class ModificationDonneesB extends Application {
             Statement statement = connexionBdd.getConnection().createStatement();
             int rowsAffected = statement.executeUpdate(query);
 
-            System.out.println(rowsAffected + " ligne(s) modifiée(s) dans la table Compteur.");
+            modificationDonnees.setEditedData(rowsAffected + " ligne(s) modifiée(s) dans la table Compteur.");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -213,7 +213,7 @@ public class ModificationDonneesB extends Application {
             Statement statement = connexionBdd.getConnection().createStatement();
             int rowsAffected = statement.executeUpdate(query);
 
-            System.out.println(rowsAffected + " ligne(s) modifiée(s) dans la table DateInfo.");
+            modificationDonnees.setEditedData(rowsAffected + " ligne(s) modifiée(s) dans la table DateInfo.");
             
 
         } catch (SQLException e) {
@@ -229,7 +229,7 @@ public class ModificationDonneesB extends Application {
             Statement statement = connexionBdd.getConnection().createStatement();
             int rowsAffected = statement.executeUpdate(query);
 
-            System.out.println(rowsAffected + " ligne(s) modifiée(s) dans la table Comptage.");
+            modificationDonnees.setEditedData(rowsAffected + " ligne(s) modifiée(s) dans la table Comptage.");
 
         } catch (SQLException e) {
             e.printStackTrace();

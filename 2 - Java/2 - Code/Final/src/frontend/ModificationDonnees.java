@@ -1,12 +1,14 @@
 package frontend;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -39,6 +41,13 @@ public class ModificationDonnees extends Application {
     int num = 0;
 	private StageDump stageDump = new StageDump();
     private WindowDrag windowDrag;
+    Stage popup;
+
+    Label editedData = new Label();
+
+    public ModificationDonnees(Stage popup) {
+        this.popup = popup;
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -80,7 +89,9 @@ public class ModificationDonnees extends Application {
 
         modificationDonneesB.clePrimaireComptage2();
 
-        
+        Platform.runLater(() -> {
+            this.popup.close();
+        });
 
         
         // Create UI components
@@ -167,6 +178,9 @@ public class ModificationDonnees extends Application {
         searchButton.setFont(Font.font("Roboto", FontWeight.BOLD, 16));
         searchButton.setStyle("-fx-background-color: #8be9fd; -fx-text-fill: #44475a;");
 
+        editedData.setTextFill(Color.web("#f8f8f2"));
+        editedData.setFont(Font.font("Roboto", FontWeight.BOLD, 14));
+
         // Set up the layout
         GridPane root = new GridPane();
         root.setBackground(new Background(new BackgroundFill(Color.web("#282a36"), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -194,6 +208,7 @@ public class ModificationDonnees extends Application {
 		// Add components to the grid
         root.add(tableLabel, 0, 0);
         root.add(tables, 1, 0);
+        root.add(editedData, 1, 8);
         //String actualTable = tables.getValue();
         tables.valueProperty().addListener((observable, oldValue, newValue) -> {
             actualTable = newValue;
@@ -313,4 +328,8 @@ public class ModificationDonnees extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+
+    public void setEditedData(String editedData) {
+        this.editedData.setText(editedData);
+    }
 }

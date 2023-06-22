@@ -1,12 +1,14 @@
 package frontend;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -37,6 +39,12 @@ public class SaisieDonnees extends Application {
     int num = 0;
 	private StageDump stageDump = new StageDump();
     private WindowDrag windowDrag;
+    Stage popupStage;
+    Label editedData = new Label();
+
+    public SaisieDonnees(Stage popup) {
+        this.popupStage = popup;
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -52,9 +60,13 @@ public class SaisieDonnees extends Application {
 
         saisieDonneesB.lesTablesBdd();
         ArrayList<String> lesTables = saisieDonneesB.getLesTables();
+
+        Platform.runLater(() -> {
+            this.popupStage.close();
+        });
         
         // Create UI components
-        TextField idQuartier = new TextField("oui");
+        TextField idQuartier = new TextField();
         TextField nomQuartier = new TextField();
         TextField longueurPisteVelo = new TextField();
 
@@ -188,6 +200,9 @@ public class SaisieDonnees extends Application {
         for (String laTable : lesTables) {
             tables.getItems().add(laTable);
         }
+
+        editedData.setTextFill(Color.web("#f8f8f2"));
+        editedData.setFont(Font.font("Roboto", FontWeight.BOLD, 14));
         
         Button searchButton = new Button("AJOUTER");
         searchButton.setOnAction(event -> {
@@ -262,6 +277,7 @@ public class SaisieDonnees extends Application {
 		// Add components to the grid
         root.add(tableLabel, 0, 0);
         root.add(tables, 1, 0);
+        root.add(editedData, 1, 8);
         //String actualTable = tables.getValue();
         tables.valueProperty().addListener((observable, oldValue, newValue) -> {
             actualTable = newValue;
@@ -444,4 +460,8 @@ public class SaisieDonnees extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+
+    public void setEditedData(String editedData) {
+        this.editedData.setText(editedData);
+    }
 }

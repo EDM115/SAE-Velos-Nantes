@@ -50,7 +50,7 @@ public class SaisieDonneesB extends Application {
             int rowsAffected = statement.executeUpdate(query);
         
         // Vérifiez le nombre de lignes affectées si nécessaire
-        System.out.println(rowsAffected + " ligne(s) ajoutée(s) dans la table Quartier.");
+        saisieDonnees.setEditedData(rowsAffected + " ligne(s) ajoutée(s) dans la table Quartier.");
 
         } catch (SQLException e) {
             System.out.println("\u001B[31mERREUR INSERTION IMPOSSIBLE\u001B[0m");
@@ -65,8 +65,7 @@ public class SaisieDonneesB extends Application {
             Statement statement = connexionBdd.getConnection().createStatement();
             int rowsAffected = statement.executeUpdate(query);
 
-            // Vérifiez le nombre de lignes affectées si nécessaire
-            System.out.println(rowsAffected + " ligne(s) ajoutée(s) dans la table Compteur.");
+            saisieDonnees.setEditedData(rowsAffected + " ligne(s) ajoutée(s) dans la table Compteur.");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -81,8 +80,7 @@ public class SaisieDonneesB extends Application {
             Statement statement = connexionBdd.getConnection().createStatement();
             int rowsAffected = statement.executeUpdate(query);
 
-            // Vérifiez le nombre de lignes affectées si nécessaire
-            System.out.println(rowsAffected + " ligne(s) ajoutée(s) dans la table DateInfo.");
+            saisieDonnees.setEditedData(rowsAffected + " ligne(s) ajoutée(s) dans la table DateInfo.");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -97,8 +95,7 @@ public class SaisieDonneesB extends Application {
             Statement statement = connexionBdd.getConnection().createStatement();
             int rowsAffected = statement.executeUpdate(query);
 
-            // Vérifiez le nombre de lignes affectées si nécessaire
-            System.out.println(rowsAffected + " ligne(s) ajoutée(s) dans la table Comptage.");
+            saisieDonnees.setEditedData(rowsAffected + " ligne(s) ajoutée(s) dans la table Comptage.");
 
         } catch (SQLException e) {
             e.printStackTrace();

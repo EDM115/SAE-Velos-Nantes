@@ -1,6 +1,7 @@
 package frontend;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -36,6 +37,11 @@ public class StationProche extends Application {
     
     Label nearestStationLabel = new Label();
     Label distanceLabel = new Label();
+    Stage popupStage;
+
+    public StationProche(Stage popup) {
+        this.popupStage = popup;
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -51,6 +57,10 @@ public class StationProche extends Application {
 
         stationProcheB.lesCompteursBdd();
         ArrayList<String> lesCompteurs = stationProcheB.getLesCompteurs();
+
+        Platform.runLater(() -> {
+            this.popupStage.close();
+        });
         
         // Create UI components
         ComboBox<String> departureStation = new ComboBox<>();
