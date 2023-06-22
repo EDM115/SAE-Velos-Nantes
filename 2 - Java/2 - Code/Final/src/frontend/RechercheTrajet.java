@@ -114,7 +114,7 @@ public class RechercheTrajet extends Application {
             arrivalStation.getItems().add(compteur);
         }
         //arrivalStation.setValue(arrivalStation.getItems().get(0));
-        DatePicker datePicker = new DatePicker(LocalDate.now());
+        DatePicker datePicker = new DatePicker();
         Spinner<Integer> hourSpinner = new Spinner<>();
         /* searchButton.setOnAction(event -> {
             String departure = departureStation.getValue();
@@ -130,7 +130,7 @@ public class RechercheTrajet extends Application {
         searchButton.setStyle("-fx-background-color: #8be9fd; -fx-text-fill: #44475a;");
 
         // Set up the hour spinner
-        SpinnerValueFactory<Integer> hourValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, LocalTime.now().getHour());
+        SpinnerValueFactory<Integer> hourValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23);
         hourSpinner.setValueFactory(hourValueFactory);
 
         // Set up the layout

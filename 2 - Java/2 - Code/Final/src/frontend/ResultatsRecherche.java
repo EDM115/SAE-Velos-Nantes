@@ -64,7 +64,7 @@ public class ResultatsRecherche extends Application {
         JFXButton maximizeRestoreButton = new JFXButton("⬜");
         TitleBar titleBarElement = new TitleBar();
         JFXHamburger menuButton = new JFXHamburger();
-        HBox titleBar = titleBarElement.createTitleBar(newStage, menuButton, minimizeButton, maximizeRestoreButton, closeButton, "Recherche d'affluence");
+        HBox titleBar = titleBarElement.createTitleBar(newStage, menuButton, minimizeButton, maximizeRestoreButton, closeButton, "Résultats de recherche");
 
         VBox root = new VBox();
         root.setStyle("-fx-background-color: #282a36;");
@@ -110,7 +110,9 @@ public class ResultatsRecherche extends Application {
 
             // Create the string label
             stringLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #f8f8f2; -fx-font-size: 20px; -fx-padding: 0 0 0 20px;");
-            stringLabel.setText(String.join(" • ", search));
+            //stringLabel.setText(String.join(" • ", search));
+            stringLabel.setText(search.get(0) + " \u2192 " + search.get(4) + " • " + search.get(10) + " • " + search.get(11) + ":00");
+
 
             // Create the left side (Google Maps integration)
             WebView webView = new WebView();
@@ -254,7 +256,8 @@ public class ResultatsRecherche extends Application {
 
             // Create the string label
             stringLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #f8f8f2; -fx-font-size: 20px; -fx-padding: 0 0 0 20px;");
-            stringLabel.setText(String.join(" • ", search));
+            //stringLabel.setText(String.join(" • ", search));
+            stringLabel.setText(search.get(0) + " • " + search.get(4) + " • " + search.get(5) + ":00");
 
             // Create the left side (Google Maps integration)
             WebView webView = new WebView();
