@@ -46,6 +46,7 @@ public class SaisieDonnees extends Application {
     
     private double xOffset = 0;
     String actualTable = "";
+    int num = 0;
     private double yOffset = 0;
 	private StageDump stageDump = new StageDump();
     private WindowDrag windowDrag;
@@ -77,13 +78,13 @@ public class SaisieDonnees extends Application {
         TextField coord_Y = new TextField();
         TextField leQuartier = new TextField();
 
-        TextField laDate = new TextField();
+        DatePicker laDate = new DatePicker();
         TextField tempMoy = new TextField();
         TextField jour = new TextField();
         TextField vacances = new TextField();
 
         TextField leCompteur = new TextField();
-        TextField dateComptage= new TextField();
+        DatePicker dateComptage = new DatePicker();
         TextField h00 = new TextField();
         TextField h01 = new TextField();
         TextField h02 = new TextField();
@@ -203,8 +204,57 @@ public class SaisieDonnees extends Application {
         
         Button searchButton = new Button("AJOUTER");
         searchButton.setOnAction(event -> {
-            String departure = tables.getValue();
-            //saisieDonnees.ajout(les attributs);
+            if (num == 1) {
+                int idQuartier2 = Integer.parseInt(idQuartier.getText());
+                String nomQuartier2 = nomQuartier.getText();
+                double longueurPisteVelo2 = Double.parseDouble(longueurPisteVelo.getText());
+                saisieDonneesB.ajoutQuartier(idQuartier2, nomQuartier2, longueurPisteVelo2);
+            } else if (num == 2) {
+                int idCompteur2 = Integer.parseInt(idCompteur.getText());
+                String nomCompteur2 = nomCompteur.getText();
+                String sens2 = sens.getText();
+                double coord_X2 = Double.parseDouble(coord_X.getText());
+                double coord_Y2 = Double.parseDouble(coord_Y.getText());
+                int leQuartier2 = Integer.parseInt(leQuartier.getText());
+                saisieDonneesB.ajoutCompteur(idCompteur2, nomCompteur2, sens2, coord_X2, coord_Y2, leQuartier2);
+
+            } else if (num == 3) {
+                LocalDate laDate2 = laDate.getValue();
+                double tempMoy2 = Double.parseDouble(tempMoy.getText());
+                String jour2 = jour.getText();
+                String vacances2 = vacances.getText();
+                saisieDonneesB.ajoutDateInfo(laDate2, tempMoy2, jour2, vacances2);
+
+            } else if (num == 4) {
+                int leCompteur2 = Integer.parseInt(leCompteur.getText());
+                LocalDate dateComptage2 = dateComptage.getValue();
+                int h002 = Integer.parseInt(h00.getText());
+                int h012 = Integer.parseInt(h01.getText());
+                int h022 = Integer.parseInt(h02.getText());
+                int h032 = Integer.parseInt(h03.getText());
+                int h042 = Integer.parseInt(h04.getText());
+                int h052 = Integer.parseInt(h05.getText());
+                int h062 = Integer.parseInt(h06.getText());
+                int h072 = Integer.parseInt(h07.getText());
+                int h082 = Integer.parseInt(h08.getText());
+                int h092 = Integer.parseInt(h09.getText());
+                int h102 = Integer.parseInt(h10.getText());
+                int h112 = Integer.parseInt(h11.getText());
+                int h122 = Integer.parseInt(h12.getText());
+                int h132 = Integer.parseInt(h13.getText());
+                int h142 = Integer.parseInt(h14.getText());
+                int h152 = Integer.parseInt(h15.getText());
+                int h162 = Integer.parseInt(h16.getText());
+                int h172 = Integer.parseInt(h17.getText());
+                int h182 = Integer.parseInt(h18.getText());
+                int h192 = Integer.parseInt(h19.getText());
+                int h202 = Integer.parseInt(h20.getText());
+                int h212 = Integer.parseInt(h21.getText());
+                int h222 = Integer.parseInt(h22.getText());
+                int h232 = Integer.parseInt(h23.getText());
+                String presenceAnomalie2 = presenceAnomalie.getText();
+                saisieDonneesB.ajoutComptage(leCompteur2, dateComptage2, h002, h012, h022, h032, h042, h052, h062, h072, h082, h092, h102, h112, h122, h132, h142, h152, h162, h172, h182, h192, h202, h212, h222, h232, presenceAnomalie2);
+            }
         });
         searchButton.setGraphic(createIcon("res/images/search_cl.png"));
         searchButton.setFont(Font.font("Roboto", FontWeight.BOLD, 16));
@@ -232,6 +282,7 @@ public class SaisieDonnees extends Application {
         
 
         tables.setOnAction(event -> {
+            
             root.getChildren().removeAll(
                 idQuartier, nomQuartier, longueurPisteVelo,
                 idCompteur, nomCompteur, sens, coord_X, coord_Y, leQuartier,
@@ -244,6 +295,7 @@ public class SaisieDonnees extends Application {
             );
 
             if (actualTable.equals("Quartier")) {
+                num = 1;
                 root.add(idQuartierLabel, 0, 1);
                 root.add(nomQuartierLabel, 0, 2);
                 root.add(longueurPisteVeloLabel, 0, 3);
@@ -253,6 +305,7 @@ public class SaisieDonnees extends Application {
                 root.add(searchButton, 1, 4);
 
             } else if (actualTable.equals("Compteur")) {
+                num = 2;
                 root.add(idCompteurLabel, 0, 1);
                 root.add(nomCompteurLabel, 0, 2);
                 root.add(sensLabel, 0, 3);
@@ -268,6 +321,7 @@ public class SaisieDonnees extends Application {
                 root.add(searchButton, 1, 7);
 
             } else if (actualTable.equals("DateInfo")) {
+                num = 3;
                 root.add(laDateLabel, 0, 1);
                 root.add(tempMoyLabel, 0, 2);
                 root.add(jourLabel, 0, 3);
@@ -279,6 +333,7 @@ public class SaisieDonnees extends Application {
                 root.add(searchButton, 1, 5);
 
             } else if (actualTable.equals("Comptage")) {
+                num = 4;
                 root.add(leCompteurLabel, 0, 1);
                 root.add(dateComptageLabel, 0, 2);
                 root.add(h00Label, 0, 3);
