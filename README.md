@@ -34,11 +34,12 @@ Tous les fichiers ici, c'est plus simple et collaboratif
 - [x] ResultatsRecherche pour Affluence
 - [x] Style cohérent partout
 - [x] Graphes
-- [ ] Partie graphique StationProche
+- [x] Partie graphique StationProche
 - [x] Nantes open site
 - [ ] saisie/modif de données : récupérer l'affichage du terminal et l'afficher
 - [ ] pas admin = message quand on clique sur les boutons saisie/modif
 - [ ] Gérer les exceptions
+- [ ] JavaDoc
 - [x] Page ModificationDonnees
 - [x] Page SaisieDonnees
   

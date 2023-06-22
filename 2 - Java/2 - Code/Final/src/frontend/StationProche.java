@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -32,10 +33,13 @@ public class StationProche extends Application {
 
 	private StageDump stageDump = new StageDump();
     private WindowDrag windowDrag;
+    
+    Label nearestStationLabel = new Label();
+    Label distanceLabel = new Label();
 
     @Override
     public void start(Stage primaryStage) {
-		// copy primaryStage to newStage (new object, not a reference)
+        // copy primaryStage to newStage (new object, not a reference)
 		Stage newStage = stageDump.dump(primaryStage);
         // Import stuff
 		StationProcheB stationProcheB = new StationProcheB(this);
@@ -63,6 +67,14 @@ public class StationProche extends Application {
         searchButton.setFont(Font.font("Roboto", FontWeight.BOLD, 16));
         searchButton.setStyle("-fx-background-color: #8be9fd; -fx-text-fill: #44475a;");
 
+        // Create labels for displaying results
+        nearestStationLabel.setTextFill(Color.web("#f8f8f2"));
+        nearestStationLabel.setFont(Font.font("Roboto", FontWeight.BOLD, 14));
+
+        distanceLabel.setTextFill(Color.web("#f8f8f2"));
+        distanceLabel.setFont(Font.font("Roboto", FontWeight.BOLD, 14));
+
+
         // Set up the layout
         GridPane root = new GridPane();
         root.setBackground(new Background(new BackgroundFill(Color.web("#282a36"), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -79,6 +91,9 @@ public class StationProche extends Application {
         root.add(departureLabel, 0, 0);
         root.add(departureStation, 1, 0);
         root.add(searchButton, 1, 1);
+        root.add(nearestStationLabel, 0, 2, 2, 1);
+        root.add(distanceLabel, 0, 3, 2, 1);
+
 		
         // Create the title bar
         JFXButton closeButton = new JFXButton("✕");
@@ -135,4 +150,12 @@ public class StationProche extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+
+    public void setNearestStationLabel(String text) {
+        this.nearestStationLabel.setText(text);
+    }
+
+    public void setDistanceLabel(String text) {
+        this.distanceLabel.setText(text);
+    }
 }

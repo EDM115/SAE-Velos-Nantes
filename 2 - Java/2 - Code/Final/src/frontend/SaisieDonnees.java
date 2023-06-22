@@ -26,7 +26,6 @@ import utils.WindowDrag;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.time.LocalDate;
-
 import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
