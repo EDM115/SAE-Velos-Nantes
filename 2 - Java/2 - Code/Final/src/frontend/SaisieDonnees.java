@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner; 
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
@@ -65,7 +66,7 @@ public class SaisieDonnees extends Application {
         ArrayList<String> lesTables = saisieDonneesB.getLesTables();
         
         // Create UI components
-        TextField idQuartier = new TextField();
+        TextField idQuartier = new TextField("oui");
         TextField nomQuartier = new TextField();
         TextField longueurPisteVelo = new TextField();
 
@@ -109,6 +110,91 @@ public class SaisieDonnees extends Application {
         TextField h23 = new TextField();
         TextField presenceAnomalie = new TextField();
 
+        // un label pour chaque textField
+        Text idQuartierLabel = new Text("idQuartier");
+        idQuartierLabel.setFill(Color.WHITE);
+        Text nomQuartierLabel = new Text("nomQuartier");
+        nomQuartierLabel.setFill(Color.WHITE);
+        Text longueurPisteVeloLabel = new Text("longueurPisteVelo");
+        longueurPisteVeloLabel.setFill(Color.WHITE);
+
+        Text idCompteurLabel = new Text("idCompteur");
+        idCompteurLabel.setFill(Color.WHITE);
+        Text nomCompteurLabel = new Text("nomCompteur");
+        nomCompteurLabel.setFill(Color.WHITE);
+        Text sensLabel = new Text("sens");
+        sensLabel.setFill(Color.WHITE);
+        Text coord_XLabel = new Text("coord_X");
+        coord_XLabel.setFill(Color.WHITE);
+        Text coord_YLabel = new Text("coord_Y");
+        coord_YLabel.setFill(Color.WHITE);
+        Text leQuartierLabel = new Text("leQuartier");
+        leQuartierLabel.setFill(Color.WHITE);
+
+        Text laDateLabel = new Text("laDate");
+        laDateLabel.setFill(Color.WHITE);
+        Text tempMoyLabel = new Text("tempMoy");
+        tempMoyLabel.setFill(Color.WHITE);
+        Text jourLabel = new Text("jour");
+        jourLabel.setFill(Color.WHITE);
+        Text vacancesLabel = new Text("vacances");
+        vacancesLabel.setFill(Color.WHITE);
+
+        Text leCompteurLabel = new Text("leCompteur");
+        leCompteurLabel.setFill(Color.WHITE);
+        Text dateComptageLabel = new Text("dateComptage");
+        dateComptageLabel.setFill(Color.WHITE);
+        Text h00Label = new Text("h00");
+        h00Label.setFill(Color.WHITE);
+        Text h01Label = new Text("h01");
+        h01Label.setFill(Color.WHITE);
+        Text h02Label = new Text("h02");
+        h02Label.setFill(Color.WHITE);
+        Text h03Label = new Text("h03");
+        h03Label.setFill(Color.WHITE);
+        Text h04Label = new Text("h04");
+        h04Label.setFill(Color.WHITE);
+        Text h05Label = new Text("h05");
+        h05Label.setFill(Color.WHITE);
+        Text h06Label = new Text("h06");
+        h06Label.setFill(Color.WHITE);
+        Text h07Label = new Text("h07");
+        h07Label.setFill(Color.WHITE);
+        Text h08Label = new Text("h08");
+        h08Label.setFill(Color.WHITE);
+        Text h09Label = new Text("h09");
+        h09Label.setFill(Color.WHITE);
+        Text h10Label = new Text("h10");
+        h10Label.setFill(Color.WHITE);
+        Text h11Label = new Text("h11");
+        h11Label.setFill(Color.WHITE);
+        Text h12Label = new Text("h12");
+        h12Label.setFill(Color.WHITE);
+        Text h13Label = new Text("h13");
+        h13Label.setFill(Color.WHITE);
+        Text h14Label = new Text("h14");
+        h14Label.setFill(Color.WHITE);
+        Text h15Label = new Text("h15");
+        h15Label.setFill(Color.WHITE);
+        Text h16Label = new Text("h16");
+        h16Label.setFill(Color.WHITE);
+        Text h17Label = new Text("h17");
+        h17Label.setFill(Color.WHITE);
+        Text h18Label = new Text("h18");
+        h18Label.setFill(Color.WHITE);
+        Text h19Label = new Text("h19");
+        h19Label.setFill(Color.WHITE);
+        Text h20Label = new Text("h20");
+        h20Label.setFill(Color.WHITE);
+        Text h21Label = new Text("h21");
+        h21Label.setFill(Color.WHITE);
+        Text h22Label = new Text("h22");
+        h22Label.setFill(Color.WHITE);
+        Text h23Label = new Text("h23");
+        h23Label.setFill(Color.WHITE);
+        Text presenceAnomalieLabel = new Text("presenceAnomalie");
+        presenceAnomalieLabel.setFill(Color.WHITE);
+
 
         ComboBox<String> tables = new ComboBox<>();
         for (String laTable : lesTables) {
@@ -143,56 +229,123 @@ public class SaisieDonnees extends Application {
         tables.valueProperty().addListener((observable, oldValue, newValue) -> {
             actualTable = newValue;
         });
+        
 
-        if (actualTable == "Quartier") {
-            root.add(idQuartier, 0, 1);
-            root.add(nomQuartier, 0, 2);
-            root.add(longueurPisteVelo, 0, 3);
+        tables.setOnAction(event -> {
+            root.getChildren().removeAll(
+                idQuartier, nomQuartier, longueurPisteVelo,
+                idCompteur, nomCompteur, sens, coord_X, coord_Y, leQuartier,
+                laDate, tempMoy, jour, vacances,
+                leCompteur, dateComptage, h00, h01, h02, h03, h04, h05, h06, h07, h08, h09, h10, h11, h12, h13, h14, h15, h16, h17, h18, h19, h20, h21, h22, h23, presenceAnomalie,
+                idQuartierLabel, nomQuartierLabel, longueurPisteVeloLabel,
+                idCompteurLabel, nomCompteurLabel, sensLabel, coord_XLabel, coord_YLabel, leQuartierLabel,
+                laDateLabel, tempMoyLabel, jourLabel, vacancesLabel,
+                leCompteurLabel, dateComptageLabel, h00Label, h01Label, h02Label, h03Label, h04Label, h05Label, h06Label, h07Label, h08Label, h09Label, h10Label, h11Label, h12Label, h13Label, h14Label, h15Label, h16Label, h17Label, h18Label, h19Label, h20Label, h21Label, h22Label, h23Label, presenceAnomalieLabel
+            );
 
-        } else if (actualTable == "Compteur") {
-            root.add(idCompteur, 0, 1);
-            root.add(nomCompteur, 0, 2);
-            root.add(sens, 0, 3);
-            root.add(coord_X, 0, 4);
-            root.add(coord_Y, 0, 5);
-            root.add(leQuartier, 0, 6);
+            if (actualTable.equals("Quartier")) {
+                root.add(idQuartierLabel, 0, 1);
+                root.add(nomQuartierLabel, 0, 2);
+                root.add(longueurPisteVeloLabel, 0, 3);
+                root.add(idQuartier, 1, 1);
+                root.add(nomQuartier, 1, 2);
+                root.add(longueurPisteVelo, 1, 3);
+                root.add(searchButton, 1, 4);
 
-        } else if (actualTable == "DateInfo") {
-            root.add(laDate, 0, 1);
-            root.add(tempMoy, 0, 2);
-            root.add(jour, 0, 3);
-            root.add(vacances, 0, 4);
+            } else if (actualTable.equals("Compteur")) {
+                root.add(idCompteurLabel, 0, 1);
+                root.add(nomCompteurLabel, 0, 2);
+                root.add(sensLabel, 0, 3);
+                root.add(coord_XLabel, 0, 4);
+                root.add(coord_YLabel, 0, 5);
+                root.add(leQuartierLabel, 0, 6);
+                root.add(idCompteur, 1, 1);
+                root.add(nomCompteur, 1, 2);
+                root.add(sens, 1, 3);
+                root.add(coord_X, 1, 4);
+                root.add(coord_Y, 1, 5);
+                root.add(leQuartier, 1, 6);
+                root.add(searchButton, 1, 7);
 
-        } else if (actualTable == "Comptage") {
-            root.add(leCompteur, 0, 1);
-            root.add(dateComptage, 0, 2);
-            root.add(h00, 0, 3);
-            root.add(h01, 0, 4);
-            root.add(h02, 0, 5);
-            root.add(h03, 0, 6);
-            root.add(h04, 0, 7);
-            root.add(h05, 0, 8);
-            root.add(h06, 0, 9);
-            root.add(h07, 0, 10);
-            root.add(h08, 0, 11);
-            root.add(h09, 0, 12);
-            root.add(h10, 0, 13);
-            root.add(h11, 0, 14);
-            root.add(h12, 0, 15);
-            root.add(h13, 0, 16);
-            root.add(h14, 0, 17);
-            root.add(h15, 0, 18);
-            root.add(h16, 0, 19);
-            root.add(h17, 0, 20);
-            root.add(h18, 0, 21);
-            root.add(h19, 0, 22);
-            root.add(h20, 0, 23);
-            root.add(h21, 0, 24);
-            root.add(h22, 0, 25);
-            root.add(h23, 0, 26);
-            root.add(presenceAnomalie, 0, 27);
-        }
-        root.add(searchButton, 0, 28);
+            } else if (actualTable.equals("DateInfo")) {
+                root.add(laDateLabel, 0, 1);
+                root.add(tempMoyLabel, 0, 2);
+                root.add(jourLabel, 0, 3);
+                root.add(vacancesLabel, 0, 4);
+                root.add(laDate, 1, 1);
+                root.add(tempMoy, 1, 2);
+                root.add(jour, 1, 3);
+                root.add(vacances, 1, 4);
+                root.add(searchButton, 1, 5);
+
+            } else if (actualTable.equals("Comptage")) {
+                root.add(leCompteurLabel, 0, 1);
+                root.add(dateComptageLabel, 0, 2);
+                root.add(h00Label, 0, 3);
+                root.add(h01Label, 0, 4);
+                root.add(h02Label, 0, 5);
+                root.add(h03Label, 0, 6);
+                root.add(h04Label, 0, 7);
+               
+                root.add(leCompteur, 1, 1);
+                root.add(dateComptage, 1, 2);
+                root.add(h00, 1, 3);
+                root.add(h01, 1, 4);
+                root.add(h02, 1, 5);
+                root.add(h03, 1, 6);
+                root.add(h04, 1, 7);
+
+                root.add(h05Label, 2, 1);
+                root.add(h06Label, 2, 2);
+                root.add(h07Label, 2, 3);
+                root.add(h08Label, 2, 4);
+                root.add(h09Label, 2, 5);
+                root.add(h10Label, 2, 6);
+                root.add(h11Label, 2, 7);
+                
+                root.add(h05, 3, 1);
+                root.add(h06, 3, 2);
+                root.add(h07, 3, 3);
+                root.add(h08, 3, 4);
+                root.add(h09, 3, 5);
+                root.add(h10, 3, 6);
+                root.add(h11, 3, 7);
+
+                root.add(h12Label, 4, 1);
+                root.add(h13Label, 4, 2);
+                root.add(h14Label, 4, 3);
+                root.add(h15Label, 4, 4);
+                root.add(h16Label, 4, 5);
+                root.add(h17Label, 4, 6);
+                root.add(h18Label, 4, 7);
+                
+                root.add(h12, 5, 1);
+                root.add(h13, 5, 2);
+                root.add(h14, 5, 3);
+                root.add(h15, 5, 4);
+                root.add(h16, 5, 5);
+                root.add(h17, 5, 6);
+                root.add(h18, 5, 7);
+
+                root.add(h19Label, 6, 1);
+                root.add(h20Label, 6, 2);
+                root.add(h21Label, 6, 3);
+                root.add(h22Label, 6, 4);
+                root.add(h23Label, 6, 5);
+                root.add(presenceAnomalieLabel, 6, 6);
+
+                root.add(h19, 7, 1);
+                root.add(h20, 7, 2);
+                root.add(h21, 7, 3);
+                root.add(h22, 7, 4);
+                root.add(h23, 7, 5);
+                root.add(presenceAnomalie, 7, 6);
+                root.add(searchButton, 7, 7);
+            }
+            
+        });
+
+        
 		
         // Create the title bar
         JFXButton closeButton = new JFXButton("✕");

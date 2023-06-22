@@ -5,8 +5,7 @@ import utils.GlobalVar;
 
 public class MenuB {
     private Menu menu;
-    private GlobalVar globalVar = new GlobalVar();
-
+    
     public MenuB(Menu menu) {
         this.menu = menu;
         setupButtonActions();
@@ -44,6 +43,7 @@ public class MenuB {
 
         menu.getAddDataButton().setOnAction(event -> {
             // Handle add data button click
+            GlobalVar globalVar = new GlobalVar();
             if (globalVar.isAdmin()) {
                 SaisieDonnees saisieDonnees = new SaisieDonnees();
                 saisieDonnees.start(this.menu.getPreviousStage());
