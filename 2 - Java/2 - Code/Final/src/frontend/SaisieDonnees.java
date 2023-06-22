@@ -26,6 +26,11 @@ import utils.WindowDrag;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.time.LocalDate;
+<<<<<<< HEAD
+=======
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+>>>>>>> 5bcf8d23e523ea180eedde96950f3c5ab13ecacb
 import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
@@ -256,7 +261,7 @@ public class SaisieDonnees extends Application {
         root.setHgap(10);
 
         // Add labels for UI components
-        Text tableLabel = new Text("Table à modifier");
+        Text tableLabel = new Text("Table ou insérer des nouvelles données");
         tableLabel.setFill(Color.WHITE);
 
 		// Add components to the grid

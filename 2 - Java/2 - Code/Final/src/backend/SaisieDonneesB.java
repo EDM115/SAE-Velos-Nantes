@@ -66,7 +66,7 @@ public class SaisieDonneesB extends Application {
             int rowsAffected = statement.executeUpdate(query);
 
             // Vérifiez le nombre de lignes affectées si nécessaire
-            System.out.println(rowsAffected + " ligne(s) ajoutée(s) dans la table Quartier.");
+            System.out.println(rowsAffected + " ligne(s) ajoutée(s) dans la table Compteur.");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -75,14 +75,14 @@ public class SaisieDonneesB extends Application {
 
     public void ajoutDateInfo(LocalDate laDate, double tempMoy, String jour, String vacances) {
         try {
-            String query = "INSERT INTO DateInfo VALUES (" + laDate + ", " + tempMoy + ", '" + jour + "', '" + vacances + "');";
+            String query = "INSERT INTO DateInfo VALUES ('" + laDate + "','" + tempMoy + "', '" + jour + "', '" + vacances + "');";
 
             ConnexionBdd connexionBdd = new ConnexionBdd();
             Statement statement = connexionBdd.getConnection().createStatement();
             int rowsAffected = statement.executeUpdate(query);
 
             // Vérifiez le nombre de lignes affectées si nécessaire
-            System.out.println(rowsAffected + " ligne(s) ajoutée(s) dans la table Quartier.");
+            System.out.println(rowsAffected + " ligne(s) ajoutée(s) dans la table DateInfo.");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -91,14 +91,14 @@ public class SaisieDonneesB extends Application {
 
     public void ajoutComptage(int leCompteur, LocalDate dateComptage, int h00, int h01, int h02, int h03, int h04, int h05, int h06, int h07, int h08, int h09, int h10, int h11, int h12, int h13, int h14, int h15, int h16, int h17, int h18, int h19, int h20, int h21, int h22, int h23, String presenceAnomalie) {
         try {
-            String query = "INSERT INTO Comptage VALUES (" + leCompteur + ", " + dateComptage + ", " + h00 + ", " + h01 + ", " + h02 + ", " + h03 + ", " + h04 + ", " + h05 + ", " + h06 + ", " + h07 + ", " + h08 + ", " + h09 + ", " + h10 + ", " + h11 + ", " + h12 + ", " + h13 + ", " + h14 + ", " + h15 + ", " + h16 + ", " + h17 + ", " + h18 + ", " + h19 + ", " + h20 + ", " + h21 + ", " + h22 + ", " + h23 + ", '" + presenceAnomalie + "');";
+            String query = "INSERT INTO Comptage VALUES ('" + leCompteur + "', '" + dateComptage + "', '" + h00 + "', '" + h01 + "', '" + h02 + "', '" + h03 + "', '" + h04 + "', '" + h05 + "', '" + h06 + "', '" + h07 + "', '" + h08 + "', '" + h09 + "', '" + h10 + "', '" + h11 + "', '" + h12 + "', '" + h13 + "', '" + h14 + "', '" + h15 + "', '" + h16 + "', '" + h17 + "', '" + h18 + "', '" + h19 + "', '" + h20 + "', '" + h21 + "', '" + h22 + "', '" + h23 + "', '" + presenceAnomalie + "');";
 
             ConnexionBdd connexionBdd = new ConnexionBdd();
             Statement statement = connexionBdd.getConnection().createStatement();
             int rowsAffected = statement.executeUpdate(query);
 
             // Vérifiez le nombre de lignes affectées si nécessaire
-            System.out.println(rowsAffected + " ligne(s) ajoutée(s) dans la table Quartier.");
+            System.out.println(rowsAffected + " ligne(s) ajoutée(s) dans la table Comptage.");
 
         } catch (SQLException e) {
             e.printStackTrace();
