@@ -313,6 +313,7 @@ public class ResultatsRecherche extends Application {
         scrollPane.setStyle("-fx-background-color: radial-gradient(focus-angle 45deg, focus-distance 0%, center 100% 100%, radius 60%, #bd93f9 0%, rgba(40, 42, 54, 0.9) 70%, #282a36 100%)");
 
         Scene scene = new Scene(scrollPane, 800, 600, Color.web("#282a36"));
+        scene.setFill(Color.TRANSPARENT);
         newStage.setScene(scene);
         newStage.setTitle("Résultats de recherche");
 

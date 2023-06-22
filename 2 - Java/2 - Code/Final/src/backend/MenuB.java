@@ -53,16 +53,15 @@ public class MenuB {
             }
         });
 
-        /* 
 
-        menu.getOption4().setOnAction(event -> {
-            // Handle option 4 button click
-            PrecedentesRecherches precedentesRecherches = new PrecedentesRecherches();
-            precedentesRecherches.show();
+        
+        menu.getGraph().setOnAction(event -> {
+            Graphes graphes = new Graphes();
+            graphes.start(this.menu.getPreviousStage());
             menu.hide();
         });
 
-        menu.getEditDataButton().setOnAction(event -> {
+        /* menu.getEditDataButton().setOnAction(event -> {
             // Handle edit data button click
             ModificationDonnees modificationDonnees = new ModificationDonnees();
             modificationDonnees.show();
