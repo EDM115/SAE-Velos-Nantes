@@ -36,6 +36,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
@@ -269,7 +270,7 @@ public class SaisieDonnees extends Application {
         root.setHgap(10);
 
         // Add labels for UI components
-        Text tableLabel = new Text("Table à modifier");
+        Text tableLabel = new Text("Table ou insérer des nouvelles données");
         tableLabel.setFill(Color.WHITE);
 
 		// Add components to the grid
@@ -408,7 +409,7 @@ public class SaisieDonnees extends Application {
         JFXButton maximizeRestoreButton = new JFXButton("⬜");
         TitleBar titleBarElement = new TitleBar();
         JFXHamburger menuButton = new JFXHamburger();
-        HBox titleBar = titleBarElement.createTitleBar(newStage, menuButton, minimizeButton, maximizeRestoreButton, closeButton, "Station la plus proche");
+        HBox titleBar = titleBarElement.createTitleBar(newStage, menuButton, minimizeButton, maximizeRestoreButton, closeButton, "Saisie de données");
 		
         // Create the root pane
         BorderPane rootPane = new BorderPane();

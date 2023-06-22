@@ -278,7 +278,7 @@ public class ModificationDonnees extends Application {
         JFXButton maximizeRestoreButton = new JFXButton("⬜");
         TitleBar titleBarElement = new TitleBar();
         JFXHamburger menuButton = new JFXHamburger();
-        HBox titleBar = titleBarElement.createTitleBar(newStage, menuButton, minimizeButton, maximizeRestoreButton, closeButton, "Station la plus proche");
+        HBox titleBar = titleBarElement.createTitleBar(newStage, menuButton, minimizeButton, maximizeRestoreButton, closeButton, "Modification de données");
 		
         // Create the root pane
         BorderPane rootPane = new BorderPane();
