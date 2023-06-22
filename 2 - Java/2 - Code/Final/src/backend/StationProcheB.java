@@ -81,8 +81,10 @@ public class StationProcheB extends Application {
                 nomCompteur = resultSet.getString("nomCompteur");
                 sens = resultSet.getString("sens");
             }
-            System.out.println("Station la plus proche  : " + nomCompteur + "" + sens);
-            System.out.println("Distance : " + nbMetres + " mètres");
+            
+            stationProche.setNearestStationLabel("Station la plus proche: " + nomCompteur + " " + sens);
+            stationProche.setDistanceLabel("Distance: " + nbMetres + " mètres");
+
 
         } catch (SQLException e) {
             e.printStackTrace();
