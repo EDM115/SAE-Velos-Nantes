@@ -31,34 +31,16 @@ public class Graphes extends Application {
 
     private StageDump stageDump = new StageDump();
     private WindowDrag windowDrag;
-    ArrayList<String> imagePaths = new ArrayList<>();
-    ArrayList<String> labels = new ArrayList<>();
+    private String imagePath1 = "res/images/graphes/grapheDist.png";
+	private String imagePath2 = "res/images/graphes/grapheDist1.png";
+	private String labelText1 = "Distance à l'échelle";
+	private String labelText2 = "Distance";
     Stage newStage;
 
     @Override
     public void start(Stage primaryStage) {
         newStage = stageDump.dump(primaryStage);
         GraphesB graphesB = new GraphesB(this);
-
-        // initialize the image paths
-        imagePaths.add("res/images/graphes/grapheDeg.png");
-        imagePaths.add("res/images/graphes/grapheDeg1.png");
-        imagePaths.add("res/images/graphes/grapheDist.png");
-        imagePaths.add("res/images/graphes/grapheDist1.png");
-        imagePaths.add("res/images/graphes/grapheExentricité.png");
-        imagePaths.add("res/images/graphes/grapheExentricité1.png");
-        imagePaths.add("res/images/graphes/grapheTemps.png");
-        imagePaths.add("res/images/graphes/grapheTemps1.png");
-
-        // initialize the labels
-        labels.add("Degré 1");
-        labels.add("Degré 2");
-        labels.add("Distance 1");
-        labels.add("Distance 2");
-        labels.add("Exentricité 1");
-        labels.add("Exentricité 2");
-        labels.add("Temps 1");
-        labels.add("Temps 2");
 
         try {
             Font.loadFont(new File("res/fonts/Roboto/Roboto-Regular.ttf").toURI().toURL().toExternalForm(), 12);
@@ -81,30 +63,41 @@ public class Graphes extends Application {
         gridPane.setPadding(new Insets(10));
 
         // Add images and labels to the GridPane
-        for (int i = 0; i < imagePaths.size(); i++) {
-            String imagePath = imagePaths.get(i);
-            try {
-                Image image = new Image(new File(imagePath).toURI().toURL().toExternalForm());
-                ImageView imageView = new ImageView(image);
-                imageView.setFitWidth(250);
-                imageView.setPreserveRatio(true);
+				try {
+			Image image1 = new Image(new File(imagePath1).toURI().toURL().toExternalForm());
+			ImageView imageView1 = new ImageView(image1);
+			imageView1.setFitWidth(600);
+			imageView1.setPreserveRatio(true);
 
-                String labelValue = labels.get(i);
-                Label label = new Label(labelValue);
-				label.setAlignment(Pos.CENTER);
-                label.setStyle("-fx-text-fill: #f8f8f2; -fx-font-size: 14px;");
+			Image image2 = new Image(new File(imagePath2).toURI().toURL().toExternalForm());
+			ImageView imageView2 = new ImageView(image2);
+			imageView2.setFitWidth(600);
+			imageView2.setPreserveRatio(true);
 
-                VBox vbox = new VBox(10);
-				vbox.setAlignment(Pos.CENTER);
-				vbox.getChildren().addAll(imageView, label);
+			Label label1 = new Label(labelText1);
+			label1.setAlignment(Pos.CENTER);
+			label1.setStyle("-fx-text-fill: #f8f8f2; -fx-font-size: 14px;");
 
-				GridPane.setRowIndex(vbox, i / 4);
-				GridPane.setColumnIndex(vbox, i % 4);
-				gridPane.getChildren().add(vbox);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-        }
+			Label label2 = new Label(labelText2);
+			label2.setAlignment(Pos.CENTER);
+			label2.setStyle("-fx-text-fill: #f8f8f2; -fx-font-size: 14px;");
+
+			VBox vbox1 = new VBox(10);
+			vbox1.setAlignment(Pos.CENTER);
+			vbox1.getChildren().addAll(imageView1, label1);
+
+			VBox vbox2 = new VBox(10);
+			vbox2.setAlignment(Pos.CENTER);
+			vbox2.getChildren().addAll(imageView2, label2);
+
+			HBox hbox = new HBox(10);
+			hbox.setAlignment(Pos.CENTER);
+			hbox.getChildren().addAll(vbox1, vbox2);
+
+			gridPane.getChildren().add(hbox);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 
         // Create the root layout
         BorderPane root = new BorderPane();
