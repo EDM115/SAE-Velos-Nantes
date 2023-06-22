@@ -33,13 +33,13 @@ public class MenuB {
             menu.hide();
         });
 
-        /* menu.getOption3().setOnAction(event -> {
+        menu.getOption3().setOnAction(event -> {
             // Handle option 3 button click
             StationProche stationProche = new StationProche();
-            stationProche.show();
+            stationProche.start(this.menu.getPreviousStage());
             menu.hide();
         });
-
+        /* 
         menu.getOption4().setOnAction(event -> {
             // Handle option 4 button click
             PrecedentesRecherches precedentesRecherches = new PrecedentesRecherches();
