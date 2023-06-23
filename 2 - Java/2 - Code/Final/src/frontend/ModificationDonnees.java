@@ -186,7 +186,7 @@ public class ModificationDonnees extends Application {
 
         TextField newValeur = new TextField();
         
-        Button searchButton = new Button("AJOUTER");
+        Button searchButton = new Button("MODIFIER");
         searchButton.setOnAction(event -> {
             if (num == 1) {
                 String colonne = colonnesQuartier.getValue();
