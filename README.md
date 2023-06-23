@@ -53,14 +53,14 @@ java  --module-path "./lib" --add-modules javafx.controls,javafx.fxml,javafx.gra
 + `java` : Uses java executable to start it. Java 20 needed, builds of it (20.0.1) are on their folders (`l-jdk-20` for Linux and `w-jdk-20` for Windows, look at the run scripts to know how to use them)
 + `--module-path` : Specify where the `.jar` modules are
 + `"./lib"` : They are in the `lib` folder relative to the app's root directory
-+ `--add-modules` : Specify which modules we want to add dufing the app launch
++ `--add-modules` : Specify which modules we want to add during the app launch
 + `javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.web,com.google.gson,com.jfoenix` : Adds some `JavaFX` modules (`FXML` is probably not needed), `JFoenix` for Material Design and `GSON` by Google to handle JSON files
 + `--enable-preview` : Allows Java preview features to be enabled. Is also needed for weird reasons to launch it through the command line
 + `--add-exports` : Allows exporting of a package from a module to another module
 + `javafx.graphics/com.sun.javafx.scene=ALL-UNNAMED` : `com.sun.javafx.scene` can be exported from `javafx.graphics` to any other module without restrictions
 + `--illegal-access=permit` : Permits illegal access to internal/non-public Java APIs. Deprecated starting from Java 17, this is why we have the next option
 + `--add-opens` : Allows opening a package from a module to another module for reflective access
-+ `javafx.graphics/com.sun.javafx.scene=com.jfoenix` : `com.sun.javafx.scene` is opened from `javafx.graphics` to `javafx.graphic`
++ `javafx.graphics/com.sun.javafx.scene=com.jfoenix` : `com.sun.javafx.scene` is opened from `javafx.graphics` to `com.jfoenix`
 + `-cp` : Specifies the classpath for the application
 + `"./CycloNantais.jar;class"` : Takes as input the `class` directory from the `CycloNantais` JAR file located in the app's root directory
 + `frontend.Accueil` : The entry point of that Java application is the `Accueil` class from the `frontend` package
