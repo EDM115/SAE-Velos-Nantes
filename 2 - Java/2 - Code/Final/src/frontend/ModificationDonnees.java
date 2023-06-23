@@ -215,7 +215,7 @@ public class ModificationDonnees extends Application {
 
             }
         });
-        searchButton.setGraphic(createIcon("res/images/search_cl.png"));
+        searchButton.setGraphic(createIcon("res/images/pencil_cl.png"));
         searchButton.setFont(Font.font("Roboto", FontWeight.BOLD, 16));
         searchButton.setStyle("-fx-background-color: #8be9fd; -fx-text-fill: #44475a;");
 

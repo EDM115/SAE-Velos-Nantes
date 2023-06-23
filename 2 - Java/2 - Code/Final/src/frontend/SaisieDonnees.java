@@ -286,7 +286,7 @@ public class SaisieDonnees extends Application {
                 saisieDonneesB.ajoutComptage(leCompteur2, dateComptage2, h002, h012, h022, h032, h042, h052, h062, h072, h082, h092, h102, h112, h122, h132, h142, h152, h162, h172, h182, h192, h202, h212, h222, h232, presenceAnomalie2);
             }
         });
-        searchButton.setGraphic(createIcon("res/images/search_cl.png"));
+        searchButton.setGraphic(createIcon("res/images/plus_cl.png"));
         searchButton.setFont(Font.font("Roboto", FontWeight.BOLD, 16));
         searchButton.setStyle("-fx-background-color: #8be9fd; -fx-text-fill: #44475a;");
 

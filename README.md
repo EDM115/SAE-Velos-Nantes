@@ -75,3 +75,14 @@ SQL files :
 Alternatively, open that folder in VS Code (Ctrl + K, Ctrl + O), get Java JDK 20 installed, and edit the module path in `.vscode/launch.json` to the /lib folder  
 Then go on Run and Debug tab, and F5
 
+## How to pack after edits ?
+
+```bash
+cd ws && jar cfm CycloNantais.jar ../manifest/Manifest.txt -C ../ .
+```
+(remove l-jdk-20, w-jdk-20 and any file on ./ before packing)
+
+## How to start ?
+```bash
+java  --module-path "./lib" --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.web,com.google.gson,com.jfoenix --enable-preview --add-exports javafx.graphics/com.sun.javafx.scene=ALL-UNNAMED --illegal-access=permit --add-opens javafx.graphics/com.sun.javafx.scene=com.jfoenix -cp "./CycloNantais.jar;class" frontend.Accueil
+```
