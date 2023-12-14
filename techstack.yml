@@ -1,11 +1,11 @@
 repo_name: EDM115/SAE-Velos-Nantes
-report_id: 3d8b85f1ca814c5bf0cde2a555f16d34
+report_id: 432372eb8914365c12e734ca25a713fd
 repo_type: Public
-timestamp: '2023-11-09T16:03:36+00:00'
+timestamp: '2023-12-14T09:44:27+00:00'
 requested_by: EDM115
 provider: github
 branch: master
-detected_tools_count: 10
+detected_tools_count: 13
 tools:
 - name: C lang
   description: One of the most widely used programming languages of all time
@@ -73,9 +73,20 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/2271/default_068d33483bba6b81ee13fbd4dc7aab9780896a54.png
-  detection_source: 1 - BDD/3 - Requêtes/Requetes_LussandreLederrey_NathanBasol_AllanMaccrez_S2.01.sql
+  detection_source: 1 - BDD/2 - Script de création-remplissage/création/Creation_Table_LussandreLederrey_NathanBasol_AllanMaccrez_S2.01.sql
   last_updated_by: EDM115
   last_updated_on: 2023-04-04 07:02:50.000000000 Z
+- name: pgvector
+  description: Open-source vector similarity search for Postgres
+  website_url: https://github.com/pgvector/pgvector/
+  open_source: false
+  hosted_saas: false
+  category: Data Stores
+  sub_category: Database Tools
+  image_url: https://img.stackshare.io/service/109221/default_b888cdf5617d936aa6aacf130911906955508639.png
+  detection_source: 1 - BDD/2 - Script de création-remplissage/création/Schéma_Relationnel_LussandreLederrey_NathanBasol_AllanMaccrez_S2.01.txt
+  last_updated_by: EDM115
+  last_updated_on: 2023-04-07 17:20:32.000000000 Z
 - name: Git
   description: Fast, scalable, distributed revision control system
   website_url: http://git-scm.com/
@@ -85,6 +96,15 @@ tools:
   sub_category: Version Control System
   image_url: https://img.stackshare.io/service/1046/git.png
   detection_source: Repo Metadata
+- name: HTML
+  description: Hypertext Markup Language for creating web pages.
+  website_url: http://
+  open_source: false
+  hosted_saas: false
+  image_url: https://img.stackshare.io/service/2270/no-img-open-source.png
+  detection_source: 2 - Java/2 - Code/Final/doc/allclasses-index.html
+  last_updated_by: EDM115
+  last_updated_on: 2023-06-22 20:37:13.000000000 Z
 - name: Jupyter
   description: Multi-language interactive computing environments.
   website_url: http://jupyter.org
@@ -95,6 +115,17 @@ tools:
   sub_category: Data Science Notebooks
   image_url: https://img.stackshare.io/service/4190/fGBUdNf__400x400.jpg
   detection_source: Repo Metadata
+- name: LangChain
+  description: Build AI apps with LLMs through composability
+  website_url: https://github.com/hwchase17/langchain
+  open_source: true
+  hosted_saas: false
+  category: Communications
+  sub_category: Large Language Model Tools
+  image_url: https://img.stackshare.io/service/48790/default_5b6c6b73f1ff3775c85d2a1ba954cb87e30cbf13.jpg
+  detection_source: 1 - BDD/2 - Script de création-remplissage/création/Schéma_Relationnel_LussandreLederrey_NathanBasol_AllanMaccrez_S2.01.txt
+  last_updated_by: EDM115
+  last_updated_on: 2023-04-07 17:20:32.000000000 Z
 - name: Shell
   description: A shell is a text-based terminal, used for manipulating programs and
     files. Shell scripts typically manage program execution.
