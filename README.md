@@ -28,7 +28,7 @@ SQL files :
 - [SAE_remplissage_Quartier_Compteur_Date.sql](https://raw.githubusercontent.com/EDM115/school-codes-v2/master/BUT1/Codes/R2.06/SAE_remplissage_Quartier_Compteur_Date.sql)  
 - [SAE_remplissage_Comptage.sql](https://raw.githubusercontent.com/EDM115/school-codes-v2/master/BUT1/Codes/R2.06/SAE_remplissage_Comptage.sql)  
 
-3) Go in [2 - Java/2 - Code/Final](./2%20-%20Java/2%20-%20Code/Final) and open a terminal there
+3) Go in [2 - Java/2 - Code/Final](./2%20-%20Java/2%20-%20Code/Final) and open a terminal there. Java JDK 20 have to be installed !! Not tested on prior versions
   1) Linux : `chmod +x run.sh && ./run.sh` (it seems that the class can't be found...)
   2) Windows :  
     - CMD : `run.bat`  
@@ -41,7 +41,7 @@ Then go on Run and Debug tab, and F5
 ```bash
 cd ws && jar cfm CycloNantais.jar ../manifest/Manifest.txt -C ../ .
 ```
-(remove `l-jdk-20`, `w-jdk-20` and any file directly on ./ before packing)  
+(remove any file directly on ./ before packing)  
 Then, move the folders back and put the newly created JAR from /ws to the root directory
 
 ## How to start ?
@@ -50,64 +50,17 @@ java  --module-path "./lib" --add-modules javafx.controls,javafx.fxml,javafx.gra
 ```
 
 #### Command breakdown :
-+ `java` : Uses java executable to start it. Java 20 needed, builds of it (20.0.1) are on their folders (`l-jdk-20` for Linux and `w-jdk-20` for Windows, look at the run scripts to know how to use them)
++ `java` : Uses java executable to start it. Java 20 needed
 + `--module-path` : Specify where the `.jar` modules are
 + `"./lib"` : They are in the `lib` folder relative to the app's root directory
-+ `--add-modules` : Specify which modules we want to add during the app launch
++ `--add-modules` : Specify which modules we want to add dufing the app launch
 + `javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.web,com.google.gson,com.jfoenix` : Adds some `JavaFX` modules (`FXML` is probably not needed), `JFoenix` for Material Design and `GSON` by Google to handle JSON files
 + `--enable-preview` : Allows Java preview features to be enabled. Is also needed for weird reasons to launch it through the command line
 + `--add-exports` : Allows exporting of a package from a module to another module
 + `javafx.graphics/com.sun.javafx.scene=ALL-UNNAMED` : `com.sun.javafx.scene` can be exported from `javafx.graphics` to any other module without restrictions
 + `--illegal-access=permit` : Permits illegal access to internal/non-public Java APIs. Deprecated starting from Java 17, this is why we have the next option
 + `--add-opens` : Allows opening a package from a module to another module for reflective access
-+ `javafx.graphics/com.sun.javafx.scene=com.jfoenix` : `com.sun.javafx.scene` is opened from `javafx.graphics` to `com.jfoenix`
++ `javafx.graphics/com.sun.javafx.scene=com.jfoenix` : `com.sun.javafx.scene` is opened from `javafx.graphics` to `javafx.graphic`
 + `-cp` : Specifies the classpath for the application
 + `"./CycloNantais.jar;class"` : Takes as input the `class` directory from the `CycloNantais` JAR file located in the app's root directory
 + `frontend.Accueil` : The entry point of that Java application is the `Accueil` class from the `frontend` package
-
------
-
-## Tâches à faire
-- BDD
-  - [x] Diagramme de conception
-  - [x] Script de création
-  - [x] Script de remplissage
-  - [x] Requêtes
-  - [x] Powerpoint de stats
-  - [x] Explications
-- Java
-  - [x] Diagramme de conception
-  - [x] Dossier ergonomie
-  - [x] Code (anglais)
-- Graphes
-  - [x] Jupyter Notebook
-  - [x] Compte-rendu
-- Stats
-  - [x] Jupyter Notebook
-  - [x] Diaporama
-  - [x] Vidéo
-- Oral
-  - [x] Présentation
-  - [x] Préparation aux questions
-  
-  
-## TODO (finito)
-
-- [x] Page ResultatsRecherche (récupérer les données depuis les paramètres)
-- [x] Intégration Google Maps
-- [x] ResultatsRecherche pour Affluence
-- [x] Style cohérent partout
-- [x] Graphes
-- [x] Partie graphique StationProche
-- [x] Nantes open site
-- [x] saisie/modif de données : récupérer l'affichage du terminal et l'afficher
-- [x] pas admin = message quand on clique sur les boutons saisie/modif
-- [x] popup connexion bdd
-- [x] Gérer les exceptions
-- [x] JavaDoc
-- [x] Page ModificationDonnees
-- [x] Page SaisieDonnees
-- [x] Utiliser `utils.WindowDrag()`
-- [x] Clean code
-
------
